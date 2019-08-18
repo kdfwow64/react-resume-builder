@@ -1,28 +1,22 @@
-/**
- *
- * App.js
- *
- * This component is the skeleton around the actual pages, and should only
- * contain code that should be seen on all pages. (e.g. navigation bar)
- *
- */
-
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Grid, makeStyles } from '@material-ui/core';
+import MenuAppBar from 'components/Appbar';
+import Tabs from 'components/Tabs';
 
-import HomePage from 'containers/HomePage/Loadable';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
-
-import GlobalStyle from '../../global-styles';
-
+const useStyles = makeStyles(theme => ({
+  main: {
+    backgroundColor: '#f7f7f7' || theme.palette.grey,
+    minHeight: '100vh',
+  },
+}));
 export default function App() {
+  const classes = useStyles();
   return (
-    <div>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route component={NotFoundPage} />
-      </Switch>
-      <GlobalStyle />
-    </div>
+    <Grid container justify="center" className={classes.main}>
+      <Grid item xs={10} md={11}>
+        <MenuAppBar />
+        <Tabs />
+      </Grid>
+    </Grid>
   );
 }
