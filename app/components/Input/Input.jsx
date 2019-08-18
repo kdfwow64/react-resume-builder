@@ -62,6 +62,7 @@ const CustomInput = props => {
           ),
         }}
         className={classes.bgLight}
+        type={type}
         {...other}
       />
     </ThemeProvider>
