@@ -55,7 +55,7 @@ const CustomInput = props => {
                 <CancelOutlined className={classes.danger} />
               ) : (
                 state === 'loading' && (
-                  <CircularProgress className={classes.loading} />
+                  <CircularProgress className={classes.loading} size={25} />
                 )
               )}
             </InputAdornment>
