@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Grid, Paper, makeStyles, Box } from '@material-ui/core';
 import Button from '../Button';
 import Content from '../Content';
@@ -17,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 }));
 const Tabs = props => {
   const classes = useStyles();
-  const [variant, setVariant] = useState(1);
+  const { variant } = props;
   function handleVariant(variant) {
     setVariant(variant);
   }
@@ -30,22 +31,34 @@ const Tabs = props => {
         spacing={2}
       >
         <Grid item xs>
-          <Button onClick={e => handleVariant(1)}>1.Heading</Button>
+          <Button component={Link} to="/heading">
+            1.Heading
+          </Button>
         </Grid>
         <Grid item xs>
-          <Button onClick={e => handleVariant(2)}>2.Work History</Button>
+          <Button component={Link} to="/work-history">
+            2.Work History
+          </Button>
         </Grid>
         <Grid item xs>
-          <Button onClick={e => handleVariant(3)}>3.Education</Button>
+          <Button component={Link} to="/education">
+            3.Education
+          </Button>
         </Grid>
         <Grid item xs>
-          <Button onClick={e => handleVariant(4)}>4.Skills</Button>
+          <Button component={Link} to="/skills">
+            4.Skills
+          </Button>
         </Grid>
         <Grid item xs>
-          <Button onClick={e => handleVariant(5)}>5.Summary</Button>
+          <Button component={Link} to="/summary">
+            5.Summary
+          </Button>
         </Grid>
         <Grid item xs>
-          <Button onClick={e => handleVariant(5)}>5.Finalize</Button>
+          <Button component={Link} to="/finalize">
+            5.Finalize
+          </Button>
         </Grid>
       </Grid>
       <Paper className={classes.paper} elevation={0}>

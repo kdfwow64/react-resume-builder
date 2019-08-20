@@ -1,22 +1,22 @@
 import React from 'react';
-import { Grid, makeStyles } from '@material-ui/core';
-import MenuAppBar from 'components/Appbar';
-import Tabs from 'components/Tabs';
+import { Switch, Route } from 'react-router-dom';
+import { Heading } from '../Heading';
+import { WorkHistory } from '../WorkHistory';
+import { Education } from '../Education';
+import { Skills } from '../Skills';
+import { Summary } from '../Summary';
+import { Finalize } from '../Finalize';
 
-const useStyles = makeStyles(theme => ({
-  main: {
-    backgroundColor: '#f7f7f7' || theme.palette.grey,
-    minHeight: '100vh',
-  },
-}));
 export default function App() {
-  const classes = useStyles();
   return (
-    <Grid container justify="center" className={classes.main}>
-      <Grid item xs={10} md={11}>
-        <MenuAppBar />
-        <Tabs />
-      </Grid>
-    </Grid>
+    <Switch>
+      <Route exact path="/" component={Heading} />
+      <Route exact path="/heading" component={Heading} />
+      <Route exact path="/work-history" component={WorkHistory} />
+      <Route exact path="/education" component={Education} />
+      <Route exact path="/skills" component={Skills} />
+      <Route exact path="/summary" component={Summary} />
+      <Route exact path="/finalize" component={Finalize} />
+    </Switch>
   );
 }
