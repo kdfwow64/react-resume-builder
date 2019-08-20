@@ -14,11 +14,11 @@ import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { Grid } from '@material-ui/core';
 import MenuAppBar from 'components/Appbar';
-import Tabs from 'components/Tabs';
 import makeSelectWorkHistory from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { workHistoryStyles } from './styles';
+import WorkChild from '../../components/WorkChild';
 
 export function WorkHistory() {
   useInjectReducer({ key: 'workHistory', reducer });
@@ -29,7 +29,7 @@ export function WorkHistory() {
     <Grid container justify="center" className={classes.main}>
       <Grid item xs={10} md={11}>
         <MenuAppBar />
-        <Tabs variant={2} />
+        <WorkChild />
       </Grid>
     </Grid>
   );

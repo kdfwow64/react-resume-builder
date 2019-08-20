@@ -14,11 +14,11 @@ import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { Grid } from '@material-ui/core';
 import MenuAppBar from 'components/Appbar';
-import Tabs from 'components/Tabs';
 import makeSelectSkills from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { skillsStyles } from './styles';
+import SkillsChild from '../../components/SkillsChild';
 
 export function Skills() {
   useInjectReducer({ key: 'skills', reducer });
@@ -29,7 +29,7 @@ export function Skills() {
     <Grid container justify="center" className={classes.main}>
       <Grid item xs={10} md={11}>
         <MenuAppBar />
-        <Tabs variant={4} />
+        <SkillsChild />
       </Grid>
     </Grid>
   );
