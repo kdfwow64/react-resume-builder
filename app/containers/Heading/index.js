@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import MenuAppBar from 'components/Appbar';
-import Tabs from 'components/Tabs';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -19,6 +18,7 @@ import makeSelectHeading from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { headingStyles } from './styles';
+import HeadingChild from '../../components/HeadingChild';
 
 export function Heading() {
   useInjectReducer({ key: 'heading', reducer });
@@ -29,7 +29,7 @@ export function Heading() {
     <Grid container justify="center" className={classes.main}>
       <Grid item xs={10} md={11}>
         <MenuAppBar />
-        <Tabs variant={1} />
+        <HeadingChild />
       </Grid>
     </Grid>
   );

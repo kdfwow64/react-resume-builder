@@ -14,11 +14,11 @@ import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { Grid } from '@material-ui/core';
 import MenuAppBar from 'components/Appbar';
-import Tabs from 'components/Tabs';
 import makeSelectSummary from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { summaryStyles } from './styles';
+import SummaryChild from '../../components/SummaryChild';
 
 export function Summary() {
   useInjectReducer({ key: 'summary', reducer });
@@ -29,7 +29,7 @@ export function Summary() {
     <Grid container justify="center" className={classes.main}>
       <Grid item xs={10} md={11}>
         <MenuAppBar />
-        <Tabs variant={5} />
+        <SummaryChild />
       </Grid>
     </Grid>
   );

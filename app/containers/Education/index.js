@@ -11,7 +11,6 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import MenuAppBar from 'components/Appbar';
-import Tabs from 'components/Tabs';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { Grid } from '@material-ui/core';
@@ -19,6 +18,7 @@ import makeSelectEducation from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { educationStyles } from './styles';
+import EducationChild from '../../components/EducationChild';
 
 export function Education() {
   useInjectReducer({ key: 'education', reducer });
@@ -29,7 +29,7 @@ export function Education() {
     <Grid container justify="center" className={classes.main}>
       <Grid item xs={10} md={11}>
         <MenuAppBar />
-        <Tabs variant={3} />
+        <EducationChild />
       </Grid>
     </Grid>
   );
