@@ -1,6 +1,6 @@
 /*
  *
- * Education actions
+ * Edu actions
  *
  */
 

@@ -1,6 +1,6 @@
 /**
  *
- * Tests for Education
+ * Tests for Edu
  *
  * @see https://github.com/react-boilerplate/react-boilerplate/tree/master/docs/testing
  *
@@ -11,16 +11,16 @@ import { render } from 'react-testing-library';
 import { IntlProvider } from 'react-intl';
 // import 'jest-dom/extend-expect'; // add some helpful assertions
 
-import { Education } from '../index';
+import { Edu } from '../index';
 import { DEFAULT_LOCALE } from '../../../i18n';
 
-describe('<Education />', () => {
+describe('<Edu />', () => {
   it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
     const dispatch = jest.fn();
     render(
       <IntlProvider locale={DEFAULT_LOCALE}>
-        <Education dispatch={dispatch} />
+        <Edu dispatch={dispatch} />
       </IntlProvider>,
     );
     expect(spy).not.toHaveBeenCalled();
@@ -40,7 +40,7 @@ describe('<Education />', () => {
       container: { firstChild },
     } = render(
       <IntlProvider locale={DEFAULT_LOCALE}>
-        <Education />
+        <Edu />
       </IntlProvider>,
     );
     expect(firstChild).toMatchSnapshot();
