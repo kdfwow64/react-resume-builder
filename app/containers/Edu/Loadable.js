@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for Education
+ * Asynchronously loads the component for Edu
  *
  */
 

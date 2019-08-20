@@ -1,6 +1,6 @@
 /**
  *
- * Education
+ * Edu
  *
  */
 
@@ -9,20 +9,20 @@ import React, { memo } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
 import MenuAppBar from 'components/Appbar';
+import { Grid } from '@material-ui/core';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import { Grid } from '@material-ui/core';
-import makeSelectEducation from './selectors';
-import reducer from './reducer';
-import saga from './saga';
 import { educationStyles } from './styles';
 import EducationChild from '../../components/EducationChild';
 
-export function Education() {
-  useInjectReducer({ key: 'education', reducer });
-  useInjectSaga({ key: 'education', saga });
+import makeSelectEdu from './selectors';
+import reducer from './reducer';
+import saga from './saga';
+
+export function Edu() {
+  useInjectReducer({ key: 'edu', reducer });
+  useInjectSaga({ key: 'edu', saga });
   const classes = educationStyles();
 
   return (
@@ -35,12 +35,12 @@ export function Education() {
   );
 }
 
-Education.propTypes = {
+Edu.propTypes = {
   // dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  education: makeSelectEducation(),
+  edu: makeSelectEdu(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -57,4 +57,4 @@ const withConnect = connect(
 export default compose(
   withConnect,
   memo,
-)(Education);
+)(Edu);
