@@ -30,6 +30,16 @@ function HeadingChild() {
 	const [city, setCity] = useState('');
 	const [zipcode, setZipcode] = useState('');
 
+	const [firstNameLoading, setFirstNameLoading] = useState('success');
+	const [lastNameLoading, setLastNameLoading] = useState('success');
+	const [emailLoading, setEmailLoading] = useState('success');
+	const [phoneLoading, setPhoneLoading] = useState('success');
+	const [websiteLoading, setWebsiteLoading] = useState('success');
+	const [streetLoading, setStreetLoading] = useState('success');
+	const [stateProvinceLoading, setStateProvinceLoading] = useState('success');
+	const [cityLoading, setCityLoading] = useState('success');
+	const [zipcodeLoading, setZipcodeLoading] = useState('success');
+
 	console.log('server_data', server_data);
 
 	useEffect(() => {
@@ -44,7 +54,48 @@ function HeadingChild() {
 		setZipcode(server_data.address.zipcode);
 	}, [server_data]);
 
-	const handleChangeFirstName = e => dispatch({ type: 'API_CALL_CHANGE', value: e.target.value });
+	const handleChange = e => {
+		let jsonValue = {
+			type: 'API_CALL_CHANGE',
+			field: e.target.id,
+			name: e.target.name,
+			value: e.target.value
+		};
+		dispatch(jsonValue);
+		switch (e.target.name) {
+			case 'firstName':
+				setTimeout(function() {
+					setFirstNameLoading('loading');
+				}, 500);
+				break;
+			case 'lastName':
+				setLastNameLoading('loading');
+				break;
+			case 'email':
+				setEmailLoading('loading');
+				break;
+			case 'phone':
+				setPhoneLoading('loading');
+				break;
+			case 'website':
+				setWebsiteLoading('loading');
+				break;
+			case 'street':
+				setStreetLoading('loading');
+				break;
+			case 'stateProvince':
+				setStateProvinceLoading('loading');
+				break;
+			case 'city':
+				setCityLoading('loading');
+				break;
+			case 'zipcode':
+				setZipcodeLoading('loading');
+				break;
+			default:
+				break;
+		}
+	};
 	return (
 		<Paper className={classes.paper} elevation={0}>
 			<Grid container spacing={3}>
@@ -72,12 +123,13 @@ function HeadingChild() {
 						</Grid>
 						<Grid item xs={12} md={6}>
 							<CustomInput
-								name='profile'
 								label='First Name'
 								placeholder='e.g. Teacher'
 								value={firstName}
-								onChange={handleChangeFirstName}
-								state='success'
+								state={firstNameLoading}
+								id='profile'
+								name='firstName'
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
@@ -85,7 +137,10 @@ function HeadingChild() {
 								label='Last Name'
 								placeholder='e.g. Teacher'
 								value={lastName}
-								state='success'
+								state={lastNameLoading}
+								id='profile'
+								name='lastName'
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -93,31 +148,77 @@ function HeadingChild() {
 								label='Street Address'
 								placeholder='e.g. Teacher'
 								value={street}
-								state='success'
+								state={streetLoading}
+								id='address'
+								name='street'
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<CustomInput label='City' placeholder='e.g. Teacher' value={city} state='success' />
+							<CustomInput
+								label='City'
+								placeholder='e.g. Teacher'
+								value={city}
+								state={cityLoading}
+								id='address'
+								name='city'
+								onChange={handleChange}
+							/>
 						</Grid>
 						<Grid item xs={12} md={3}>
 							<CustomInput
 								label='State/Province'
 								placeholder='e.g. Teacher'
 								value={stateProvince}
-								state='success'
+								state={stateProvinceLoading}
+								id='address'
+								name='stateProvince'
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12} md={3}>
-							<CustomInput label='ZIP Code' placeholder='e.g. Teacher' value={zipcode} state='success' />
+							<CustomInput
+								label='ZIP Code'
+								placeholder='e.g. Teacher'
+								value={zipcode}
+								state={zipcodeLoading}
+								id='address'
+								name='zipcode'
+								onChange={handleChange}
+							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<CustomInput label='Phone' placeholder='e.g. Teacher' value={phone} state='success' />
+							<CustomInput
+								label='Phone'
+								placeholder='e.g. Teacher'
+								value={phone}
+								state={phoneLoading}
+								id='profile'
+								name='phone'
+								onChange={handleChange}
+							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<CustomInput label='Email' placeholder='e.g. Teacher' value={email} state='success' />
+							<CustomInput
+								label='Email'
+								placeholder='e.g. Teacher'
+								value={email}
+								state={emailLoading}
+								id='profile'
+								name='email'
+								onChange={handleChange}
+							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<CustomInput label='Website' placeholder='e.g. Teacher' value={website} state='success' />
+							<CustomInput
+								label='Website'
+								placeholder='e.g. Teacher'
+								value={website}
+								state={websiteLoading}
+								id='profile'
+								name='website'
+								onChange={handleChange}
+							/>
 						</Grid>
 
 						<Grid item xs={12} style={{ marginTop: 32 }}>

@@ -36,7 +36,28 @@ function SkillsChild() {
 		setStateSkills(allowedState);
 	}, [server_data]);
 
-	const handleChangeFirstName = e => dispatch({ type: 'API_CALL_CHANGE', value: e.target.value });
+	let index = 0;
+
+	const handleChange = e => {
+		let res = e.target.name.split('-');
+		console.log(res);
+
+		let name = res[0];
+		index = parseInt(res[1]);
+
+		let jsonValue = {};
+
+		jsonValue = {
+			type: 'API_CALL_CHANGE',
+			field: e.target.id,
+			name: name,
+			value: e.target.value,
+			index: index
+		};
+
+		console.log(jsonValue);
+		dispatch(jsonValue);
+	};
 
 	return (
 		<Paper className={classes.paper} elevation={0}>
@@ -52,11 +73,19 @@ function SkillsChild() {
 											placeholder='e.g. Teacher'
 											value={item.name}
 											state='success'
+											id='skills'
+											name={`name-${index}`}
+											onChange={handleChange}
 										/>
 									</Grid>
 									<Grid item xs={12} md={6}>
 										<Box display='flex' alignItems='center' height={55}>
-											<CustomSlider value={parseInt(item.rate)} />
+											<CustomSlider
+												value={parseInt(item.rate)}
+												id='skills'
+												name={`rate-${index}`}
+												// onChange={handleChange}
+											/>
 										</Box>
 									</Grid>
 								</React.Fragment>

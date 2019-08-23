@@ -53,9 +53,44 @@ function EducationChild() {
 		}
 		setStartDate(`${res[2]}-${res[0]}-${res[1]}`);
 		setStateProvince(server_data.education[index].stateProvince);
-	}, [server_data.education]);
+	}, [server_data]);
 
-	const handleChangeFirstName = e => dispatch({ type: 'API_CALL_CHANGE', value: e.target.value });
+	const handleChange = e => {
+		let jsonValue = {};
+		console.log('checked ', e.target.checked);
+		if (e.target.type === 'date') {
+			let res = e.target.value.split('-');
+
+			let value = `${res[1]}/${res[2]}/${res[0]}`;
+			jsonValue = {
+				type: 'API_CALL_CHANGE',
+				field: e.target.id,
+				name: e.target.name,
+				value: value,
+				index: index
+			};
+		} else if (e.target.name === 'currentSchool') {
+			let value = e.target.value === 'true' ? 'false' : 'true';
+			jsonValue = {
+				type: 'API_CALL_CHANGE',
+				field: e.target.id,
+				name: e.target.name,
+				value: value,
+				index: index
+			};
+		} else {
+			jsonValue = {
+				type: 'API_CALL_CHANGE',
+				field: e.target.id,
+				name: e.target.name,
+				value: e.target.value,
+				index: index
+			};
+		}
+
+		console.log(jsonValue);
+		dispatch(jsonValue);
+	};
 
 	return (
 		<Paper className={classes.paper} elevation={0}>
@@ -68,10 +103,21 @@ function EducationChild() {
 								placeholder='e.g. Teacher'
 								state='success'
 								value={schoolName}
+								id='education'
+								name='schoolName'
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<CustomInput label='Degree' placeholder='e.g. Teacher' value={degree} state='error' />
+							<CustomInput
+								label='Degree'
+								placeholder='e.g. Teacher'
+								value={degree}
+								state='error'
+								id='education'
+								name='degree'
+								onChange={handleChange}
+							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
 							<CustomInput
@@ -80,6 +126,9 @@ function EducationChild() {
 								defaultValue='Mark'
 								state='success'
 								value={city}
+								id='education'
+								name='city'
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
@@ -88,6 +137,9 @@ function EducationChild() {
 								placeholder='e.g. Teacher'
 								value={stateProvince}
 								state='success'
+								id='education'
+								name='stateProvince'
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12} md={3}>
@@ -97,6 +149,9 @@ function EducationChild() {
 								state='success'
 								type='date'
 								value={startDate}
+								id='education'
+								name='startDate'
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12} md={3}>
@@ -106,10 +161,20 @@ function EducationChild() {
 								state='success'
 								type='date'
 								value={endDate}
+								id='education'
+								name='endDate'
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<CustomCheckbox label='I currently study here' checked={currentSchool === 'true'} />
+							<CustomCheckbox
+								label='I currently study here'
+								checked={currentSchool === 'true'}
+								value={currentSchool}
+								id='education'
+								name='currentSchool'
+								handleChange={handleChange}
+							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
 							<CustomInput label='Study Details' placeholder='Description' multiline rows={9} />

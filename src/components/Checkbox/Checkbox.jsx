@@ -12,10 +12,10 @@ const TealCheckbox = withStyles({
 	checked: {}
 })(props => <Checkbox color='default' {...props} />);
 const CustomCheckbox = props => {
-	const { label, handleChange, checked, value } = props;
+	const { label, handleChange, checked, value, id, name } = props;
 	return (
 		<FormControlLabel
-			control={<TealCheckbox checked={checked} onChange={handleChange} value={value} />}
+			control={<TealCheckbox checked={checked} onChange={handleChange} value={value} id={id} name={name} />}
 			label={label}
 		/>
 	);

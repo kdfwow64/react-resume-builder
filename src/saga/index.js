@@ -1,6 +1,14 @@
 import { takeLatest, call, put, takeEvery, delay, fork, select } from 'redux-saga/effects';
 import axios from 'axios';
-import { API_CALL_REQUEST, API_CALL_SUCCESS, API_CALL_FAILURE, SERVER_URL } from '../constants';
+import {
+	API_CALL_REQUEST,
+	API_CALL_SUCCESS,
+	API_CALL_FAILURE,
+	SERVER_URL,
+	POST_SERVER_URL,
+	X_API_KEY,
+	API_CALL_UPDATE
+} from '../constants';
 
 // watcher saga: watches for actions dispatched to the store, starts worker saga
 export function* watcherSaga() {
@@ -14,6 +22,7 @@ export function* watcherSaga() {
 	// dispatch a success action to the store with the new dog
 	yield put({ type: API_CALL_SUCCESS, server_data });
 	yield takeLatest(API_CALL_REQUEST, workerSaga);
+	yield takeLatest(API_CALL_UPDATE, updateData);
 }
 
 // function that makes the api request and returns a Promise for response
@@ -28,6 +37,14 @@ function fetchServerData() {
 	return axios({
 		method: 'get',
 		url: SERVER_URL
+	});
+}
+
+function updateData(field) {
+	return axios({
+		method: 'patch',
+		headers: { 'x-api-key': X_API_KEY, 'Content-Type': 'application/json' },
+		url: `${POST_SERVER_URL}/${field}`
 	});
 }
 

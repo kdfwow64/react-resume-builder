@@ -30,7 +30,7 @@ function WorkChild() {
 	const [stateProvince, setStateProvince] = useState('');
 	const [workTitle, setWorkTitle] = useState('');
 
-	console.log('server_data', server_data);
+	console.log('server_data_workhistory', server_data);
 
 	let index = 0;
 
@@ -54,9 +54,45 @@ function WorkChild() {
 		setStartDate(`${res[2]}-${res[0]}-${res[1]}`);
 		setStateProvince(server_data.workHistory[index].stateProvince);
 		setWorkTitle(server_data.workHistory[index].workTitle);
-	}, [server_data.workHistory]);
+	}, [server_data]);
 
-	const handleChangeFirstName = e => dispatch({ type: 'API_CALL_CHANGE', value: e.target.value });
+	console.log(workTitle);
+
+	const handleChange = e => {
+		let jsonValue = {};
+		if (e.target.type === 'date') {
+			let res = e.target.value.split('-');
+
+			let value = `${res[1]}/${res[2]}/${res[0]}`;
+			jsonValue = {
+				type: 'API_CALL_CHANGE',
+				field: e.target.id,
+				name: e.target.name,
+				value: value,
+				index: index
+			};
+		} else if (e.target.checked !== undefined) {
+			let value = e.target.value === 'true' ? 'false' : 'true';
+			jsonValue = {
+				type: 'API_CALL_CHANGE',
+				field: e.target.id,
+				name: e.target.name,
+				value: value,
+				index: index
+			};
+		} else {
+			jsonValue = {
+				type: 'API_CALL_CHANGE',
+				field: e.target.id,
+				name: e.target.name,
+				value: e.target.value,
+				index: index
+			};
+		}
+
+		console.log(jsonValue);
+		dispatch(jsonValue);
+	};
 
 	return (
 		<Paper className={classes.paper} elevation={0}>
@@ -69,10 +105,21 @@ function WorkChild() {
 								placeholder='e.g. Teacher'
 								state='success'
 								value={workTitle}
+								id='workHistory'
+								name='workTitle'
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<CustomInput label='Employer' placeholder='e.g. Teacher' value={employer} state='error' />
+							<CustomInput
+								label='Employer'
+								placeholder='e.g. Teacher'
+								value={employer}
+								state='error'
+								id='workHistory'
+								name='employer'
+								onChange={handleChange}
+							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
 							<CustomInput
@@ -80,7 +127,9 @@ function WorkChild() {
 								placeholder='e.g. Teacher'
 								value={city}
 								state='success'
-								onChange={handleChangeFirstName}
+								id='workHistory'
+								name='city'
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
@@ -89,7 +138,9 @@ function WorkChild() {
 								placeholder='e.g. Teacher'
 								value={stateProvince}
 								state='success'
-								onChange={handleChangeFirstName}
+								id='workHistory'
+								name='stateProvince'
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12} md={3}>
@@ -99,6 +150,9 @@ function WorkChild() {
 								state='success'
 								type='date'
 								value={startDate}
+								id='workHistory'
+								name='startDate'
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12} md={3}>
@@ -108,10 +162,20 @@ function WorkChild() {
 								state='success'
 								type='date'
 								value={endDate}
+								id='workHistory'
+								name='endDate'
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<CustomCheckbox label='I currently work here' checked={currentWork === 'true'} />
+							<CustomCheckbox
+								label='I currently work here'
+								checked={currentWork === 'true'}
+								value={currentWork}
+								id='workHistory'
+								name='currentWork'
+								handleChange={handleChange}
+							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
 							<CustomInput label='Work Details' placeholder='Description' multiline rows={9} />
