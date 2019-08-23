@@ -10,7 +10,8 @@ const initialState = {
 		profile: {},
 		address: {},
 		education: [{}],
-		workHistory: [{}]
+		workHistory: [{}],
+		skills: [{}]
 	},
 	error: null
 };
