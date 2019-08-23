@@ -19,7 +19,6 @@ const Heading = () => {
 	const dispatch = useDispatch();
 	const query = useSelector(state => state);
 	const { fetching, server_data, onRequestDog, error } = query;
-	// console.log('server_data', server_data);
 	const handleClick = e => dispatch({ type: 'API_CALL_REQUEST' });
 	return (
 		<Grid container justify='center' className={classes.main}>

@@ -40,8 +40,6 @@ function HeadingChild() {
 	const [cityLoading, setCityLoading] = useState('success');
 	const [zipcodeLoading, setZipcodeLoading] = useState('success');
 
-	console.log('server_data', server_data);
-
 	useEffect(() => {
 		setFirstName(server_data.profile.firstName);
 		setLastName(server_data.profile.lastName);
@@ -54,7 +52,12 @@ function HeadingChild() {
 		setZipcode(server_data.address.zipcode);
 	}, [server_data]);
 
+	// if (!fetching) {
+	// 	setFirstNameLoading('success');
+	// }
+
 	const handleChange = e => {
+		let value = e.target.value;
 		let jsonValue = {
 			type: 'API_CALL_CHANGE',
 			field: e.target.id,
@@ -66,31 +69,98 @@ function HeadingChild() {
 			case 'firstName':
 				setTimeout(function() {
 					setFirstNameLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'profile', id: null, json: { firstName: value } }
+					});
+					setFirstNameLoading('success');
 				}, 500);
 				break;
 			case 'lastName':
-				setLastNameLoading('loading');
+				setTimeout(function() {
+					setLastNameLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'profile', id: null, json: { lastName: value } }
+					});
+					setLastNameLoading('success');
+				}, 500);
 				break;
 			case 'email':
-				setEmailLoading('loading');
+				setTimeout(function() {
+					setEmailLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'profile', id: null, json: { email: value } }
+					});
+					setEmailLoading('success');
+				}, 500);
+
 				break;
 			case 'phone':
-				setPhoneLoading('loading');
+				setTimeout(function() {
+					setPhoneLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'profile', id: null, json: { phone: value } }
+					});
+					setPhoneLoading('success');
+				}, 500);
 				break;
 			case 'website':
-				setWebsiteLoading('loading');
+				setTimeout(function() {
+					setWebsiteLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'profile', id: null, json: { website: value } }
+					});
+					setWebsiteLoading('success');
+				}, 500);
+
 				break;
 			case 'street':
-				setStreetLoading('loading');
+				setTimeout(function() {
+					setStreetLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'address', id: null, json: { street: value } }
+					});
+					setStreetLoading('success');
+				}, 500);
+
 				break;
 			case 'stateProvince':
-				setStateProvinceLoading('loading');
+				setTimeout(function() {
+					setStateProvinceLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'address', id: null, json: { stateProvince: value } }
+					});
+					setStateProvinceLoading('success');
+				}, 500);
+
 				break;
 			case 'city':
-				setCityLoading('loading');
+				setTimeout(function() {
+					setCityLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'address', id: null, json: { city: value } }
+					});
+					setCityLoading('success');
+				}, 500);
+
 				break;
 			case 'zipcode':
-				setZipcodeLoading('loading');
+				setTimeout(function() {
+					setZipcodeLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'address', id: null, json: { zipcode: value } }
+					});
+					setZipcodeLoading('success');
+				}, 500);
+
 				break;
 			default:
 				break;
@@ -119,7 +189,7 @@ function HeadingChild() {
 							</Box>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<CustomInput label='Job Title' placeholder='e.g. Teacher' state='loading' />
+							<CustomInput label='Job Title' placeholder='e.g. Teacher' state='success' />
 						</Grid>
 						<Grid item xs={12} md={6}>
 							<CustomInput

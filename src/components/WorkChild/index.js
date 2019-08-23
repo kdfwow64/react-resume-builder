@@ -30,11 +30,17 @@ function WorkChild() {
 	const [stateProvince, setStateProvince] = useState('');
 	const [workTitle, setWorkTitle] = useState('');
 
-	console.log('server_data_workhistory', server_data);
+	const [cityLoading, setCityLoading] = useState('success');
+	const [employerLoading, setEmployerLoading] = useState('success');
+	const [endDateLoading, setEndDateLoading] = useState('success');
+	const [startDateLoading, setStartDateLoading] = useState('success');
+	const [stateProvinceLoading, setStateProvinceLoading] = useState('success');
+	const [workTitleLoading, setWorkTitleLoading] = useState('success');
 
 	let index = 0;
 
 	useEffect(() => {
+		setId(server_data.workHistory[index].id);
 		setCity(server_data.workHistory[index].city);
 		setCurrentWork(server_data.workHistory[index].currentWork);
 		setEmployer(server_data.workHistory[index].employer);
@@ -56,14 +62,13 @@ function WorkChild() {
 		setWorkTitle(server_data.workHistory[index].workTitle);
 	}, [server_data]);
 
-	console.log(workTitle);
-
 	const handleChange = e => {
 		let jsonValue = {};
+		let value = e.target.value;
 		if (e.target.type === 'date') {
 			let res = e.target.value.split('-');
 
-			let value = `${res[1]}/${res[2]}/${res[0]}`;
+			value = `${res[1]}/${res[2]}/${res[0]}`;
 			jsonValue = {
 				type: 'API_CALL_CHANGE',
 				field: e.target.id,
@@ -71,8 +76,8 @@ function WorkChild() {
 				value: value,
 				index: index
 			};
-		} else if (e.target.checked !== undefined) {
-			let value = e.target.value === 'true' ? 'false' : 'true';
+		} else if (e.target.name === 'currentWork') {
+			value = e.target.value === 'true' ? 'false' : 'true';
 			jsonValue = {
 				type: 'API_CALL_CHANGE',
 				field: e.target.id,
@@ -85,13 +90,88 @@ function WorkChild() {
 				type: 'API_CALL_CHANGE',
 				field: e.target.id,
 				name: e.target.name,
-				value: e.target.value,
+				value: value,
 				index: index
 			};
 		}
-
-		console.log(jsonValue);
 		dispatch(jsonValue);
+
+		switch (e.target.name) {
+			case 'workTitle':
+				setTimeout(function() {
+					setWorkTitleLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'workHistory', id: id, json: { workTitle: value } }
+					});
+					setWorkTitleLoading('success');
+				}, 500);
+				break;
+			case 'employer':
+				setTimeout(function() {
+					setEmployerLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'workHistory', id: id, json: { employer: value } }
+					});
+					setEmployerLoading('success');
+				}, 500);
+				break;
+			case 'city':
+				setTimeout(function() {
+					setCityLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'workHistory', id: id, json: { city: value } }
+					});
+					setCityLoading('success');
+				}, 500);
+
+				break;
+			case 'stateProvince':
+				setTimeout(function() {
+					setStateProvinceLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'workHistory', id: id, json: { stateProvince: value } }
+					});
+					setStateProvinceLoading('success');
+				}, 500);
+				break;
+			case 'startDate':
+				setTimeout(function() {
+					setStartDateLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'workHistory', id: id, json: { startDate: value } }
+					});
+					setStartDateLoading('success');
+				}, 500);
+
+				break;
+			case 'endDate':
+				setTimeout(function() {
+					setEndDateLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'workHistory', id: id, json: { endDate: value } }
+					});
+					setEndDateLoading('success');
+				}, 500);
+
+				break;
+			case 'currentWork':
+				setTimeout(function() {
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'workHistory', id: id, json: { currentWork: value } }
+					});
+				}, 500);
+
+				break;
+			default:
+				break;
+		}
 	};
 
 	return (
@@ -103,7 +183,7 @@ function WorkChild() {
 							<CustomInput
 								label='Job Title'
 								placeholder='e.g. Teacher'
-								state='success'
+								state={workTitleLoading}
 								value={workTitle}
 								id='workHistory'
 								name='workTitle'
@@ -115,7 +195,7 @@ function WorkChild() {
 								label='Employer'
 								placeholder='e.g. Teacher'
 								value={employer}
-								state='error'
+								state={employerLoading}
 								id='workHistory'
 								name='employer'
 								onChange={handleChange}
@@ -126,7 +206,7 @@ function WorkChild() {
 								label='City'
 								placeholder='e.g. Teacher'
 								value={city}
-								state='success'
+								state={cityLoading}
 								id='workHistory'
 								name='city'
 								onChange={handleChange}
@@ -137,7 +217,7 @@ function WorkChild() {
 								label='State/Province'
 								placeholder='e.g. Teacher'
 								value={stateProvince}
-								state='success'
+								state={stateProvinceLoading}
 								id='workHistory'
 								name='stateProvince'
 								onChange={handleChange}
@@ -147,7 +227,7 @@ function WorkChild() {
 							<CustomInput
 								label='Start Date'
 								placeholder='Select'
-								state='success'
+								state={startDateLoading}
 								type='date'
 								value={startDate}
 								id='workHistory'
@@ -159,7 +239,7 @@ function WorkChild() {
 							<CustomInput
 								label='End Date'
 								placeholder='Select'
-								state='success'
+								state={endDateLoading}
 								type='date'
 								value={endDate}
 								id='workHistory'

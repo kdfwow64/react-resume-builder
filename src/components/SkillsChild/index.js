@@ -30,8 +30,6 @@ function SkillsChild() {
 		allowedState.push({ id: item.id, name: item.name, rate: item.rate });
 	});
 
-	console.log('server_data', server_data);
-
 	useEffect(() => {
 		setStateSkills(allowedState);
 	}, [server_data]);
@@ -39,11 +37,12 @@ function SkillsChild() {
 	let index = 0;
 
 	const handleChange = e => {
+		let value = e.target.value;
 		let res = e.target.name.split('-');
-		console.log(res);
 
 		let name = res[0];
 		index = parseInt(res[1]);
+		let id = parseInt(res[2]);
 
 		let jsonValue = {};
 
@@ -54,9 +53,22 @@ function SkillsChild() {
 			value: e.target.value,
 			index: index
 		};
-
-		console.log(jsonValue);
 		dispatch(jsonValue);
+
+		switch (name) {
+			case 'name':
+				setTimeout(function() {
+					// setSchoolNameLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'skills', id: id, json: { name: value } }
+					});
+					// setSchoolNameLoading('success');
+				}, 500);
+				break;
+			default:
+				break;
+		}
 	};
 
 	return (
@@ -74,7 +86,7 @@ function SkillsChild() {
 											value={item.name}
 											state='success'
 											id='skills'
-											name={`name-${index}`}
+											name={`name-${index}-${item.id}`}
 											onChange={handleChange}
 										/>
 									</Grid>
