@@ -7,31 +7,20 @@ import {
 	SERVER_URL,
 	POST_SERVER_URL,
 	X_API_KEY,
-	API_CALL_UPDATE
+	API_CALL_UPDATE,
+	API_UPDATE_FAILURE,
+	API_UPDATE_SUCCESS
 } from '../constants';
 
 // watcher saga: watches for actions dispatched to the store, starts worker saga
 export function* watcherSaga() {
-	console.log('saga watchersaga');
 	const response = yield call(fetchServerData);
 
 	const server_data = response.data;
-	// console.log(server_data);
-	// const dog = response.data.message;
-
-	// dispatch a success action to the store with the new dog
 	yield put({ type: API_CALL_SUCCESS, server_data });
 	yield takeLatest(API_CALL_REQUEST, workerSaga);
-	yield takeLatest(API_CALL_UPDATE, updateData);
+	yield takeLatest(API_CALL_UPDATE, updateSaga);
 }
-
-// function that makes the api request and returns a Promise for response
-// function fetchDog() {
-// 	return axios({
-// 		method: 'get',
-// 		url: 'https://dog.ceo/api/breeds/image/random'
-// 	});
-// }
 
 function fetchServerData() {
 	return axios({
@@ -40,18 +29,37 @@ function fetchServerData() {
 	});
 }
 
-function updateData(field) {
-	return axios({
-		method: 'patch',
-		headers: { 'x-api-key': X_API_KEY, 'Content-Type': 'application/json' },
-		url: `${POST_SERVER_URL}/${field}`
-	});
+function updateData(field, id, json) {
+	if (id !== null) {
+		return axios({
+			method: 'patch',
+			headers: { 'x-api-key': X_API_KEY, 'Content-Type': 'application/json' },
+			url: `${POST_SERVER_URL}/${field}/${id}`,
+			data: json
+		});
+	} else {
+		return axios({
+			method: 'patch',
+			headers: { 'x-api-key': X_API_KEY, 'Content-Type': 'application/json' },
+			url: `${POST_SERVER_URL}/${field}`,
+			data: json
+		});
+	}
 }
 
+function* updateSaga(action) {
+	try {
+		const response = yield call(updateData, action.payload.field, action.payload.id, action.payload.json);
+		// dispatch a success action to the store with the new dog
+		yield put({ type: API_UPDATE_SUCCESS, success: true });
+	} catch (error) {
+		// dispatch a failure action to the store with the error
+		yield put({ type: API_UPDATE_FAILURE, success: false, error });
+	}
+}
 // worker saga: makes the api call when watcher saga sees the action
 function* workerSaga() {
 	try {
-		console.log('workersaga');
 		const response = yield call(fetchServerData);
 		const server_data = response.data;
 
@@ -62,22 +70,3 @@ function* workerSaga() {
 		yield put({ type: API_CALL_FAILURE, error });
 	}
 }
-
-// const delay = ms => new Promise(res => setTimeout(res, ms));
-
-// const delay = ms =>
-// 	new Promise(res => {
-// 		return setTimeout(console.log("sdfsdf"), ms);
-// 	});
-// function* helloSaga() {
-// 	console.log("hello saga");
-// }
-
-// function* incrementAsync() {
-// 	yield delay(1000);
-// 	yield put({ type: "INCREMENT" });
-// }
-
-// export function* watchIncrementAsync() {
-// 	yield takeEvery("INCREMENT_ASYNC", incrementAsync);
-// }

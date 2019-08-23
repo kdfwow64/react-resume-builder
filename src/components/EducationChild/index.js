@@ -30,10 +30,17 @@ function EducationChild() {
 	const [startDate, setStartDate] = useState('');
 	const [stateProvince, setStateProvince] = useState('');
 
-	console.log('server_data', server_data);
+	const [cityLoading, setCityLoading] = useState('success');
+	const [schoolNameLoading, setSchoolNameLoading] = useState('success');
+	const [endDateLoading, setEndDateLoading] = useState('success');
+	const [startDateLoading, setStartDateLoading] = useState('success');
+	const [stateProvinceLoading, setStateProvinceLoading] = useState('success');
+	const [degreeLoading, setDegreeLoading] = useState('success');
+
 	let index = 0;
 
 	useEffect(() => {
+		setId(server_data.education[index].id);
 		setCity(server_data.education[index].city);
 		setCurrentSchool(server_data.education[index].currentSchool);
 		setDegree(server_data.education[index].degree);
@@ -57,11 +64,11 @@ function EducationChild() {
 
 	const handleChange = e => {
 		let jsonValue = {};
-		console.log('checked ', e.target.checked);
+		let value = e.target.value;
 		if (e.target.type === 'date') {
 			let res = e.target.value.split('-');
 
-			let value = `${res[1]}/${res[2]}/${res[0]}`;
+			value = `${res[1]}/${res[2]}/${res[0]}`;
 			jsonValue = {
 				type: 'API_CALL_CHANGE',
 				field: e.target.id,
@@ -70,7 +77,7 @@ function EducationChild() {
 				index: index
 			};
 		} else if (e.target.name === 'currentSchool') {
-			let value = e.target.value === 'true' ? 'false' : 'true';
+			value = e.target.value === 'true' ? 'false' : 'true';
 			jsonValue = {
 				type: 'API_CALL_CHANGE',
 				field: e.target.id,
@@ -83,13 +90,89 @@ function EducationChild() {
 				type: 'API_CALL_CHANGE',
 				field: e.target.id,
 				name: e.target.name,
-				value: e.target.value,
+				value: value,
 				index: index
 			};
 		}
 
-		console.log(jsonValue);
 		dispatch(jsonValue);
+
+		switch (e.target.name) {
+			case 'schoolName':
+				setTimeout(function() {
+					setSchoolNameLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'education', id: id, json: { schoolName: value } }
+					});
+					setSchoolNameLoading('success');
+				}, 500);
+				break;
+			case 'degree':
+				setTimeout(function() {
+					setDegreeLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'education', id: id, json: { degree: value } }
+					});
+					setDegreeLoading('success');
+				}, 500);
+				break;
+			case 'city':
+				setTimeout(function() {
+					setCityLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'education', id: id, json: { city: value } }
+					});
+					setCityLoading('success');
+				}, 500);
+
+				break;
+			case 'stateProvince':
+				setTimeout(function() {
+					setStateProvinceLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'education', id: id, json: { stateProvince: value } }
+					});
+					setStateProvinceLoading('success');
+				}, 500);
+				break;
+			case 'startDate':
+				setTimeout(function() {
+					setStartDateLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'education', id: id, json: { startDate: value } }
+					});
+					setStartDateLoading('success');
+				}, 500);
+
+				break;
+			case 'endDate':
+				setTimeout(function() {
+					setEndDateLoading('loading');
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'education', id: id, json: { endDate: value } }
+					});
+					setEndDateLoading('success');
+				}, 500);
+
+				break;
+			case 'currentSchool':
+				setTimeout(function() {
+					dispatch({
+						type: 'API_CALL_UPDATE',
+						payload: { field: 'education', id: id, json: { currentSchool: value } }
+					});
+				}, 500);
+
+				break;
+			default:
+				break;
+		}
 	};
 
 	return (
@@ -101,7 +184,7 @@ function EducationChild() {
 							<CustomInput
 								label='School Name'
 								placeholder='e.g. Teacher'
-								state='success'
+								state={schoolNameLoading}
 								value={schoolName}
 								id='education'
 								name='schoolName'
@@ -113,7 +196,7 @@ function EducationChild() {
 								label='Degree'
 								placeholder='e.g. Teacher'
 								value={degree}
-								state='error'
+								state={degreeLoading}
 								id='education'
 								name='degree'
 								onChange={handleChange}
@@ -124,7 +207,7 @@ function EducationChild() {
 								label='City'
 								placeholder='e.g. Teacher'
 								defaultValue='Mark'
-								state='success'
+								state={cityLoading}
 								value={city}
 								id='education'
 								name='city'
@@ -136,7 +219,7 @@ function EducationChild() {
 								label='State/Province'
 								placeholder='e.g. Teacher'
 								value={stateProvince}
-								state='success'
+								state={stateProvinceLoading}
 								id='education'
 								name='stateProvince'
 								onChange={handleChange}
@@ -146,7 +229,7 @@ function EducationChild() {
 							<CustomInput
 								label='Start Date'
 								placeholder='Select'
-								state='success'
+								state={startDateLoading}
 								type='date'
 								value={startDate}
 								id='education'
@@ -158,7 +241,7 @@ function EducationChild() {
 							<CustomInput
 								label='End Date'
 								placeholder='Select'
-								state='success'
+								state={endDateLoading}
 								type='date'
 								value={endDate}
 								id='education'
