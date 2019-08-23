@@ -29,6 +29,7 @@ function EducationChild() {
 	const [schoolName, setSchoolName] = useState('');
 	const [startDate, setStartDate] = useState('');
 	const [stateProvince, setStateProvince] = useState('');
+	const [flagInput, setFlagInput] = useState('');
 
 	const [cityLoading, setCityLoading] = useState('success');
 	const [schoolNameLoading, setSchoolNameLoading] = useState('success');
@@ -62,9 +63,61 @@ function EducationChild() {
 		setStateProvince(server_data.education[index].stateProvince);
 	}, [server_data]);
 
+	useEffect(() => {
+		console.log(flagInput);
+		if (fetching) {
+			switch (flagInput) {
+				case 'schoolName':
+					setSchoolNameLoading('loading');
+					break;
+				case 'degree':
+					setDegreeLoading('loading');
+					break;
+				case 'city':
+					setCityLoading('loading');
+					break;
+				case 'stateProvince':
+					setStateProvinceLoading('loading');
+					break;
+				case 'startDate':
+					setStartDateLoading('loading');
+					break;
+				case 'endDate':
+					setEndDateLoading('loading');
+					break;
+				default:
+					break;
+			}
+		} else {
+			switch (flagInput) {
+				case 'schoolName':
+					setSchoolNameLoading('success');
+					break;
+				case 'degree':
+					setDegreeLoading('success');
+					break;
+				case 'city':
+					setCityLoading('success');
+					break;
+				case 'stateProvince':
+					setStateProvinceLoading('success');
+					break;
+				case 'startDate':
+					setStartDateLoading('success');
+					break;
+				case 'endDate':
+					setEndDateLoading('success');
+					break;
+				default:
+					break;
+			}
+		}
+	}, [fetching]);
+
 	const handleChange = e => {
 		let jsonValue = {};
 		let value = e.target.value;
+		let name = e.target.name;
 		if (e.target.type === 'date') {
 			let res = e.target.value.split('-');
 
@@ -100,69 +153,64 @@ function EducationChild() {
 		switch (e.target.name) {
 			case 'schoolName':
 				setTimeout(function() {
-					setSchoolNameLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'education', id: id, json: { schoolName: value } }
 					});
-					setSchoolNameLoading('success');
 				}, 500);
 				break;
 			case 'degree':
 				setTimeout(function() {
-					setDegreeLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'education', id: id, json: { degree: value } }
 					});
-					setDegreeLoading('success');
 				}, 500);
 				break;
 			case 'city':
 				setTimeout(function() {
-					setCityLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'education', id: id, json: { city: value } }
 					});
-					setCityLoading('success');
 				}, 500);
 
 				break;
 			case 'stateProvince':
 				setTimeout(function() {
-					setStateProvinceLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'education', id: id, json: { stateProvince: value } }
 					});
-					setStateProvinceLoading('success');
 				}, 500);
 				break;
 			case 'startDate':
 				setTimeout(function() {
-					setStartDateLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'education', id: id, json: { startDate: value } }
 					});
-					setStartDateLoading('success');
 				}, 500);
 
 				break;
 			case 'endDate':
 				setTimeout(function() {
-					setEndDateLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'education', id: id, json: { endDate: value } }
 					});
-					setEndDateLoading('success');
 				}, 500);
 
 				break;
 			case 'currentSchool':
 				setTimeout(function() {
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'education', id: id, json: { currentSchool: value } }

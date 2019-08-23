@@ -29,6 +29,7 @@ function WorkChild() {
 	const [startDate, setStartDate] = useState('');
 	const [stateProvince, setStateProvince] = useState('');
 	const [workTitle, setWorkTitle] = useState('');
+	const [flagInput, setFlagInput] = useState('');
 
 	const [cityLoading, setCityLoading] = useState('success');
 	const [employerLoading, setEmployerLoading] = useState('success');
@@ -62,8 +63,60 @@ function WorkChild() {
 		setWorkTitle(server_data.workHistory[index].workTitle);
 	}, [server_data]);
 
+	useEffect(() => {
+		console.log(flagInput);
+		if (fetching) {
+			switch (flagInput) {
+				case 'workTitle':
+					setWorkTitleLoading('loading');
+					break;
+				case 'employer':
+					setEmployerLoading('loading');
+					break;
+				case 'city':
+					setCityLoading('loading');
+					break;
+				case 'stateProvince':
+					setStateProvinceLoading('loading');
+					break;
+				case 'startDate':
+					setStartDateLoading('loading');
+					break;
+				case 'endDate':
+					setEndDateLoading('loading');
+					break;
+				default:
+					break;
+			}
+		} else {
+			switch (flagInput) {
+				case 'workTitle':
+					setWorkTitleLoading('success');
+					break;
+				case 'employer':
+					setEmployerLoading('success');
+					break;
+				case 'city':
+					setCityLoading('success');
+					break;
+				case 'stateProvince':
+					setStateProvinceLoading('success');
+					break;
+				case 'startDate':
+					setStartDateLoading('success');
+					break;
+				case 'endDate':
+					setEndDateLoading('success');
+					break;
+				default:
+					break;
+			}
+		}
+	}, [fetching]);
+
 	const handleChange = e => {
 		let jsonValue = {};
+		let name = e.target.name;
 		let value = e.target.value;
 		if (e.target.type === 'date') {
 			let res = e.target.value.split('-');
@@ -99,69 +152,64 @@ function WorkChild() {
 		switch (e.target.name) {
 			case 'workTitle':
 				setTimeout(function() {
-					setWorkTitleLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'workHistory', id: id, json: { workTitle: value } }
 					});
-					setWorkTitleLoading('success');
 				}, 500);
 				break;
 			case 'employer':
 				setTimeout(function() {
-					setEmployerLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'workHistory', id: id, json: { employer: value } }
 					});
-					setEmployerLoading('success');
 				}, 500);
 				break;
 			case 'city':
 				setTimeout(function() {
-					setCityLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'workHistory', id: id, json: { city: value } }
 					});
-					setCityLoading('success');
 				}, 500);
 
 				break;
 			case 'stateProvince':
 				setTimeout(function() {
-					setStateProvinceLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'workHistory', id: id, json: { stateProvince: value } }
 					});
-					setStateProvinceLoading('success');
 				}, 500);
 				break;
 			case 'startDate':
 				setTimeout(function() {
-					setStartDateLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'workHistory', id: id, json: { startDate: value } }
 					});
-					setStartDateLoading('success');
 				}, 500);
 
 				break;
 			case 'endDate':
 				setTimeout(function() {
-					setEndDateLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'workHistory', id: id, json: { endDate: value } }
 					});
-					setEndDateLoading('success');
 				}, 500);
 
 				break;
 			case 'currentWork':
 				setTimeout(function() {
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'workHistory', id: id, json: { currentWork: value } }

@@ -28,11 +28,11 @@ const initialState = {
 export function reducer(state = initialState, action) {
 	switch (action.type) {
 		case API_CALL_REQUEST:
-			return { ...state, fetching: true, error: null };
+			return { ...state, error: null };
 		case API_CALL_SUCCESS:
-			return { ...state, fetching: false, server_data: action.server_data };
+			return { ...state, server_data: action.server_data };
 		case API_CALL_FAILURE:
-			return { ...state, fetching: false, server_data: null, error: action.error };
+			return { ...state, server_data: null, error: action.error };
 		case API_CALL_UPDATE:
 			return { ...state, fetching: true, error: null };
 		case API_UPDATE_SUCCESS:

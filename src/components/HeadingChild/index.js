@@ -29,6 +29,7 @@ function HeadingChild() {
 	const [stateProvince, setStateProvince] = useState('');
 	const [city, setCity] = useState('');
 	const [zipcode, setZipcode] = useState('');
+	const [flagInput, setFlagInput] = useState('');
 
 	const [firstNameLoading, setFirstNameLoading] = useState('success');
 	const [lastNameLoading, setLastNameLoading] = useState('success');
@@ -52,12 +53,78 @@ function HeadingChild() {
 		setZipcode(server_data.address.zipcode);
 	}, [server_data]);
 
-	// if (!fetching) {
-	// 	setFirstNameLoading('success');
-	// }
+	useEffect(() => {
+		console.log(flagInput);
+		if (fetching) {
+			switch (flagInput) {
+				case 'firstName':
+					setFirstNameLoading('loading');
+					break;
+				case 'lastName':
+					setLastNameLoading('loading');
+					break;
+				case 'email':
+					setEmailLoading('loading');
+					break;
+				case 'phone':
+					setPhoneLoading('loading');
+					break;
+				case 'website':
+					setWebsiteLoading('loading');
+					break;
+				case 'street':
+					setStreetLoading('loading');
+					break;
+				case 'stateProvince':
+					setStateProvinceLoading('loading');
+					break;
+				case 'city':
+					setCityLoading('loading');
+					break;
+				case 'zipcode':
+					setZipcodeLoading('loading');
+					break;
+				default:
+					break;
+			}
+		} else {
+			switch (flagInput) {
+				case 'firstName':
+					setFirstNameLoading('success');
+					break;
+				case 'lastName':
+					setLastNameLoading('success');
+					break;
+				case 'email':
+					setEmailLoading('success');
+					break;
+				case 'phone':
+					setPhoneLoading('success');
+					break;
+				case 'website':
+					setWebsiteLoading('success');
+					break;
+				case 'street':
+					setStreetLoading('success');
+					break;
+				case 'stateProvince':
+					setStateProvinceLoading('success');
+					break;
+				case 'city':
+					setCityLoading('success');
+					break;
+				case 'zipcode':
+					setZipcodeLoading('success');
+					break;
+				default:
+					break;
+			}
+		}
+	}, [fetching]);
 
 	const handleChange = e => {
 		let value = e.target.value;
+		let name = e.target.name;
 		let jsonValue = {
 			type: 'API_CALL_CHANGE',
 			field: e.target.id,
@@ -68,97 +135,90 @@ function HeadingChild() {
 		switch (e.target.name) {
 			case 'firstName':
 				setTimeout(function() {
-					setFirstNameLoading('loading');
+					// setFirstNameLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'profile', id: null, json: { firstName: value } }
 					});
-					setFirstNameLoading('success');
+					// setFirstNameLoading('success');
 				}, 500);
 				break;
 			case 'lastName':
 				setTimeout(function() {
-					setLastNameLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'profile', id: null, json: { lastName: value } }
 					});
-					setLastNameLoading('success');
 				}, 500);
 				break;
 			case 'email':
 				setTimeout(function() {
-					setEmailLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'profile', id: null, json: { email: value } }
 					});
-					setEmailLoading('success');
 				}, 500);
 
 				break;
 			case 'phone':
 				setTimeout(function() {
-					setPhoneLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'profile', id: null, json: { phone: value } }
 					});
-					setPhoneLoading('success');
 				}, 500);
 				break;
 			case 'website':
 				setTimeout(function() {
-					setWebsiteLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'profile', id: null, json: { website: value } }
 					});
-					setWebsiteLoading('success');
 				}, 500);
 
 				break;
 			case 'street':
 				setTimeout(function() {
-					setStreetLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'address', id: null, json: { street: value } }
 					});
-					setStreetLoading('success');
 				}, 500);
 
 				break;
 			case 'stateProvince':
 				setTimeout(function() {
-					setStateProvinceLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'address', id: null, json: { stateProvince: value } }
 					});
-					setStateProvinceLoading('success');
 				}, 500);
 
 				break;
 			case 'city':
 				setTimeout(function() {
-					setCityLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'address', id: null, json: { city: value } }
 					});
-					setCityLoading('success');
 				}, 500);
 
 				break;
 			case 'zipcode':
 				setTimeout(function() {
-					setZipcodeLoading('loading');
+					setFlagInput(name);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'address', id: null, json: { zipcode: value } }
 					});
-					setZipcodeLoading('success');
 				}, 500);
 
 				break;
