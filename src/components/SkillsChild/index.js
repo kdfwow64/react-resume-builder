@@ -38,28 +38,21 @@ function SkillsChild() {
 
 	useEffect(() => {
 		setStateSkills(allowedState);
+		setskillsLoading(arrayValue);
 		// setskillsLoading(skillsLoading);
 	}, [server_data]);
 
 	let index = 0;
-	// console.log(skillsLoading);
 
 	useEffect(() => {
-		console.log(flagInput);
-		console.log(arrayValue[flagInput]);
-
 		if (fetching) {
-			console.log('fetching');
 			arrayValue[flagInput] = 'loading';
-			console.log('arrayValue', arrayValue);
 			setskillsLoading(arrayValue);
 		} else {
 			arrayValue[flagInput] = 'success';
 			setskillsLoading(arrayValue);
 		}
-		console.log(skillsLoading);
 	}, [fetching]);
-	console.log('arrayValue', arrayValue);
 
 	const handleChange = e => {
 		let value = e.target.value;
