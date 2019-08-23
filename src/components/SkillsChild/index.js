@@ -20,21 +20,46 @@ function SkillsChild() {
 	const classes = skillsChildStyles();
 	const dispatch = useDispatch();
 	const query = useSelector(state => state);
-
+	const { fetching, server_data, error } = query;
 	const initialValue = [{ id: 0, name: '', rate: 0 }];
 	const [stateSkills, setStateSkills] = useState(initialValue);
+	let [skillsLoading, setskillsLoading] = useState([]);
+	const [flagInput, setFlagInput] = useState('');
 	const allowedState = [];
 
-	const { fetching, server_data, error } = query;
+	let skills = [];
+	let arrayValue = [];
 	server_data.skills.map((item, index) => {
 		allowedState.push({ id: item.id, name: item.name, rate: item.rate });
+		skills.push('success');
+		arrayValue.push('success');
 	});
+	// skillsLoading = [...skills];
 
 	useEffect(() => {
 		setStateSkills(allowedState);
+		// setskillsLoading(skillsLoading);
 	}, [server_data]);
 
 	let index = 0;
+	// console.log(skillsLoading);
+
+	useEffect(() => {
+		console.log(flagInput);
+		console.log(arrayValue[flagInput]);
+
+		if (fetching) {
+			console.log('fetching');
+			arrayValue[flagInput] = 'loading';
+			console.log('arrayValue', arrayValue);
+			setskillsLoading(arrayValue);
+		} else {
+			arrayValue[flagInput] = 'success';
+			setskillsLoading(arrayValue);
+		}
+		console.log(skillsLoading);
+	}, [fetching]);
+	console.log('arrayValue', arrayValue);
 
 	const handleChange = e => {
 		let value = e.target.value;
@@ -58,12 +83,11 @@ function SkillsChild() {
 		switch (name) {
 			case 'name':
 				setTimeout(function() {
-					// setSchoolNameLoading('loading');
+					setFlagInput(index);
 					dispatch({
 						type: 'API_CALL_UPDATE',
 						payload: { field: 'skills', id: id, json: { name: value } }
 					});
-					// setSchoolNameLoading('success');
 				}, 500);
 				break;
 			default:
@@ -84,7 +108,7 @@ function SkillsChild() {
 											label='Skill'
 											placeholder='e.g. Teacher'
 											value={item.name}
-											state='success'
+											state={skillsLoading[index]}
 											id='skills'
 											name={`name-${index}-${item.id}`}
 											onChange={handleChange}
