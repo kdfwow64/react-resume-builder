@@ -1,5 +1,5 @@
 // export const SERVER_URL = 'https://www.mocky.io/v2/5d5e0d373300000d0057bc06?mocky-delay=500ms';
-export const SERVER_URL = 'http://www.mocky.io/v2/5d5ee4092f00005f0092fd10';
+export const SERVER_URL = 'https://2hidcwo1yl.execute-api.us-east-1.amazonaws.com/dev/';
 export const POST_SERVER_URL = 'https://hqmm4lfjf0.execute-api.eu-central-1.amazonaws.com/dev';
 export const X_API_KEY = 'isUSOmXcOF54H2Syvk83B73ryInlXjdW8HBFsqvn';
 
