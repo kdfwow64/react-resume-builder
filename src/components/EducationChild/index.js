@@ -15,7 +15,7 @@ import CustomButton from '../Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-function EducationChild() {
+function EducationChild(props) {
 	const classes = educationChildStyles();
 	const dispatch = useDispatch();
 	const query = useSelector(state => state);
@@ -37,6 +37,8 @@ function EducationChild() {
 	const [startDateLoading, setStartDateLoading] = useState('success');
 	const [stateProvinceLoading, setStateProvinceLoading] = useState('success');
 	const [degreeLoading, setDegreeLoading] = useState('success');
+
+	const [updateTimeouts, setUpdateTimeouts] = useState({});
 
 	let index = 0;
 
@@ -114,6 +116,24 @@ function EducationChild() {
 		}
 	}, [fetching]);
 
+	const deferApiCallUpdate = (name, value) => {
+		let tout = updateTimeouts[name];
+		if(tout)
+			clearTimeout(tout);
+		tout = setTimeout(() => { 
+			setFlagInput(name);
+			let data = {};
+			data[name] = value;
+			dispatch({
+				type: 'API_CALL_UPDATE',
+				payload: { field: 'education', id: id, json: data }
+			});
+		}, 500);
+		updateTimeouts[name] = tout;
+		setUpdateTimeouts(updateTimeouts);
+	}
+
+
 	const handleChange = e => {
 		let jsonValue = {};
 		let value = e.target.value;
@@ -152,71 +172,13 @@ function EducationChild() {
 
 		switch (e.target.name) {
 			case 'schoolName':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'education', id: id, json: { schoolName: value } }
-					});
-				}, 500);
-				break;
 			case 'degree':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'education', id: id, json: { degree: value } }
-					});
-				}, 500);
-				break;
 			case 'city':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'education', id: id, json: { city: value } }
-					});
-				}, 500);
-
-				break;
 			case 'stateProvince':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'education', id: id, json: { stateProvince: value } }
-					});
-				}, 500);
-				break;
-			case 'startDate':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'education', id: id, json: { startDate: value } }
-					});
-				}, 500);
-
-				break;
-			case 'endDate':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'education', id: id, json: { endDate: value } }
-					});
-				}, 500);
-
-				break;
-			case 'currentSchool':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'education', id: id, json: { currentSchool: value } }
-					});
-				}, 500);
-
+			case 'startDate':	
+			case 'endDate':		
+			case 'currentSchool':	
+				deferApiCallUpdate(name, value);
 				break;
 			default:
 				break;
