@@ -60,7 +60,7 @@ function SkillsChild() {
 		let tout = updateTimeouts[name];
 		if(tout)
 			clearTimeout(tout);
-		tout = setTimeout(() => { 
+		tout = setTimeout(() => {
 			setFlagInput(name);
 			let data = {};
 			data[name] = value;
@@ -91,19 +91,17 @@ function SkillsChild() {
 			index: index
 		};
 		dispatch(jsonValue);
-	
+
 		switch (name) {
 			case 'name':
 				deferApiCallUpdate(id, name, value);
 				break;
 			case 'rate':
-				setTimeout(function() {
-					setFlagInput(index);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'skills', id: id, json: { rate: `${parseFloat(value) * 2}` } }
-					});
-				}, 500);
+				setFlagInput(index);
+				dispatch({
+					type: 'API_CALL_UPDATE',
+					payload: { field: 'skills', id: id, json: { rate: `${parseFloat(value) * 2}` } }
+				});
 				break;
 			default:
 				break;
