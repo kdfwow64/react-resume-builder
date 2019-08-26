@@ -38,6 +38,8 @@ function WorkChild() {
 	const [stateProvinceLoading, setStateProvinceLoading] = useState('success');
 	const [workTitleLoading, setWorkTitleLoading] = useState('success');
 
+	const [updateTimeouts, setUpdateTimeouts] = useState({});
+
 	let index = 0;
 
 	useEffect(() => {
@@ -114,6 +116,23 @@ function WorkChild() {
 		}
 	}, [fetching]);
 
+	const deferApiCallUpdate = (name, value) => {
+		let tout = updateTimeouts[name];
+		if(tout)
+			clearTimeout(tout);
+		tout = setTimeout(() => { 
+			setFlagInput(name);
+			let data = {};
+			data[name] = value;
+			dispatch({
+				type: 'API_CALL_UPDATE',
+				payload: { field: 'workHistory', id: id, json: data }
+			});
+		}, 500);
+		updateTimeouts[name] = tout;
+		setUpdateTimeouts(updateTimeouts);
+	}
+
 	const handleChange = e => {
 		let jsonValue = {};
 		let name = e.target.name;
@@ -151,71 +170,13 @@ function WorkChild() {
 
 		switch (e.target.name) {
 			case 'workTitle':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'workHistory', id: id, json: { workTitle: value } }
-					});
-				}, 500);
-				break;
 			case 'employer':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'workHistory', id: id, json: { employer: value } }
-					});
-				}, 500);
-				break;
 			case 'city':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'workHistory', id: id, json: { city: value } }
-					});
-				}, 500);
-
-				break;
 			case 'stateProvince':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'workHistory', id: id, json: { stateProvince: value } }
-					});
-				}, 500);
-				break;
 			case 'startDate':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'workHistory', id: id, json: { startDate: value } }
-					});
-				}, 500);
-
-				break;
 			case 'endDate':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'workHistory', id: id, json: { endDate: value } }
-					});
-				}, 500);
-
-				break;
 			case 'currentWork':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'workHistory', id: id, json: { currentWork: value } }
-					});
-				}, 500);
-
+				deferApiCallUpdate(name, value);
 				break;
 			default:
 				break;
