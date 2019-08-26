@@ -9,7 +9,7 @@ import { Paper, Grid, Box, Button } from '@material-ui/core';
 import { AddOutlined } from '@material-ui/icons';
 import { skillsChildStyles } from './style';
 import CustomInput from '../Input';
-import CustomSlider from '../Slider';
+import CustomRate from '../Rate';
 import CustomCheckbox from '../Checkbox';
 import CustomButton from '../Button';
 import { Link } from 'react-router-dom';
@@ -60,7 +60,7 @@ function SkillsChild() {
 		let tout = updateTimeouts[name];
 		if(tout)
 			clearTimeout(tout);
-		tout = setTimeout(() => { 
+		tout = setTimeout(() => {
 			setFlagInput(name);
 			let data = {};
 			data[name] = value;
@@ -85,9 +85,9 @@ function SkillsChild() {
 
 		jsonValue = {
 			type: 'API_CALL_CHANGE',
-			field: e.target.id,
+			field: 'skills',
 			name: name,
-			value: e.target.value,
+			value: name === 'name' ? e.target.value : `${parseFloat(e.target.value) * 2}`,
 			index: index
 		};
 		dispatch(jsonValue);
@@ -95,6 +95,13 @@ function SkillsChild() {
 		switch (name) {
 			case 'name':
 				deferApiCallUpdate(id, name, value);
+				break;
+			case 'rate':
+				setFlagInput(index);
+				dispatch({
+					type: 'API_CALL_UPDATE',
+					payload: { field: 'skills', id: id, json: { rate: `${parseFloat(value) * 2}` } }
+				});
 				break;
 			default:
 				break;
@@ -122,11 +129,10 @@ function SkillsChild() {
 									</Grid>
 									<Grid item xs={12} md={6}>
 										<Box display='flex' alignItems='center' height={55}>
-											<CustomSlider
-												value={parseInt(item.rate)}
-												id='skills'
-												name={`rate-${index}`}
-												// onChange={handleChange}
+											<CustomRate
+												value={item.rate}
+												name={`rate-${index}-${item.id}`}
+												onChange={handleChange}
 											/>
 										</Box>
 									</Grid>
