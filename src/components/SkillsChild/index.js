@@ -27,6 +27,8 @@ function SkillsChild() {
 	const [flagInput, setFlagInput] = useState('');
 	const allowedState = [];
 
+	const [updateTimeouts, setUpdateTimeouts] = useState({});
+
 	let skills = [];
 	let arrayValue = [];
 	server_data.skills.map((item, index) => {
@@ -54,6 +56,23 @@ function SkillsChild() {
 		}
 	}, [fetching]);
 
+	const deferApiCallUpdate = (id, name, value) => {
+		let tout = updateTimeouts[name];
+		if(tout)
+			clearTimeout(tout);
+		tout = setTimeout(() => { 
+			setFlagInput(name);
+			let data = {};
+			data[name] = value;
+			dispatch({
+				type: 'API_CALL_UPDATE',
+				payload: { field: 'skills', id: id, json: data }
+			});
+		}, 500);
+		updateTimeouts[name] = tout;
+		setUpdateTimeouts(updateTimeouts);
+	}
+
 	const handleChange = e => {
 		let value = e.target.value;
 		let res = e.target.name.split('-');
@@ -75,13 +94,7 @@ function SkillsChild() {
 
 		switch (name) {
 			case 'name':
-				setTimeout(function() {
-					setFlagInput(index);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'skills', id: id, json: { name: value } }
-					});
-				}, 500);
+				deferApiCallUpdate(id, name, value);
 				break;
 			default:
 				break;

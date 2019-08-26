@@ -41,6 +41,8 @@ function HeadingChild() {
 	const [cityLoading, setCityLoading] = useState('success');
 	const [zipcodeLoading, setZipcodeLoading] = useState('success');
 
+	const [updateTimeouts, setUpdateTimeouts] = useState({});
+
 	useEffect(() => {
 		setFirstName(server_data.profile.firstName);
 		setLastName(server_data.profile.lastName);
@@ -122,6 +124,23 @@ function HeadingChild() {
 		}
 	}, [fetching]);
 
+	const deferApiCallUpdate = (name, value) => {
+		let tout = updateTimeouts[name];
+		if(tout)
+			clearTimeout(tout);
+		tout = setTimeout(() => { 
+			setFlagInput(name);
+			let data = {};
+			data[name] = value;
+			dispatch({
+				type: 'API_CALL_UPDATE',
+				payload: { field: 'profile', id: null, json: data }
+			});
+		}, 500);
+		updateTimeouts[name] = tout;
+		setUpdateTimeouts(updateTimeouts);
+	}
+
 	const handleChange = e => {
 		let value = e.target.value;
 		let name = e.target.name;
@@ -134,93 +153,15 @@ function HeadingChild() {
 		dispatch(jsonValue);
 		switch (e.target.name) {
 			case 'firstName':
-				setTimeout(function() {
-					// setFirstNameLoading('loading');
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'profile', id: null, json: { firstName: value } }
-					});
-					// setFirstNameLoading('success');
-				}, 500);
-				break;
 			case 'lastName':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'profile', id: null, json: { lastName: value } }
-					});
-				}, 500);
-				break;
 			case 'email':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'profile', id: null, json: { email: value } }
-					});
-				}, 500);
-
-				break;
 			case 'phone':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'profile', id: null, json: { phone: value } }
-					});
-				}, 500);
-				break;
 			case 'website':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'profile', id: null, json: { website: value } }
-					});
-				}, 500);
-
-				break;
 			case 'street':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'address', id: null, json: { street: value } }
-					});
-				}, 500);
-
-				break;
 			case 'stateProvince':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'address', id: null, json: { stateProvince: value } }
-					});
-				}, 500);
-
-				break;
 			case 'city':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'address', id: null, json: { city: value } }
-					});
-				}, 500);
-
-				break;
 			case 'zipcode':
-				setTimeout(function() {
-					setFlagInput(name);
-					dispatch({
-						type: 'API_CALL_UPDATE',
-						payload: { field: 'address', id: null, json: { zipcode: value } }
-					});
-				}, 500);
-
+				deferApiCallUpdate(name, value);
 				break;
 			default:
 				break;
