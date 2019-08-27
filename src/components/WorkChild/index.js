@@ -11,6 +11,7 @@ import { workChildStyles } from './style';
 import CustomInput from '../Input';
 import CustomCheckbox from '../Checkbox';
 import CustomButton from '../Button';
+import SearchList from '../SearchList/SearchList';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -183,6 +184,10 @@ function WorkChild() {
 		}
 	};
 
+	const handleSearchItemSelected = item => {
+		console.log(item);
+	}
+
 	return (
 		<Paper className={classes.paper} elevation={0}>
 			<Grid container spacing={3} className={classes.container}>
@@ -270,36 +275,7 @@ function WorkChild() {
 							<CustomInput label='Work Details' placeholder='Description' multiline rows={9} />
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<Box overflow='auto' height={210} bgcolor='#f7f7f7' p={2} borderRadius={6}>
-								<Paper className={classes.panel}>
-									<AddOutlined className={classes.success} />
-									<Typography variant='caption'>
-										Added shopping cart, streaming video files and "Try Before You Buy" service to
-										promote games.
-									</Typography>
-								</Paper>
-								<Paper className={classes.panel}>
-									<AddOutlined className={classes.success} />
-									<Typography variant='caption'>
-										Added shopping cart, streaming video files and "Try Before You Buy" service to
-										promote games.
-									</Typography>
-								</Paper>
-								<Paper className={classes.panel}>
-									<AddOutlined className={classes.success} />
-									<Typography variant='caption'>
-										Added shopping cart, streaming video files and "Try Before You Buy" service to
-										promote games.
-									</Typography>
-								</Paper>
-								<Paper className={classes.panel}>
-									<AddOutlined className={classes.success} />
-									<Typography variant='caption'>
-										Added shopping cart, streaming video files and "Try Before You Buy" service to
-										promote games.
-									</Typography>
-								</Paper>
-							</Box>
+							<SearchList height={175} onItemSelected={ handleSearchItemSelected } resource='work-suggestions' ></SearchList>
 						</Grid>
 					</Grid>
 					<Grid item xs={12} style={{ marginTop: 32 }}>
