@@ -22,6 +22,8 @@ function WorkChild() {
 	const { fetching, server_data, error } = query;
 
 	const [city, setCity] = useState('');
+	// MS:
+	const [country, setCountry] = useState('');
 	const [currentWork, setCurrentWork] = useState('');
 	const [employer, setEmployer] = useState('');
 	const [endDate, setEndDate] = useState('');
@@ -32,6 +34,8 @@ function WorkChild() {
 	const [flagInput, setFlagInput] = useState('');
 
 	const [cityLoading, setCityLoading] = useState('success');
+	// MS:
+	const [countryLoading, setCountryLoading] = useState('success');
 	const [employerLoading, setEmployerLoading] = useState('success');
 	const [endDateLoading, setEndDateLoading] = useState('success');
 	const [startDateLoading, setStartDateLoading] = useState('success');
@@ -45,6 +49,7 @@ function WorkChild() {
 	useEffect(() => {
 		setId(server_data.workHistory[index].id);
 		setCity(server_data.workHistory[index].city);
+		setCountry(server_data.workHistory[index].country)
 		setCurrentWork(server_data.workHistory[index].currentWork);
 		setEmployer(server_data.workHistory[index].employer);
 		let res = [];
@@ -78,6 +83,9 @@ function WorkChild() {
 				case 'city':
 					setCityLoading('loading');
 					break;
+				case 'country':
+					setCountryLoading('loading');
+					break;
 				case 'stateProvince':
 					setStateProvinceLoading('loading');
 					break;
@@ -101,6 +109,9 @@ function WorkChild() {
 				case 'city':
 					setCityLoading('success');
 					break;
+				case 'country':
+					setCountryLoading('success');
+					break;
 				case 'stateProvince':
 					setStateProvinceLoading('success');
 					break;
@@ -118,9 +129,9 @@ function WorkChild() {
 
 	const deferApiCallUpdate = (name, value) => {
 		let tout = updateTimeouts[name];
-		if(tout)
+		if (tout)
 			clearTimeout(tout);
-		tout = setTimeout(() => { 
+		tout = setTimeout(() => {
 			setFlagInput(name);
 			let data = {};
 			data[name] = value;
@@ -172,6 +183,7 @@ function WorkChild() {
 			case 'workTitle':
 			case 'employer':
 			case 'city':
+			case 'country':
 			case 'stateProvince':
 			case 'startDate':
 			case 'endDate':
@@ -232,6 +244,17 @@ function WorkChild() {
 								onChange={handleChange}
 							/>
 						</Grid>
+						<Grid item xs={12} md={6}>
+							<CustomInput
+								label='Country'
+								placeholder='e.g. USA'
+								value={country}
+								state={countryLoading}
+								id='workHistory'
+								name='country'
+								onChange={handleChange}
+							/>
+						</Grid>
 						<Grid item xs={12} md={3}>
 							<CustomInput
 								label='Start Date'
@@ -256,7 +279,7 @@ function WorkChild() {
 								onChange={handleChange}
 							/>
 						</Grid>
-						<Grid item xs={12} md={6}>
+						<Grid item xs={12} md={12}>
 							<CustomCheckbox
 								label='I currently work here'
 								checked={currentWork === 'true'}

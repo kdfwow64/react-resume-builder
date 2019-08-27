@@ -22,8 +22,8 @@
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-    	"as3-publish": "npm run build && aws s3 sync build/ s3://resumatcher"
-  },
+		"as3-publish": "npm run build && aws s3 sync build/ s3://resumatcher"
+	},
 	"eslintConfig": {
 		"extends": "react-app"
 	},
