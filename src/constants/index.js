@@ -11,3 +11,7 @@ export const API_CALL_CHANGE = 'API_CALL_CHANGE';
 export const API_CALL_UPDATE = 'API_CALL_UPDATE';
 export const API_UPDATE_SUCCESS = 'API_UPDATE_SUCCESS';
 export const API_UPDATE_FAILURE = 'API_UPDATE_FAILURE';
+
+//TODO: need to be refactored. implemeted as separate action to avoid changing of exising functionality
+export const API_CALL_GET = 'API_CALL_GET';
+export const API_GET_SUCCESS = 'API_GET_SUCCESS';
