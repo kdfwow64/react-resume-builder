@@ -9,7 +9,9 @@ import {
 	X_API_KEY,
 	API_CALL_UPDATE,
 	API_UPDATE_FAILURE,
-	API_UPDATE_SUCCESS
+	API_UPDATE_SUCCESS,
+	API_CALL_GET,
+	API_GET_SUCCESS
 } from '../constants';
 
 // watcher saga: watches for actions dispatched to the store, starts worker saga
@@ -20,6 +22,9 @@ export function* watcherSaga() {
 	yield put({ type: API_CALL_SUCCESS, server_data });
 	yield takeLatest(API_CALL_REQUEST, workerSaga);
 	yield takeLatest(API_CALL_UPDATE, updateSaga);
+
+	//TODO: to be refactored
+	yield takeLatest(API_CALL_GET, getSaga);
 }
 
 function fetchServerData() {
@@ -28,6 +33,16 @@ function fetchServerData() {
 		url: SERVER_URL
 	});
 }
+
+function fetchData(resource, params){
+	return axios({
+		method: 'GET',
+		headers: { 'x-api-key': X_API_KEY, 'Content-Type': 'application/json' },
+		url: `${POST_SERVER_URL}/${resource}`,
+		params: params
+	});
+}
+
 
 function updateData(field, id, json) {
 	if (id !== null) {
@@ -65,6 +80,20 @@ function* workerSaga() {
 
 		// dispatch a success action to the store with the new dog
 		yield put({ type: API_CALL_SUCCESS, server_data });
+	} catch (error) {
+		// dispatch a failure action to the store with the error
+		yield put({ type: API_CALL_FAILURE, error });
+	}
+}
+
+function* getSaga(action){
+	try {
+		const response = yield call(fetchData, action.payload.resource, action.payload.params);
+		let server_data = { };
+		server_data[action.payload.resource] = response.data;
+
+		// dispatch a success action to the store with the new dog
+		yield put({ type: API_GET_SUCCESS, server_data: server_data });
 	} catch (error) {
 		// dispatch a failure action to the store with the error
 		yield put({ type: API_CALL_FAILURE, error });
