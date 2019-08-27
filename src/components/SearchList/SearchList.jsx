@@ -16,7 +16,7 @@ const SearchList = props => {
 	const dispatch = useDispatch();
 	const query = useSelector(state => state);
     const { fetching, server_data, error } = query;
-    const { resource, onItemSelected, initialQuery, userId } = props;
+    const { resource, onItemSelected } = props;
 
     const label = props.label !== undefined ? props.label : 'Search specific word';
 
@@ -24,13 +24,6 @@ const SearchList = props => {
     const [searchResult, setSearchResult] = useState([]);
     const [state, setState] = useState('search');
     const [apiCallTimeout, setApiCallTimeout] = useState();
-
-    useEffect(() => {
-        if(initialQuery || userId){
-            setSearchText(initialQuery);
-            deferApiCall(initialQuery, true);
-        }
-    }, [initialQuery, userId]);
     
     useEffect(() => {
         if(server_data[resource])
@@ -38,8 +31,7 @@ const SearchList = props => {
     }, [server_data]);
     
     useEffect(() => {
-        if(!fetching)
-            setState('search');
+        setState(fetching ? 'loading': 'search');
 	}, [fetching]);
 
     const handleClickSearch = () => {
@@ -49,24 +41,24 @@ const SearchList = props => {
     const handleChange = event => {
         let text = event.target.value;
         setSearchText(text);
-        deferApiCall(text, false);
+        deferApiCall(text);
     };
 
-    const performSearch = (text, initial) => {
-        if(text || initial){
+    const performSearch = text => {
+        if(text){
             setState('loading');
             dispatch({
                 type: API_CALL_GET,
-                payload: { resource: resource, params: { q: text, userId: userId  } }
+                payload: { resource: resource, params: { q: text } }
             });
         }
     };
 
-    const deferApiCall = (text, initial) => {
+    const deferApiCall = (text) => {
 		if(apiCallTimeout)
 			clearTimeout(apiCallTimeout);
         let tout = setTimeout(() => { 
-                performSearch(text, initial);
+                performSearch(text);
             }, 500);
 		setApiCallTimeout(tout);
     };

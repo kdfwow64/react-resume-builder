@@ -11,7 +11,7 @@ import CustomInput from '../Input';
 import { summaryChildStyles } from './style';
 import CustomButton from '../Button';
 import { Link } from 'react-router-dom';
-import SearchList from '../Search/Search';
+import SearchList from '../SearchList/SearchList';
 
 function SummaryChild() {
 	const classes = summaryChildStyles();

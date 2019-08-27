@@ -11,6 +11,7 @@ import CustomInput from '../Input';
 import CustomCheckbox from '../Checkbox';
 import { educationChildStyles } from './style';
 import CustomButton from '../Button';
+import SearchList from '../SearchList/SearchList';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -195,6 +196,10 @@ function EducationChild(props) {
 		}
 	};
 
+	const handleSearchItemSelected = item => {
+		console.log(item);
+	}
+
 	return (
 		<Paper className={classes.paper} elevation={0}>
 			<Grid container spacing={3}>
@@ -294,32 +299,7 @@ function EducationChild(props) {
 							<CustomInput label='Study Details' placeholder='Description' multiline rows={9} />
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<Box overflow='auto' height={210} bgcolor='#f7f7f7' p={2} borderRadius={6}>
-								<Paper className={classes.panel}>
-									<AddOutlined className={classes.success} />
-									<Typography variant='caption'>
-										Professional development completed in [Subject]
-									</Typography>
-								</Paper>
-								<Paper className={classes.panel}>
-									<AddOutlined className={classes.success} />
-									<Typography variant='caption'>
-										Professional development completed in [Subject]
-									</Typography>
-								</Paper>
-								<Paper className={classes.panel}>
-									<AddOutlined className={classes.success} />
-									<Typography variant='caption'>
-										Professional development completed in [Subject]
-									</Typography>
-								</Paper>
-								<Paper className={classes.panel}>
-									<AddOutlined className={classes.success} />
-									<Typography variant='caption'>
-										Professional development completed in [Subject]
-									</Typography>
-								</Paper>
-							</Box>
+							<SearchList height={175} onItemSelected={ handleSearchItemSelected } resource='education-suggestions' ></SearchList>
 						</Grid>
 					</Grid>
 					<Grid item xs={12} style={{ marginTop: 32 }}>
