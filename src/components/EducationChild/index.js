@@ -22,6 +22,7 @@ function EducationChild(props) {
 	const { fetching, server_data, error } = query;
 
 	const [city, setCity] = useState('');
+	const [country, setCountry] = useState('');
 	const [currentSchool, setCurrentSchool] = useState('');
 	const [degree, setDegree] = useState('');
 	const [endDate, setEndDate] = useState('');
@@ -32,6 +33,7 @@ function EducationChild(props) {
 	const [flagInput, setFlagInput] = useState('');
 
 	const [cityLoading, setCityLoading] = useState('success');
+	const [countryLoading, setCountryLoading] = useState('success');
 	const [schoolNameLoading, setSchoolNameLoading] = useState('success');
 	const [endDateLoading, setEndDateLoading] = useState('success');
 	const [startDateLoading, setStartDateLoading] = useState('success');
@@ -45,6 +47,7 @@ function EducationChild(props) {
 	useEffect(() => {
 		setId(server_data.education[index].id);
 		setCity(server_data.education[index].city);
+		setCountry(server_data.education[index].country);
 		setCurrentSchool(server_data.education[index].currentSchool);
 		setDegree(server_data.education[index].degree);
 		let res = [];
@@ -78,6 +81,9 @@ function EducationChild(props) {
 				case 'city':
 					setCityLoading('loading');
 					break;
+				case 'country':
+					setCountryLoading('loading');
+					break;
 				case 'stateProvince':
 					setStateProvinceLoading('loading');
 					break;
@@ -101,6 +107,9 @@ function EducationChild(props) {
 				case 'city':
 					setCityLoading('success');
 					break;
+				case 'country':
+					setCountryLoading('success');
+					break;
 				case 'stateProvince':
 					setStateProvinceLoading('success');
 					break;
@@ -118,9 +127,9 @@ function EducationChild(props) {
 
 	const deferApiCallUpdate = (name, value) => {
 		let tout = updateTimeouts[name];
-		if(tout)
+		if (tout)
 			clearTimeout(tout);
-		tout = setTimeout(() => { 
+		tout = setTimeout(() => {
 			setFlagInput(name);
 			let data = {};
 			data[name] = value;
@@ -174,10 +183,11 @@ function EducationChild(props) {
 			case 'schoolName':
 			case 'degree':
 			case 'city':
+			case 'country':
 			case 'stateProvince':
-			case 'startDate':	
-			case 'endDate':		
-			case 'currentSchool':	
+			case 'startDate':
+			case 'endDate':
+			case 'currentSchool':
 				deferApiCallUpdate(name, value);
 				break;
 			default:
@@ -235,6 +245,17 @@ function EducationChild(props) {
 								onChange={handleChange}
 							/>
 						</Grid>
+						<Grid item xs={12} md={6}>
+							<CustomInput
+								label='Country'
+								placeholder='e.g. USA'
+								value={country}
+								state={countryLoading}
+								id='education'
+								name='country'
+								onChange={handleChange}
+							/>
+						</Grid>
 						<Grid item xs={12} md={3}>
 							<CustomInput
 								label='Start Date'
@@ -259,7 +280,7 @@ function EducationChild(props) {
 								onChange={handleChange}
 							/>
 						</Grid>
-						<Grid item xs={12} md={6}>
+						<Grid item xs={12} md={12}>
 							<CustomCheckbox
 								label='I currently study here'
 								checked={currentSchool === 'true'}
