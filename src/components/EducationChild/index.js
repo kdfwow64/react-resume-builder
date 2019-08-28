@@ -296,10 +296,10 @@ function EducationChild(props) {
 							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<CustomInput label='Study Details' placeholder='Description' multiline rows={9} />
+							<CustomInput label='Study Details' placeholder='Description' multiline rows={24} />
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<SearchList height={175} onItemSelected={ handleSearchItemSelected } resource='education-suggestions' ></SearchList>
+							<SearchList height={460} onItemSelected={handleSearchItemSelected} resource='education-suggestions' />
 						</Grid>
 					</Grid>
 					<Grid item xs={12} style={{ marginTop: 32 }}>
