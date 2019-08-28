@@ -11,9 +11,15 @@ import CustomInput from '../Input';
 import { summaryChildStyles } from './style';
 import CustomButton from '../Button';
 import { Link } from 'react-router-dom';
+import SearchList from '../SearchList/SearchList';
 
 function SummaryChild() {
 	const classes = summaryChildStyles();
+
+	const handleSearchItemSelected = item => {
+		console.log(item);
+	}
+
 	return (
 		<Paper className={classes.paper} elevation={0}>
 			<Grid container spacing={3}>
@@ -23,46 +29,7 @@ function SummaryChild() {
 							<CustomInput label='Summary Details' placeholder='Description' multiline rows={24} />
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<Box overflow='auto' height={494} bgcolor='#f7f7f7' p={2} borderRadius={6}>
-								<Paper className={classes.panel}>
-									<AddOutlined className={classes.success} />
-									<Typography variant='caption'>
-										Self-motivated Web Developer with high level of experience working on multiple
-										projects. Passionate and hardworking with penchant for meeting deadlines.
-										Interested in role with company promoting best practices and offering diverse
-										customer projects
-									</Typography>
-								</Paper>
-								<Paper className={classes.panel}>
-									<AddOutlined className={classes.success} />
-									<Typography variant='caption'>
-										Solution-driven professional excelling in highly collaborative work environment,
-										finding solutions to challenges and focused on customer satisfaction. Proven
-										experience developing consumer-focused web sites using HTML, CSS, JQuery, PHP
-										and JavaScript. Experience building products for desktop, phone and mobile app
-										users, meeting highest standards for web design, user experience, best
-										practices, usability and speed. Responding to challenges by designing and
-										developing solutions and building web applications aligned to customer's
-										services. Translating solutions into code and working across many different
-										APIs, third-party integrations and databases.
-									</Typography>
-								</Paper>
-								<Paper className={classes.panel}>
-									<AddOutlined className={classes.success} />
-									<Typography variant='caption'>
-										Self-motivated Web Developer with high level of experience working on multiple
-										projects. Passionate and hardworking with penchant for meeting deadlines.
-										Interested in role with company promoting
-									</Typography>
-								</Paper>
-								<Paper className={classes.panel}>
-									<AddOutlined className={classes.success} />
-									<Typography variant='caption'>
-										Added shopping cart, streaming video files and "Try Before You Buy" service to
-										promote games.
-									</Typography>
-								</Paper>
-							</Box>
+							<SearchList height={460} onItemSelected={ handleSearchItemSelected } resource='summary-suggestions' ></SearchList>
 						</Grid>
 					</Grid>
 					<Grid item xs={12} style={{ marginTop: 32 }}>
