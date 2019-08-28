@@ -28,6 +28,7 @@ function HeadingChild() {
 	const [street, setStreet] = useState('');
 	const [stateProvince, setStateProvince] = useState('');
 	const [city, setCity] = useState('');
+	const [jobTitle, setJobTitle] = useState('');
 	const [zipcode, setZipcode] = useState('');
 	const [flagInput, setFlagInput] = useState('');
 
@@ -39,6 +40,7 @@ function HeadingChild() {
 	const [streetLoading, setStreetLoading] = useState('success');
 	const [stateProvinceLoading, setStateProvinceLoading] = useState('success');
 	const [cityLoading, setCityLoading] = useState('success');
+	const [jobTitleLoading, setJobTitleLoading] = useState('success');
 	const [zipcodeLoading, setZipcodeLoading] = useState('success');
 
 	const [updateTimeouts, setUpdateTimeouts] = useState({});
@@ -52,6 +54,7 @@ function HeadingChild() {
 		setStreet(server_data.address.street);
 		setStateProvince(server_data.address.stateProvince);
 		setCity(server_data.address.city);
+		setJobTitle(server_data.profile.jobTitle);
 		setZipcode(server_data.address.zipcode);
 	}, [server_data]);
 
@@ -82,6 +85,9 @@ function HeadingChild() {
 					break;
 				case 'city':
 					setCityLoading('loading');
+					break;
+				case 'jobTitle':
+					setJobTitleLoading('loading');
 					break;
 				case 'zipcode':
 					setZipcodeLoading('loading');
@@ -115,6 +121,9 @@ function HeadingChild() {
 				case 'city':
 					setCityLoading('success');
 					break;
+				case 'jobTitle':
+					setJobTitleLoading('success');
+					break;
 				case 'zipcode':
 					setZipcodeLoading('success');
 					break;
@@ -126,9 +135,9 @@ function HeadingChild() {
 
 	const deferApiCallUpdate = (name, value) => {
 		let tout = updateTimeouts[name];
-		if(tout)
+		if (tout)
 			clearTimeout(tout);
-		tout = setTimeout(() => { 
+		tout = setTimeout(() => {
 			setFlagInput(name);
 			let data = {};
 			data[name] = value;
@@ -154,6 +163,7 @@ function HeadingChild() {
 		switch (e.target.name) {
 			case 'firstName':
 			case 'lastName':
+			case 'jobTitle':
 			case 'email':
 			case 'phone':
 			case 'website':
@@ -190,7 +200,15 @@ function HeadingChild() {
 							</Box>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<CustomInput label='Job Title' placeholder='e.g. Teacher' state='success' />
+							<CustomInput
+								label='Job Title'
+								placeholder='e.g. Teacher'
+								value={jobTitle}
+								state={jobTitleLoading}
+								id='profile'
+								name='jobTitle'
+								onChange={handleChange}
+							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
 							<CustomInput
