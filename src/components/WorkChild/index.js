@@ -295,10 +295,10 @@ function WorkChild() {
 							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<CustomInput label='Work Details' placeholder='Description' multiline rows={9} />
+							<CustomInput label='Work Details' placeholder='Description' multiline rows={24} />
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<SearchList height={175} onItemSelected={ handleSearchItemSelected } resource='work-suggestions' ></SearchList>
+							<SearchList height={460} onItemSelected={handleSearchItemSelected} resource='work-suggestions' />
 						</Grid>
 					</Grid>
 					<Grid item xs={12} style={{ marginTop: 32 }}>
