@@ -4,7 +4,7 @@
  *
  */
 
-import React, { memo } from 'react';
+import React, { memo, useState, useRef } from 'react';
 import { Grid, Box, Typography, Paper, Button } from '@material-ui/core';
 import { AddOutlined } from '@material-ui/icons';
 import CustomInput from '../Input';
@@ -12,13 +12,20 @@ import { summaryChildStyles } from './style';
 import CustomButton from '../Button';
 import { Link } from 'react-router-dom';
 import SearchList from '../SearchList/SearchList';
+import RichEdit, {  } from '../RichEdit/RichEdit';
+
 
 function SummaryChild() {
 	const classes = summaryChildStyles();
+	const richEdit = useRef();
 
 	const handleSearchItemSelected = item => {
-		console.log(item);
+		richEdit.current.addParagraph(item.description);
 	}
+
+	const handleChange = data => {
+		console.log(JSON.stringify(data));
+	};
 
 	return (
 		<Paper className={classes.paper} elevation={0}>
@@ -26,7 +33,7 @@ function SummaryChild() {
 				<Grid item md={8}>
 					<Grid container spacing={3} className={classes.container}>
 						<Grid item xs={12} md={6}>
-							<CustomInput label='Summary Details' placeholder='Description' multiline rows={24} />
+							<RichEdit height={460} placeholder='Summary Details' onChange={handleChange} ref={richEdit}></RichEdit>
 						</Grid>
 						<Grid item xs={12} md={6}>
 							<SearchList height={460} onItemSelected={ handleSearchItemSelected } resource='summary-suggestions' ></SearchList>
