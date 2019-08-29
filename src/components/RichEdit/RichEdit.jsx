@@ -1,18 +1,20 @@
-import React, { useState, useImperativeHandle, forwardRef, componentDidUpdate, useEffect  } from 'react';
+import React, { useState, useImperativeHandle, forwardRef  } from 'react';
 import { Box } from '@material-ui/core';
 import 'draft-js/dist/Draft.css';
-import {Editor, EditorState, RichUtils, ContentBlock, Modifier, SelectionState, convertFromRaw, convertToRaw, genKey  } from 'draft-js';
+import {Editor, EditorState, RichUtils, convertFromRaw, convertToRaw, Modifier } from 'draft-js';
 import { richEditStyle } from './style';
 import ToolbarButton from './ToolbarButton';
 import {toolbarCommands} from './toolbarCommands';
-import _ from 'lodash';
 
 const RichEdit = forwardRef((props, ref) => {
     const classes = richEditStyle(props);
-    const { id, name } = props;
-    const [editorState, setEditorState] = useState(EditorState.createEmpty());
-    const [rawState, setRawState] = useState({});
-    const [changeTimeout, setChangeTimeout] = useState({});
+    const [editorState, setEditorState] = useState(
+        ()=>{
+            if(props.value){
+                return EditorState.createWithContent(convertFromRaw(JSON.parse(props.value)))
+            }
+            return EditorState.createEmpty();
+        });
     let editor = {};
 
     const contentState = editorState.getCurrentContent();
@@ -20,18 +22,10 @@ const RichEdit = forwardRef((props, ref) => {
     const selection = editorState.getSelection();
     const blockType = editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType();
 
-    const handleOnChange = (state, raiseEvent = true) => {
-        setEditorState(state);       
-        const newRawState = convertToRaw(state.getCurrentContent());
-        const stateChanged = !_.isEqual(rawState, newRawState);
-        if(stateChanged){
-            setRawState(newRawState); 
-            if(raiseEvent && props.onChange){
-              if(changeTimeout)
-                clearTimeout(changeTimeout);
-              setChangeTimeout(setTimeout(()=>{ props.onChange({target: { id: id, name: name, value: newRawState }}); }, 500));
-            }
-        }
+    const handleOnChange = state => {
+        setEditorState(state);        
+        if(props.onChange)
+            props.onChange(convertToRaw(state.getCurrentContent()));
     }
 
     const handleKeyCommand = (command, editorState) => {
@@ -72,62 +66,11 @@ const RichEdit = forwardRef((props, ref) => {
 
     useImperativeHandle(ref, () => ({
         addParagraph(text) {
-          const newEditorState = insertBlock(editorState, text, 'after');
+          const newContentState = Modifier.insertText(contentState, selection, text + '\n');
+          const newEditorState = EditorState.push(editorState, newContentState, `insert-paragraph`);
           handleOnChange(newEditorState);
         }
     }));
-
-    const insertBlock = (editorState, text, direction) => {
-        const selection = editorState.getSelection();
-        const contentState = editorState.getCurrentContent();
-        const currentBlock = contentState.getBlockForKey(selection.getEndKey());
-    
-        const blockMap = contentState.getBlockMap();
-        // Split the blocks
-        const blocksBefore = blockMap.toSeq().takeUntil(function(v) {
-          return v === currentBlock;
-        });
-        const blocksAfter = blockMap
-          .toSeq()
-          .skipUntil(function(v) {
-            return v === currentBlock;
-          })
-          .rest();
-        const newBlockKey = genKey();
-        const newBlock = new ContentBlock({
-          key: newBlockKey,
-          type: currentBlock.type,
-          text: text
-          //characterList: List()
-        });
-        let newBlocks =
-          direction === "before"
-            ? [[newBlockKey, newBlock], [currentBlock.getKey(), currentBlock]]
-            : [[currentBlock.getKey(), currentBlock], [newBlockKey, newBlock]];
-        const newBlockMap = blocksBefore
-          .concat(newBlocks, blocksAfter)
-          .toOrderedMap();
-        const newContentState = contentState.merge({
-          blockMap: newBlockMap,
-          selectionBefore: selection,
-          selectionAfter: selection
-        });
-        let newEditorState = EditorState.push(editorState, newContentState, "insert-fragment");
-        const newSelection = new SelectionState({
-            anchorKey: newBlockKey,
-            anchorOffset: newBlock.getLength(),
-            focusKey: newBlockKey,
-            focusOffset: newBlock.getLength(),
-          })
-        newEditorState = EditorState.forceSelection(newEditorState, newSelection);
-        return newEditorState;
-      }
-
-    useEffect(() => {
-        if(props.value && props.value.blocks && !_.isEqual(props.value, rawState)){
-            handleOnChange(EditorState.createWithContent(convertFromRaw(props.value)), false);
-        }
-    }, [props.value]);
 
     return(	
         <Box className={classes.box}>
