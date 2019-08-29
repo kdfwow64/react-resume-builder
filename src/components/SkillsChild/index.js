@@ -108,12 +108,21 @@ function SkillsChild() {
 		}
 	};
 
+	const handleAddChange = e => {
+		dispatch({
+			type: 'API_CALL_ADD',
+			payload: { field: 'skills', json: { name: '', id: stateSkills.length + 1, rate: `${parseFloat(0) * 2}` } }
+		});
+	}
+
+	console.log(stateSkills);
 	return (
 		<Paper className={classes.paper} elevation={0}>
 			<Grid container spacing={3}>
 				<Grid item md={8}>
 					<Grid container spacing={3} className={classes.container}>
 						{stateSkills.map((item, index) => {
+							if (!item.id) return null
 							return (
 								<React.Fragment key={index}>
 									<Grid item xs={12} md={6}>
@@ -151,7 +160,7 @@ function SkillsChild() {
 								</Button>
 							</Grid>
 							<Grid xs={12} md={2} item>
-								<Button variant='contained' color='default' fullWidth>
+								<Button variant='contained' color='default' fullWidth onClick={handleAddChange}>
 									<AddOutlined />
 									Add skill
 								</Button>
