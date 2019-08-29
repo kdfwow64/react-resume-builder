@@ -28,6 +28,7 @@ function HeadingChild() {
 	const [street, setStreet] = useState('');
 	const [stateProvince, setStateProvince] = useState('');
 	const [city, setCity] = useState('');
+	const [country, setCountry] = useState('');
 	const [jobTitle, setJobTitle] = useState('');
 	const [zipcode, setZipcode] = useState('');
 	const [flagInput, setFlagInput] = useState('');
@@ -40,6 +41,7 @@ function HeadingChild() {
 	const [streetLoading, setStreetLoading] = useState('success');
 	const [stateProvinceLoading, setStateProvinceLoading] = useState('success');
 	const [cityLoading, setCityLoading] = useState('success');
+	const [countryLoading, setCountryLoading] = useState('success');
 	const [jobTitleLoading, setJobTitleLoading] = useState('success');
 	const [zipcodeLoading, setZipcodeLoading] = useState('success');
 
@@ -51,6 +53,7 @@ function HeadingChild() {
 		setEmail(server_data.profile.email);
 		setPhone(server_data.profile.phone);
 		setWebsite(server_data.profile.website);
+		setCountry(server_data.profile.country);
 		setStreet(server_data.address.street);
 		setStateProvince(server_data.address.stateProvince);
 		setCity(server_data.address.city);
@@ -86,6 +89,9 @@ function HeadingChild() {
 				case 'city':
 					setCityLoading('loading');
 					break;
+				case 'country':
+					setCountryLoading('loading');
+					break;
 				case 'jobTitle':
 					setJobTitleLoading('loading');
 					break;
@@ -120,6 +126,9 @@ function HeadingChild() {
 					break;
 				case 'city':
 					setCityLoading('success');
+					break;
+				case 'country':
+					setCountryLoading('success');
 					break;
 				case 'jobTitle':
 					setJobTitleLoading('success');
@@ -170,6 +179,7 @@ function HeadingChild() {
 			case 'street':
 			case 'stateProvince':
 			case 'city':
+			case 'country':
 			case 'zipcode':
 				deferApiCallUpdate(name, value);
 				break;
@@ -273,6 +283,17 @@ function HeadingChild() {
 								state={zipcodeLoading}
 								id='address'
 								name='zipcode'
+								onChange={handleChange}
+							/>
+						</Grid>
+						<Grid item xs={12} md={6}>
+							<CustomInput
+								label='Country'
+								placeholder='e.g. USA'
+								value={country}
+								state={countryLoading}
+								id='profile'
+								name='country'
 								onChange={handleChange}
 							/>
 						</Grid>
