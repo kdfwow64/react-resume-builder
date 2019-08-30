@@ -9,7 +9,9 @@ import {
 	API_UPDATE_SUCCESS,
 	API_UPDATE_FAILURE,
 	API_CALL_GET,
-	API_GET_SUCCESS
+	API_GET_SUCCESS,
+	API_CALL_ADD,
+	API_ADD_SUCCESS
 } from '../constants';
 
 // reducer with initial state
@@ -47,6 +49,11 @@ export function reducer(state = initialState, action) {
 			return { ...state, fetching: false, success: true };
 		case API_UPDATE_FAILURE:
 			return { ...state, fetching: false, success: false, error: action.error };
+		case API_CALL_ADD:
+			return { ...state, fetching: true, error: null };
+		case API_ADD_SUCCESS:
+			const skills = state.server_data.skills.push(action.server_data);
+			return { ...state, server_data:{ ...state.server_data, ...skills }, fetching: false };
 		case API_CALL_CHANGE:
 			if (action.index !== undefined) {
 				let index = action.index;
