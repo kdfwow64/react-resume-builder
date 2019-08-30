@@ -25,6 +25,7 @@ function SkillsChild() {
 	const [stateSkills, setStateSkills] = useState(initialValue);
 	let [skillsLoading, setskillsLoading] = useState([]);
 	const [flagInput, setFlagInput] = useState('');
+	const [lastID, setLastID] = useState(0);
 	const allowedState = [];
 
 	const [updateTimeouts, setUpdateTimeouts] = useState({});
@@ -35,6 +36,7 @@ function SkillsChild() {
 		allowedState.push({ id: item.id, name: item.name, rate: item.rate });
 		skills.push('success');
 		arrayValue.push('success');
+		if (lastID < parseInt(item.id)) setLastID(parseInt(item.id));
 	});
 	// skillsLoading = [...skills];
 
@@ -66,7 +68,7 @@ function SkillsChild() {
 			data[name] = value;
 			dispatch({
 				type: 'API_CALL_UPDATE',
-				payload: { field: 'skills', id: id, json: data }
+				payload: { field: 'skills', id: `${id}`, json: data }
 			});
 		}, 500);
 		updateTimeouts[name] = tout;
@@ -100,7 +102,7 @@ function SkillsChild() {
 				setFlagInput(index);
 				dispatch({
 					type: 'API_CALL_UPDATE',
-					payload: { field: 'skills', id: id, json: { rate: `${parseFloat(value) * 2}` } }
+					payload: { field: 'skills', id: `${id}`, json: { rate: `${parseFloat(value) * 2}` } }
 				});
 				break;
 			default:
@@ -111,7 +113,7 @@ function SkillsChild() {
 	const handleAddChange = e => {
 		dispatch({
 			type: 'API_CALL_ADD',
-			payload: { field: 'skills', json: { name: '', id: stateSkills.length + 1, rate: `${parseFloat(0) * 2}` } }
+			payload: { field: 'skills', json: { name: '', id: `${parseInt(lastID) + 1}`, rate: `${parseFloat(0) * 2}` } }
 		});
 	}
 
