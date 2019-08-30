@@ -111,7 +111,7 @@ function SkillsChild() {
 	const handleAddChange = e => {
 		dispatch({
 			type: 'API_CALL_ADD',
-			payload: { field: 'skills', json: { name: '', id: stateSkills.length + 1, rate: `${parseFloat(0) * 2}` } }
+			payload: { field: 'skills', json: { name: '', id: Math.floor(Math.random()*1000000), rate: `${parseFloat(0) * 2}` } }
 		});
 	}
 
