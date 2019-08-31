@@ -22,6 +22,7 @@ import CustomButton from "../Button";
 import { Link } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
+import Axios from "axios";
 
 function HeadingChild() {
   const classes = headingChildStyles();
@@ -58,6 +59,44 @@ function HeadingChild() {
 
   const [updateTimeouts, setUpdateTimeouts] = useState({});
 
+  function handleImageChange(e) {
+    var reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    setLoadingThumbnail(true);
+
+    reader.onload = () => {
+      Axios.patch(
+        "https://hqmm4lfjf0.execute-api.eu-central-1.amazonaws.com/dev/image-server",
+        { data: reader.result },
+        { headers: { "x-api-key": "isUSOmXcOF54H2Syvk83B73ryInlXjdW8HBFsqvn" } }
+      )
+        .then(res => {
+          debugger;
+          Axios.patch(
+            "https://hqmm4lfjf0.execute-api.eu-central-1.amazonaws.com/dev/profile",
+            { thumbnail: res.data.url },
+            {
+              headers: {
+                "x-api-key": "isUSOmXcOF54H2Syvk83B73ryInlXjdW8HBFsqvn"
+              }
+            }
+          )
+            .then(res => {
+              debugger;
+              setThumbnail(reader.result);
+              setLoadingThumbnail(false);
+            })
+            .catch(err => {
+              debugger;
+              setLoadingThumbnail(false);
+            });
+        })
+        .catch(err => {
+          debugger;
+          setLoadingThumbnail(false);
+        });
+    };
+  }
   useEffect(() => {
     debugger;
     setFirstName(server_data.profile.firstName);
@@ -235,24 +274,18 @@ function HeadingChild() {
                 <Box minWidth={200}>
                   {!loadingThumbnail && thumbnail.length > 0 ? (
                     <>
+                      <Typography
+                        style={{ cursor: "pointer" }}
+                        onClick={() => setThumbnail("")}
+                      >
+                        Delete Image
+                      </Typography>
                       <input
                         accept="image/*"
                         style={{ display: "none" }}
                         id="contained-button-file"
-                        multiple
                         type="file"
-                      />
-                      <label htmlFor="contained-button-file">
-                        <Typography style={{ cursor: "pointer" }}>
-                          Delete Image
-                        </Typography>
-                      </label>
-                      <input
-                        accept="image/*"
-                        style={{ display: "none" }}
-                        id="contained-button-file"
-                        multiple
-                        type="file"
+                        onChange={e => handleImageChange(e)}
                       />
                       <label htmlFor="contained-button-file">
                         <Typography style={{ cursor: "pointer" }}>
@@ -266,7 +299,7 @@ function HeadingChild() {
                         accept="image/*"
                         style={{ display: "none" }}
                         id="contained-button-file"
-                        multiple
+                        onChange={e => handleImageChange(e)}
                         type="file"
                       />
                       <label htmlFor="contained-button-file">
