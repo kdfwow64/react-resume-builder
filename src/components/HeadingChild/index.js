@@ -67,7 +67,7 @@ function HeadingChild() {
     reader.onload = () => {
       Axios.patch(
         "https://hqmm4lfjf0.execute-api.eu-central-1.amazonaws.com/dev/image-server",
-        { data: reader.result },
+        { url: reader.result},
         { headers: { "x-api-key": "isUSOmXcOF54H2Syvk83B73ryInlXjdW8HBFsqvn" } }
       )
         .then(res => {
