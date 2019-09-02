@@ -1,20 +1,17 @@
-import React, { useState, useImperativeHandle, forwardRef  } from 'react';
+import React, { useState, useImperativeHandle, forwardRef, componentDidUpdate, useEffect  } from 'react';
 import { Box } from '@material-ui/core';
 import 'draft-js/dist/Draft.css';
-import {Editor, EditorState, RichUtils, convertFromRaw, convertToRaw, Modifier } from 'draft-js';
+import {Editor, EditorState, RichUtils, convertFromRaw, convertToRaw, Modifier, RawDraftContentState } from 'draft-js';
 import { richEditStyle } from './style';
 import ToolbarButton from './ToolbarButton';
 import {toolbarCommands} from './toolbarCommands';
+import _ from 'lodash';
 
 const RichEdit = forwardRef((props, ref) => {
     const classes = richEditStyle(props);
-    const [editorState, setEditorState] = useState(
-        ()=>{
-            if(props.value){
-                return EditorState.createWithContent(convertFromRaw(JSON.parse(props.value)))
-            }
-            return EditorState.createEmpty();
-        });
+    const { id, name } = props;
+    const [editorState, setEditorState] = useState(EditorState.createEmpty());
+    const [rawState, setRawState] = useState({});
     let editor = {};
 
     const contentState = editorState.getCurrentContent();
@@ -23,9 +20,15 @@ const RichEdit = forwardRef((props, ref) => {
     const blockType = editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType();
 
     const handleOnChange = state => {
-        setEditorState(state);        
-        if(props.onChange)
-            props.onChange(convertToRaw(state.getCurrentContent()));
+        setEditorState(state);       
+        const newRawState = convertToRaw(state.getCurrentContent());
+        const stateChanged = !_.isEqual(rawState, newRawState);
+        if(stateChanged){
+            setRawState(newRawState); 
+            if(props.onChange){
+                props.onChange({target: { id: id, name: name, value: newRawState }});
+            }
+        }
     }
 
     const handleKeyCommand = (command, editorState) => {
@@ -71,6 +74,12 @@ const RichEdit = forwardRef((props, ref) => {
           handleOnChange(newEditorState);
         }
     }));
+
+    useEffect(() => {
+        if(props.value && props.value.blocks && !_.isEqual(props.value, rawState)){
+            handleOnChange(EditorState.createWithContent(convertFromRaw(props.value)));
+        }
+    }, [props.value]);
 
     return(	
         <Box className={classes.box}>
