@@ -11,6 +11,11 @@ export const finalizeChildStyles = makeStyles({
     border: "1px solid #00000087",
     borderRadius: 15
   },
+  selectedTransparent: {
+    padding: 2,
+    border: "1px solid transparent",
+    borderRadius: 15
+  },
   selectedTeal: {
     padding: 2,
     border: "1px solid #008080bf",

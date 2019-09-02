@@ -101,7 +101,13 @@ function FinalizeChild() {
             >
               <Typography>Accent Color:</Typography>
               <IconButton onClick={() => handleAccent("black")}>
-                <Box className={selected === "black" && classes.selectedBlack}>
+                <Box
+                  className={
+                    selected === "black"
+                      ? classes.selectedBlack
+                      : classes.selectedTransparent
+                  }
+                >
                   <Box
                     width={20}
                     height={20}
@@ -111,7 +117,13 @@ function FinalizeChild() {
                 </Box>
               </IconButton>
               <IconButton onClick={() => handleAccent("teal")}>
-                <Box className={selected === "teal" && classes.selectedTeal}>
+                <Box
+                  className={
+                    selected === "teal"
+                      ? classes.selectedTeal
+                      : classes.selectedTransparent
+                  }
+                >
                   <Box
                     width={20}
                     height={20}
@@ -121,7 +133,13 @@ function FinalizeChild() {
                 </Box>
               </IconButton>
               <IconButton onClick={() => handleAccent("blue")}>
-                <Box className={selected === "blue" && classes.selectedBlue}>
+                <Box
+                  className={
+                    selected === "blue"
+                      ? classes.selectedBlue
+                      : classes.selectedTransparent
+                  }
+                >
                   <Box
                     width={20}
                     height={20}
@@ -132,7 +150,11 @@ function FinalizeChild() {
               </IconButton>
               <IconButton onClick={() => handleAccent("yellow")}>
                 <Box
-                  className={selected === "yellow" && classes.selectedYellow}
+                  className={
+                    selected === "yellow"
+                      ? classes.selectedYellow
+                      : classes.selectedTransparent
+                  }
                 >
                   <Box
                     width={20}
