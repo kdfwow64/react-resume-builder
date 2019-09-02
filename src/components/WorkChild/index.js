@@ -4,7 +4,7 @@
  *
  */
 
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo, useState, useEffect, useRef } from 'react';
 import { AddOutlined } from '@material-ui/icons';
 import { Typography, Paper, Grid, Box, Button } from '@material-ui/core';
 import { workChildStyles } from './style';
@@ -12,6 +12,7 @@ import CustomInput from '../Input';
 import CustomCheckbox from '../Checkbox';
 import CustomButton from '../Button';
 import SearchList from '../SearchList/SearchList';
+import RichEdit from '../RichEdit/RichEdit';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -33,6 +34,7 @@ function WorkChild() {
 	const [stateProvince, setStateProvince] = useState('');
 	const [workTitle, setWorkTitle] = useState('');
 	const [flagInput, setFlagInput] = useState('');
+	const [summary, setSummary] = useState({});
 
 	const [cityLoading, setCityLoading] = useState('success');
 	// MS:
@@ -44,6 +46,8 @@ function WorkChild() {
 	const [workTitleLoading, setWorkTitleLoading] = useState('success');
 
 	const [updateTimeouts, setUpdateTimeouts] = useState({});
+
+	const richEdit = useRef();
 
 	let index = 0;
 
@@ -69,6 +73,7 @@ function WorkChild() {
 		setStartDate(`${res[2]}-${res[0]}-${res[1]}`);
 		setStateProvince(server_data.workHistory[index].stateProvince);
 		setWorkTitle(server_data.workHistory[index].workTitle);
+		setSummary(server_data.workHistory[index].summary);
 	}, [server_data]);
 
 	useEffect(() => {
@@ -189,6 +194,7 @@ function WorkChild() {
 			case 'startDate':
 			case 'endDate':
 			case 'currentWork':
+			case 'summary':
 				deferApiCallUpdate(name, value);
 				break;
 			default:
@@ -196,8 +202,12 @@ function WorkChild() {
 		}
 	};
 
+	const handleSummaryChange = data => {
+		deferApiCallUpdate('summary', data);
+	};
+
 	const handleSearchItemSelected = item => {
-		console.log(item);
+		richEdit.current.addParagraph(item.description);
 	}
 
 	return (
@@ -295,7 +305,15 @@ function WorkChild() {
 							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<CustomInput label='Work Details' placeholder='Description' multiline rows={24} />
+							<RichEdit
+									height={175}
+									placeholder='Description'
+									value={summary}
+									id='workHistory'
+									name='summary'
+									onChange={handleChange}
+									ref={richEdit}
+									></RichEdit>
 						</Grid>
 						<Grid item xs={12} md={6}>
 							<SearchList height={460} onItemSelected={handleSearchItemSelected} resource='work-suggestions' />
