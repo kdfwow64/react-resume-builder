@@ -1,23 +1,28 @@
 /**
  *
- * SummaryChild
+ * FinalizeChild
  *
  */
 
-import React, { memo } from "react";
-import { Grid, Box, Typography, Paper, Button } from "@material-ui/core";
-import { AddOutlined } from "@material-ui/icons";
-import CustomInput from "../Input";
-import { summaryChildStyles } from "./style";
+import React, { memo, useState } from "react";
+import {
+  Grid,
+  Box,
+  Typography,
+  Paper,
+  Button,
+  IconButton
+} from "@material-ui/core";
+import { ChevronRight, ChevronLeft, Fullscreen } from "@material-ui/icons";
+import { finalizeChildStyles } from "./style";
 import CustomButton from "../Button";
 import { Link } from "react-router-dom";
-import SearchList from "../SearchList/SearchList";
 
-function SummaryChild() {
-  const classes = summaryChildStyles();
-
-  const handleSearchItemSelected = item => {
-    console.log(item);
+function FinalizeChild() {
+  const classes = finalizeChildStyles();
+  const [selected, setSelected] = useState("black");
+  const handleAccent = color => {
+    setSelected(color);
   };
 
   return (
@@ -72,9 +77,82 @@ function SummaryChild() {
           </Grid>
         </Grid>
         <Grid item md={9}>
+          <Box display="flex" justifyContent="space-between" flex={1}>
+            <Box
+              display="flex"
+              alignItems="center"
+              minWidth={200}
+              justifyContent="space-between"
+            >
+              <IconButton>
+                <ChevronLeft className={classes.icons} />
+              </IconButton>
+              <Typography>Template 1</Typography>
+              <IconButton>
+                <ChevronRight className={classes.icons} />
+              </IconButton>
+            </Box>
+
+            <Box
+              display="flex"
+              alignItems="center"
+              minWidth={200}
+              justifyContent="space-between"
+            >
+              <Typography>Accent Color:</Typography>
+              <IconButton onClick={() => handleAccent("black")}>
+                <Box className={selected === "black" && classes.selectedBlack}>
+                  <Box
+                    width={20}
+                    height={20}
+                    borderRadius={15}
+                    bgcolor="black"
+                  />
+                </Box>
+              </IconButton>
+              <IconButton onClick={() => handleAccent("teal")}>
+                <Box className={selected === "teal" && classes.selectedTeal}>
+                  <Box
+                    width={20}
+                    height={20}
+                    borderRadius={15}
+                    bgcolor="teal"
+                  />
+                </Box>
+              </IconButton>
+              <IconButton onClick={() => handleAccent("blue")}>
+                <Box className={selected === "blue" && classes.selectedBlue}>
+                  <Box
+                    width={20}
+                    height={20}
+                    borderRadius={15}
+                    bgcolor="blue"
+                  />
+                </Box>
+              </IconButton>
+              <IconButton onClick={() => handleAccent("yellow")}>
+                <Box
+                  className={selected === "yellow" && classes.selectedYellow}
+                >
+                  <Box
+                    width={20}
+                    height={20}
+                    borderRadius={15}
+                    bgcolor="#f8c000"
+                  />
+                </Box>
+              </IconButton>
+            </Box>
+
+            <Box>
+              <Button>
+                <Fullscreen className={classes.icons} /> Preview
+              </Button>
+            </Box>
+          </Box>
           <Box boxShadow={2} borderRadius={4}>
             <img
-              src="https://via.placeholder.com/300x450"
+              src="https://via.placeholder.com/600x550"
               className={classes.img}
               alt="cv"
             />
@@ -85,6 +163,6 @@ function SummaryChild() {
   );
 }
 
-SummaryChild.propTypes = {};
+FinalizeChild.propTypes = {};
 
-export default memo(SummaryChild);
+export default memo(FinalizeChild);
