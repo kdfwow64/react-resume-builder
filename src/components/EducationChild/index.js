@@ -302,18 +302,18 @@ function EducationChild(props) {
 							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<RichEdit 
-								height={175} 
+							<RichEdit
+								height={175}
 								placeholder='Description'
 								value={summary}
 								id='education'
-								name='summary' 
-								onChange={handleChange} 
-								ref={richEdit} 
+								name='summary'
+								onChange={handleChange}
+								ref={richEdit}
 								></RichEdit>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<SearchList height={175} onItemSelected={ handleSearchItemSelected } resource='education-suggestions' ></SearchList>
+							<SearchList height={460} onItemSelected={handleSearchItemSelected} resource='education-suggestions' />
 						</Grid>
 					</Grid>
 					<Grid item xs={12} style={{ marginTop: 32 }}>

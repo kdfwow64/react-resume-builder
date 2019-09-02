@@ -49,7 +49,7 @@ function WorkChild() {
 
 	const richEdit = useRef();
 
-	let index = 0;	
+	let index = 0;
 
 	useEffect(() => {
 		setId(server_data.workHistory[index].id);
@@ -305,18 +305,18 @@ function WorkChild() {
 							/>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<RichEdit 
-									height={175} 
+							<RichEdit
+									height={175}
 									placeholder='Description'
 									value={summary}
 									id='workHistory'
-									name='summary' 
-									onChange={handleChange} 
-									ref={richEdit} 
+									name='summary'
+									onChange={handleChange}
+									ref={richEdit}
 									></RichEdit>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<SearchList height={175} onItemSelected={ handleSearchItemSelected } resource='work-suggestions' ></SearchList>
+							<SearchList height={460} onItemSelected={handleSearchItemSelected} resource='work-suggestions' />
 						</Grid>
 					</Grid>
 					<Grid item xs={12} style={{ marginTop: 32 }}>
