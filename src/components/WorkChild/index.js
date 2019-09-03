@@ -21,10 +21,11 @@ function WorkChild() {
 	const classes = workChildStyles();
 	const dispatch = useDispatch();
 	const query = useSelector(state => state);
-	const { fetching, server_data, error } = query;
+	const { fetching, server_data, activeIndex, error } = query;
 
 	const [city, setCity] = useState('');
 	// MS:
+	const [index, setIndex] = useState(0);
 	const [country, setCountry] = useState('');
 	const [currentWork, setCurrentWork] = useState('');
 	const [employer, setEmployer] = useState('');
@@ -49,16 +50,18 @@ function WorkChild() {
 
 	const richEdit = useRef();
 
-	let index = 0;
+	// let index = 0;
 
 	useEffect(() => {
+		setIndex(server_data.workHistory.length);
 		setId(server_data.workHistory[index].id);
 		setCity(server_data.workHistory[index].city);
 		setCountry(server_data.workHistory[index].country)
 		setCurrentWork(server_data.workHistory[index].currentWork);
 		setEmployer(server_data.workHistory[index].employer);
 		let res = [];
-		if (server_data.workHistory[index].endDate === undefined) {
+		if (server_data.workHistory[
+    ].endDate === undefined) {
 			res = ['', '', ''];
 		} else {
 			res = server_data.workHistory[index].endDate.split('/');
@@ -143,7 +146,7 @@ function WorkChild() {
 			data[name] = value;
 			dispatch({
 				type: 'API_CALL_UPDATE',
-				payload: { field: 'workHistory', id: id, json: data }
+				payload: { field: 'workHistory', id: activeIndex.workHistory, json: data }
 			});
 		}, 500);
 		updateTimeouts[name] = tout;
@@ -209,6 +212,28 @@ function WorkChild() {
 	const handleSearchItemSelected = item => {
 		richEdit.current.addParagraph(item.description);
 	}
+
+	const handleAddWork = () => {
+      console.log('server_data.workHistory', server_data.workHistory.length);
+      let index = Math.floor(Math.random() * 1000000);
+
+      let obj = {
+         id: index.toString(),
+         workTitle: '',
+         employer: '',
+         city: '',
+         stateProvince: '',
+         startDate: '',
+         endDate: '',
+         currentWork: '',
+         summary: [],
+         country: ''
+      };
+      dispatch({
+         type: 'API_CALL_ADD',
+         payload: { field: 'workHistory', id: index, json: obj }
+      });
+   };
 
 	return (
 		<Paper className={classes.paper} elevation={0}>
@@ -327,7 +352,8 @@ function WorkChild() {
 								</Button>
 							</Grid>
 							<Grid xs={12} md={3} item>
-								<Button variant='contained' color='default' fullWidth>
+								<Button variant='contained' color='default' onClick={handleAddWork}
+                           disabled={fetching} fullWidth>
 									<AddOutlined />
 									Add work
 								</Button>
