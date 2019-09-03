@@ -60,7 +60,8 @@ function WorkChild() {
 		setCurrentWork(server_data.workHistory[index].currentWork);
 		setEmployer(server_data.workHistory[index].employer);
 		let res = [];
-		if (server_data.workHistory[index].endDate === undefined) {
+		if (server_data.workHistory[
+    ].endDate === undefined) {
 			res = ['', '', ''];
 		} else {
 			res = server_data.workHistory[index].endDate.split('/');
