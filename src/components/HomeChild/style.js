@@ -5,18 +5,12 @@ export const homeChildStyles = makeStyles({
     marginTop: 48
   },
   title: {
-    textTransform: "uppercase",
-    fontFamily:"Roboto"
+    textTransform: "uppercase"
   },
   icon: {
     color: "teal",
     marginRight: 5,
     fontSize: 40
-  },
-  iconImage: {
-    width: 40,
-    height: 40,
-    marginRight: 16
   },
   w20: {
     width: "20%"
@@ -40,12 +34,5 @@ export const homeChildStyles = makeStyles({
     fontWeight: "bold",
     lineHeight: "4"
   },
-  paper: { display: "flex", justifyContent: "center", minHeight: 120 },
-  mt3: { marginTop: 16 },
-  muted: { color: "#959595" },
-  avatar: { width: 63, height: 63 },
-  readmore: { width: "15%", position: "relative", top: -45, left: "42%" },
-  bold: {
-    fontWeight: "bold"
-  }
+  paper: { display: "flex", justifyContent: "center", minHeight: 120 }
 });
