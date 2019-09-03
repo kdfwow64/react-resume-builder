@@ -5,14 +5,18 @@
  *
  */
 
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+import React from "react";
+import { Grid } from "@material-ui/core";
+import { headingStyles } from "./styles";
+import HomeChild from "../../components/HomeChild";
 
 export default function HomePage() {
-	return (
-		<h1>
-			<FormattedMessage {...messages.header} />
-		</h1>
-	);
+  const classes = headingStyles();
+  return (
+    <Grid container justify="center" className={classes.main}>
+      <Grid item xs={10} md={11}>
+        <HomeChild />
+      </Grid>
+    </Grid>
+  );
 }
