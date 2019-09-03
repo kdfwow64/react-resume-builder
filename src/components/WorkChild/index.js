@@ -21,16 +21,14 @@ function WorkChild() {
 	const classes = workChildStyles();
 	const dispatch = useDispatch();
 	const query = useSelector(state => state);
-	const { fetching, server_data, activeIndex, error } = query;
+	const { fetching, server_data, activeIndex } = query;
 
 	const [city, setCity] = useState('');
 	// MS:
-	const [index, setIndex] = useState(0);
 	const [country, setCountry] = useState('');
 	const [currentWork, setCurrentWork] = useState('');
 	const [employer, setEmployer] = useState('');
 	const [endDate, setEndDate] = useState('');
-	const [id, setId] = useState('');
 	const [startDate, setStartDate] = useState('');
 	const [stateProvince, setStateProvince] = useState('');
 	const [workTitle, setWorkTitle] = useState('');
@@ -50,11 +48,15 @@ function WorkChild() {
 
 	const richEdit = useRef();
 
-	// let index = 0;
+	let index = 0;
+	console.log(server_data.workHistory);
+	console.log(activeIndex.workHistory);
+	index = server_data.workHistory.findIndex(x => x.id === activeIndex.workHistory.toString());
+	if(index === -1){
+		index = 0;
+	}
 
 	useEffect(() => {
-		setIndex(server_data.workHistory.length);
-		setId(server_data.workHistory[index].id);
 		setCity(server_data.workHistory[index].city);
 		setCountry(server_data.workHistory[index].country)
 		setCurrentWork(server_data.workHistory[index].currentWork);
@@ -66,7 +68,6 @@ function WorkChild() {
 			res = server_data.workHistory[index].endDate.split('/');
 		}
 		setEndDate(`${res[2]}-${res[0]}-${res[1]}`);
-		setId(server_data.workHistory[index].id);
 		if (server_data.workHistory[index].startDate === undefined) {
 			res = ['', '', ''];
 		} else {
