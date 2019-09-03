@@ -69,7 +69,11 @@ function HomeChild() {
           >
             Complete these easy steps, get hired fast
           </Typography>
-          <CustomButton className={[classes.w20, classes.h40]}>
+          <CustomButton
+            className={[classes.w20, classes.h40]}
+            component={Link}
+            to="/heading"
+          >
             Get started now
           </CustomButton>
         </Box>
