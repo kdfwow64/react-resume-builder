@@ -71,7 +71,6 @@ function HeadingChild() {
         { headers: { "x-api-key": "isUSOmXcOF54H2Syvk83B73ryInlXjdW8HBFsqvn" } }
       )
         .then(res => {
-          debugger;
           Axios.patch(
             "https://hqmm4lfjf0.execute-api.eu-central-1.amazonaws.com/dev/profile",
             { thumbnail: res.data.url },
@@ -82,23 +81,19 @@ function HeadingChild() {
             }
           )
             .then(res => {
-              debugger;
               setThumbnail(reader.result);
               setLoadingThumbnail(false);
             })
             .catch(err => {
-              debugger;
               setLoadingThumbnail(false);
             });
         })
         .catch(err => {
-          debugger;
           setLoadingThumbnail(false);
         });
     };
   }
   useEffect(() => {
-    debugger;
     setFirstName(server_data.profile.firstName);
     setLastName(server_data.profile.lastName);
     setEmail(server_data.profile.email);
