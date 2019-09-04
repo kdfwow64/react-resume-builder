@@ -110,7 +110,6 @@ function HeadingChild() {
   }, [server_data]);
 
   useEffect(() => {
-    console.log(flagInput);
     if (fetching) {
       switch (flagInput) {
         case "firstName":
