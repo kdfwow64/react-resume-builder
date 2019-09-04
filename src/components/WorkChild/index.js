@@ -6,7 +6,7 @@
 
 import React, { memo, useState, useEffect, useRef } from 'react';
 import { AddOutlined } from '@material-ui/icons';
-import { Paper, Grid, Box, Button } from '@material-ui/core';
+import { Typography, Paper, Grid, Box, Button } from '@material-ui/core';
 import { workChildStyles } from './style';
 import CustomInput from '../Input';
 import CustomCheckbox from '../Checkbox';
@@ -21,14 +21,16 @@ function WorkChild() {
 	const classes = workChildStyles();
 	const dispatch = useDispatch();
 	const query = useSelector(state => state);
-	const { fetching, server_data, activeIndex } = query;
+	const { fetching, server_data, activeIndex, error } = query;
 
 	const [city, setCity] = useState('');
 	// MS:
+	const [index, setIndex] = useState(0);
 	const [country, setCountry] = useState('');
 	const [currentWork, setCurrentWork] = useState('');
 	const [employer, setEmployer] = useState('');
 	const [endDate, setEndDate] = useState('');
+	const [id, setId] = useState('');
 	const [startDate, setStartDate] = useState('');
 	const [stateProvince, setStateProvince] = useState('');
 	const [workTitle, setWorkTitle] = useState('');
@@ -48,13 +50,11 @@ function WorkChild() {
 
 	const richEdit = useRef();
 
-	let index = 0;
-	index = server_data.workHistory.findIndex(x => x.id === activeIndex.workHistory.toString());
-	if(index === -1){
-		index = 0;
-	}
+	// let index = 0;
 
 	useEffect(() => {
+		setIndex(server_data.workHistory.length);
+		setId(server_data.workHistory[index].id);
 		setCity(server_data.workHistory[index].city);
 		setCountry(server_data.workHistory[index].country)
 		setCurrentWork(server_data.workHistory[index].currentWork);
@@ -66,6 +66,7 @@ function WorkChild() {
 			res = server_data.workHistory[index].endDate.split('/');
 		}
 		setEndDate(`${res[2]}-${res[0]}-${res[1]}`);
+		setId(server_data.workHistory[index].id);
 		if (server_data.workHistory[index].startDate === undefined) {
 			res = ['', '', ''];
 		} else {
@@ -75,9 +76,10 @@ function WorkChild() {
 		setStateProvince(server_data.workHistory[index].stateProvince);
 		setWorkTitle(server_data.workHistory[index].workTitle);
 		setSummary(server_data.workHistory[index].summary);
-	}, [server_data, index]);
+	}, [server_data]);
 
 	useEffect(() => {
+		console.log(flagInput);
 		if (fetching) {
 			switch (flagInput) {
 				case 'workTitle':
@@ -131,7 +133,7 @@ function WorkChild() {
 					break;
 			}
 		}
-	}, [fetching, flagInput]);
+	}, [fetching]);
 
 	const deferApiCallUpdate = (name, value) => {
 		let tout = updateTimeouts[name];
@@ -211,6 +213,7 @@ function WorkChild() {
 	}
 
 	const handleAddWork = () => {
+      console.log('server_data.workHistory', server_data.workHistory.length);
       let index = Math.floor(Math.random() * 1000000);
 
       let obj = {
