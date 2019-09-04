@@ -14,7 +14,7 @@ export default function HomePage() {
   const classes = headingStyles();
   return (
     <Grid container justify="center" className={classes.main}>
-      <Grid item xs={10} md={11}>
+      <Grid item xs={10} md={12}>
         <HomeChild />
       </Grid>
     </Grid>

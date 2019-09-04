@@ -34,5 +34,6 @@ export const homeChildStyles = makeStyles({
     fontWeight: "bold",
     lineHeight: "4"
   },
-  paper: { display: "flex", justifyContent: "center", minHeight: 120 }
+  paper: { display: "flex", justifyContent: "center", minHeight: 120 },
+  mt3: { marginTop: 16 }
 });
