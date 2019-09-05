@@ -102,7 +102,7 @@ function SkillsChild() {
 
       let jsonValue = {};
       if (e.target.name === 'showSkills') {
-         value = e.target.value === 'true' ? false : true;
+         value = e.target.value !== 'true';
          jsonValue = {
             type: 'API_CALL_CHANGE',
             field: e.target.id,
@@ -184,7 +184,7 @@ function SkillsChild() {
                   <Grid item xs={12} md={6}>
                      <CustomCheckbox
                         label="Don't show experience level"
-                        checked={showSkills}
+                        checked={!showSkills}
                         value={showSkills}
                         id='profile'
                         name='showSkills'
