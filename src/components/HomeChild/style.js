@@ -35,5 +35,11 @@ export const homeChildStyles = makeStyles({
     lineHeight: "4"
   },
   paper: { display: "flex", justifyContent: "center", minHeight: 120 },
-  mt3: { marginTop: 16 }
+  mt3: { marginTop: 16 },
+  muted: { color: "#959595" },
+  avatar: { width: 63, height: 63 },
+  readmore: { width: "15%", position: "relative", top: -45, left: "42%" },
+  bold: {
+    fontWeight: "bold"
+  }
 });

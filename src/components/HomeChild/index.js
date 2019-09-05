@@ -5,14 +5,20 @@
  */
 
 import React, { memo } from "react";
-import { Grid, Box, Typography, Paper } from "@material-ui/core";
+import { Grid, Box, Typography, Paper, Avatar } from "@material-ui/core";
 import { homeChildStyles } from "./style";
 import CustomButton from "../Button";
 import { Link } from "react-router-dom";
 import CV from "../../assets/cv.png";
+import F1 from "../../assets/face1.png";
+import F2 from "../../assets/face2.png";
+import F3 from "../../assets/face3.png";
 import { useSelector, useDispatch } from "react-redux";
 import { AttachFile, FontDownload } from "@material-ui/icons";
 import MenuAppBar from "../Appbar/Appbar";
+import TextMobileStepper from "../Stepper";
+import SwipeableTextMobileStepper from "../Stepper";
+import Footer from "../Footer/Footer";
 
 function HomeChild() {
   const classes = homeChildStyles();
@@ -211,6 +217,158 @@ function HomeChild() {
             </Paper>
           </Grid>
         </Grid>
+      </Grid>
+      <Grid item xs={10} className={classes.container}>
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Typography
+            className={[classes.title, classes.w60, classes.letterSpacing3]}
+            variant="h4"
+          >
+            CHOSE THE RIGHT TEMPLATE FOR THE JOB
+          </Typography>
+
+          <Typography variant="caption">
+            Recent Graduates to seasoned professional
+          </Typography>
+        </Box>
+      </Grid>
+      <Grid item xs={12} md={5}>
+        <SwipeableTextMobileStepper />
+      </Grid>
+      <Grid item xs={10} className={classes.container}>
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Typography
+            className={[classes.w60, classes.letterSpacing3]}
+            variant="h4"
+          >
+            Here is what the users got{" "}
+          </Typography>
+          <div>
+            <Typography variant="caption" component="div">
+              Got suggestions or comments ?
+            </Typography>
+            <Typography variant="caption" component="div">
+              {" "}
+              Please let us know.{" "}
+            </Typography>
+          </div>
+        </Box>
+      </Grid>
+      <Grid item xs={12} md={10}>
+        <Grid container spacing={10}>
+          <Grid item xs={12} md={4}>
+            <Paper elevation={11}>
+              <Box p={4}>
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  mb={3}
+                  alignItems="center"
+                >
+                  <Box>
+                    <Typography
+                      variant="caption"
+                      component="div"
+                      className={classes.bold}
+                    >
+                      Stephan E.{" "}
+                    </Typography>
+                    <Typography
+                      variant="caption"
+                      component="div"
+                      className={classes.muted}
+                    >
+                      College Student{" "}
+                    </Typography>
+                  </Box>
+                  <Avatar src={F1} className={classes.avatar} />
+                </Box>
+
+                <Typography variant="caption" component="div">
+                  "I wrote my first resume about 4 years ago, I got hired right
+                  away. Changing careers meant a new updated resume. The sales
+                  resume helped me land my new job."
+                </Typography>
+              </Box>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Paper elevation={11}>
+              <Box p={4}>
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  mb={3}
+                  alignItems="center"
+                >
+                  <Box>
+                    <Typography
+                      variant="caption"
+                      component="div"
+                      className={classes.bold}
+                    >
+                      Erica B.
+                    </Typography>
+                    <Typography
+                      variant="caption"
+                      component="div"
+                      className={classes.muted}
+                    >
+                      {"PR & Communication"}
+                    </Typography>
+                  </Box>
+                  <Avatar src={F2} className={classes.avatar} />
+                </Box>
+
+                <Typography variant="caption" component="div">
+                  "Applying for jobs takes a lot of time. Resume.io helps me
+                  manage my resume and create new ones for specific job
+                  applications. It has saved me a lot time!"
+                </Typography>
+              </Box>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Paper elevation={11}>
+              <Box p={4}>
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  mb={3}
+                  alignItems="center"
+                >
+                  <Box>
+                    <Typography
+                      variant="caption"
+                      component="div"
+                      className={classes.bold}
+                    >
+                      Peter S.
+                    </Typography>
+                    <Typography
+                      variant="caption"
+                      component="div"
+                      className={classes.muted}
+                    >
+                      Retail Manager
+                    </Typography>
+                  </Box>
+                  <Avatar src={F3} className={classes.avatar} />
+                </Box>
+
+                <Typography variant="caption" component="div">
+                  "I have never had a resume. In fact, I was clueless about how
+                  to even build a resume. The easy process here helped me get a
+                  resume without hassle."
+                </Typography>
+              </Box>
+            </Paper>
+          </Grid>
+          <CustomButton className={classes.readmore}>read more</CustomButton>
+        </Grid>
+      </Grid>
+      <Grid item xs={12} style={{ paddingBottom: 0 }}>
+        <Footer />
       </Grid>
     </Grid>
   );
