@@ -21,11 +21,10 @@ function WorkChild() {
 	const classes = workChildStyles();
 	const dispatch = useDispatch();
 	const query = useSelector(state => state);
-	const { fetching, server_data, activeIndex, error } = query;
+	const { fetching, server_data, activeIndex } = query;
 
 	const [city, setCity] = useState('');
 	// MS:
-	const [index, setIndex] = useState(0);
 	const [country, setCountry] = useState('');
 	const [currentWork, setCurrentWork] = useState('');
 	const [employer, setEmployer] = useState('');
@@ -50,10 +49,14 @@ function WorkChild() {
 
 	const richEdit = useRef();
 
-	// let index = 0;
+   // let index = 0;
+   let index = 0;
+	index = server_data.workHistory.findIndex(x => x.id === activeIndex.workHistory.toString());
+	if(index === -1){
+		index = 0;
+	}
 
 	useEffect(() => {
-		setIndex(server_data.workHistory.length);
 		setId(server_data.workHistory[index].id);
 		setCity(server_data.workHistory[index].city);
 		setCountry(server_data.workHistory[index].country)
@@ -213,7 +216,6 @@ function WorkChild() {
 	}
 
 	const handleAddWork = () => {
-      console.log('server_data.workHistory', server_data.workHistory.length);
       let index = Math.floor(Math.random() * 1000000);
 
       let obj = {
