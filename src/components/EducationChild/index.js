@@ -21,7 +21,7 @@ function EducationChild(props) {
 	const classes = educationChildStyles();
 	const dispatch = useDispatch();
 	const query = useSelector(state => state);
-	const { fetching, server_data, error } = query;
+	const { fetching, server_data, activeIndex } = query;
 
 	const [city, setCity] = useState('');
 	const [country, setCountry] = useState('');
@@ -48,6 +48,10 @@ function EducationChild(props) {
 	const richEdit = useRef();
 
 	let index = 0;
+	index = server_data.education.findIndex(x => x.id === activeIndex.education.toString());
+	if(index === -1){
+		index = 0;
+	}
 
 	useEffect(() => {
 		setId(server_data.education[index].id);
@@ -72,7 +76,7 @@ function EducationChild(props) {
 		setStartDate(`${res[2]}-${res[0]}-${res[1]}`);
 		setStateProvince(server_data.education[index].stateProvince);
 		setSummary(server_data.education[index].summary);
-	}, [server_data]);
+	}, [server_data, index]);
 
 	useEffect(() => {
 		console.log(flagInput);
@@ -129,7 +133,7 @@ function EducationChild(props) {
 					break;
 			}
 		}
-	}, [fetching]);
+	}, [fetching, flagInput]);
 
 	const deferApiCallUpdate = (name, value) => {
 		let tout = updateTimeouts[name];
@@ -205,6 +209,26 @@ function EducationChild(props) {
 	const handleSearchItemSelected = item => {
 		richEdit.current.addParagraph(item.description);
 	}
+
+	const handleAddEducation = () => {
+      let index = Math.floor(Math.random() * 1000000);
+
+      let obj = {
+         id: index.toString(),
+         currentSchool: '',
+         degree: '',
+         city: '',
+         stateProvince: '',
+         startDate: '',
+         endDate: '',
+         schoolName: '',
+         summary: []
+		};
+      dispatch({
+         type: 'API_CALL_ADD',
+         payload: { field: 'education', id: index, json: obj }
+      });
+   };
 
 	return (
 		<Paper className={classes.paper} elevation={0}>
@@ -330,7 +354,8 @@ function EducationChild(props) {
 								</Button>
 							</Grid>
 							<Grid xs={12} md={3} item>
-								<Button variant='contained' color='default' fullWidth>
+								<Button variant='contained' color='default' onClick={handleAddEducation}
+                           disabled={fetching} fullWidth>
 									<AddOutlined />
 									Add education
 								</Button>
