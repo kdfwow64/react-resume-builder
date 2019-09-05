@@ -79,7 +79,6 @@ function EducationChild(props) {
 	}, [server_data, index]);
 
 	useEffect(() => {
-		console.log(flagInput);
 		if (fetching) {
 			switch (flagInput) {
 				case 'schoolName':
