@@ -83,7 +83,6 @@ function WorkChild() {
 	}, [server_data]);
 
 	useEffect(() => {
-		console.log(flagInput);
 		if (fetching) {
 			switch (flagInput) {
 				case 'workTitle':
