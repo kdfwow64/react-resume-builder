@@ -13,6 +13,9 @@ import CV from "../../assets/cv.png";
 import F1 from "../../assets/face1.png";
 import F2 from "../../assets/face2.png";
 import F3 from "../../assets/face3.png";
+import Free from "../../assets/free.png";
+import PDF from "../../assets/pdf.png";
+import Font from "../../assets/font.png";
 import { useSelector, useDispatch } from "react-redux";
 import { AttachFile, FontDownload } from "@material-ui/icons";
 import MenuAppBar from "../Appbar/Appbar";
@@ -76,7 +79,7 @@ function HomeChild() {
       <Grid item xs={12} md={5}>
         <Box>
           <Box display="flex" alignItems="center">
-            <AttachFile className={classes.icon} />
+            <img src={Free} className={classes.iconImage} />
             <Typography
               variant="h5"
               className={[classes.title, classes.letterSpacing3]}
@@ -95,7 +98,7 @@ function HomeChild() {
       <Grid item xs={12} md={5}>
         <Box>
           <Box display="flex" alignItems="center">
-            <AttachFile className={classes.icon} />
+            <img src={PDF} className={classes.iconImage} />
             <Typography
               variant="h5"
               className={[classes.title, classes.letterSpacing3]}
@@ -138,7 +141,7 @@ function HomeChild() {
       <Grid item xs={12} md={5}>
         <Box>
           <Box display="flex" alignItems="center">
-            <FontDownload className={classes.icon} />
+            <img src={Font} className={classes.iconImage} />
             <Typography
               variant="h5"
               className={[classes.title, classes.letterSpacing3]}
@@ -208,11 +211,11 @@ function HomeChild() {
           </Grid>
           <Grid item xs={3}>
             <Paper elevation={11} className={classes.paper}>
-              <Typography className={classes.blackName} component="div">
+              <Typography className={classes.greenNumber} component="div">
                 4
               </Typography>
               <Typography className={classes.blackName} component="div">
-                Login
+                Repeat
               </Typography>
             </Paper>
           </Grid>
