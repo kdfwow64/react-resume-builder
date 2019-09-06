@@ -12,6 +12,11 @@ export const homeChildStyles = makeStyles({
     marginRight: 5,
     fontSize: 40
   },
+  iconImage: {
+    width: 40,
+    height: 40,
+    marginRight: 16
+  },
   w20: {
     width: "20%"
   },
