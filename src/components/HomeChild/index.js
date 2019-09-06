@@ -208,11 +208,11 @@ function HomeChild() {
           </Grid>
           <Grid item xs={3}>
             <Paper elevation={11} className={classes.paper}>
-              <Typography className={classes.blackName} component="div">
+              <Typography className={classes.greenNumber} component="div">
                 4
               </Typography>
               <Typography className={classes.blackName} component="div">
-                Login
+                Repeat
               </Typography>
             </Paper>
           </Grid>
