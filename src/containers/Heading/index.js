@@ -21,12 +21,7 @@ const Heading = () => {
 	const { fetching, server_data, onRequestDog, error } = query;
 	const handleClick = e => dispatch({ type: 'API_CALL_REQUEST' });
 	return (
-		<Grid container justify='center' className={classes.main}>
-			<Grid item xs={10} md={11}>
-				<MenuAppBar />
-				<HeadingChild />
-			</Grid>
-		</Grid>
+		<HeadingChild />
 		// <div className='App'>
 		// 	{/* <Hook /> */}
 		// 	<header className='App-header'>
