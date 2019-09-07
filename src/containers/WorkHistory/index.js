@@ -12,11 +12,11 @@ import MenuAppBar from '../../components/Appbar';
 import { workHistoryStyles } from './styles';
 import WorkChild from '../../components/WorkChild';
 
-export function WorkHistory(props) {
+export function WorkHistory() {
 	const classes = workHistoryStyles();
 
 	return (
-		<WorkChild index={props.match.params.index} history={props.history} />
+		<WorkChild />
 	);
 }
 

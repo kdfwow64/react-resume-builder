@@ -31,7 +31,8 @@ const SearchList = props => {
     }, [server_data]);
     
     useEffect(() => {
-        setState(fetching ? 'loading': 'search');
+        if(!fetching)
+            setState('search');
 	}, [fetching]);
 
     const handleClickSearch = () => {

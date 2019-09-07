@@ -11,11 +11,11 @@ import { Grid } from '@material-ui/core';
 import { educationStyles } from './styles';
 import EducationChild from '../../components/EducationChild';
 
-export function Edu(props) {
+export function Edu() {
 	const classes = educationStyles();
 
 	return (
-		<EducationChild index={props.match.params.index} history={props.history} />
+		<EducationChild />
 	);
 }
 

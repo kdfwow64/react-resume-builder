@@ -15,12 +15,7 @@ export function Finalize() {
   const classes = finalizeChildStyles();
 
   return (
-    <Grid container justify="center" className={classes.main}>
-      <Grid item xs={10} md={11}>
-        <MenuAppBar />
-        <FinalizeChild />
-      </Grid>
-    </Grid>
+      <FinalizeChild />
   );
 }
 
