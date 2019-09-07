@@ -1,9 +1,12 @@
 import { makeStyles } from '@material-ui/core';
 
-export const builderStyles = makeStyles(theme => ({
+export const appStyles = makeStyles(theme => ({
 	main: {
 		backgroundColor: '#f7f7f7' || theme.palette.grey,
-		minHeight: '100vh'
+        minHeight: '100vh'   
+    },
+    content: {
+		maxWidth:1440
     },
     paper: {
         padding: 12,
