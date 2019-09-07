@@ -339,7 +339,12 @@ function WorkChild() {
           />
         </Grid>
         <Grid item xs={12} md={6}>
-          <SearchList height={460} onItemSelected={handleSearchItemSelected} resource='work-suggestions'/>
+          <SearchList 
+            height={460} 
+            onItemSelected={handleSearchItemSelected} 
+            resource='work-suggestions'
+            initialQuery={workTitle}
+            userId={id}/>
         </Grid>
       </Grid>
       <Grid item xs={12} style={{marginTop: 32}}>
