@@ -225,217 +225,208 @@ function HeadingChild() {
       }
    };
    return (
-      <Paper className={classes.paper} elevation={0}>
+      <Box>
          <Grid container spacing={3}>
-            <Grid item md={8}>
-               <Grid container spacing={3}>
-                  <Grid item xs={12} md={6}>
-                     <Box display='flex' alignItems='center'>
+            <Grid item xs={12} md={6}>
+               <Box display='flex' alignItems='center'>
+                  <Box
+                     borderRadius={4}
+                     bgcolor='#f7f7f7'
+                     width={80}
+                     height={80}
+                     display='flex'
+                     justifyContent='center'
+                     alignItems='center'
+                     mr={1}
+                  >
+                     {loadingThumbnail ? (
                         <Box
-                           borderRadius={4}
-                           bgcolor='#f7f7f7'
-                           width={80}
-                           height={80}
+                           className={classes.person}
                            display='flex'
-                           justifyContent='center'
                            alignItems='center'
-                           mr={1}
+                           justifyContent='center'
                         >
-                           {loadingThumbnail ? (
-                              <Box
-                                 className={classes.person}
-                                 display='flex'
-                                 alignItems='center'
-                                 justifyContent='center'
-                              >
-                                 <CircularProgress />
-                              </Box>
-                           ) : thumbnail.length > 0 ? (
-                              <img className={classes.person} src={thumbnail} />
-                           ) : (
-                              <Person className={classes.person} />
-                           )}
+                           <CircularProgress />
                         </Box>
-                        <Box minWidth={200}>
-                           {!loadingThumbnail && thumbnail.length > 0 ? (
-                              <>
-                                 <Typography style={{ cursor: 'pointer' }} onClick={() => setThumbnail('')}>
-                                    Delete Image
-                                 </Typography>
-                                 <input
-                                    accept='image/*'
-                                    style={{ display: 'none' }}
-                                    id='contained-button-file'
-                                    type='file'
-                                    onChange={e => handleImageChange(e)}
-                                 />
-                                 <label htmlFor='contained-button-file'>
-                                    <Typography style={{ cursor: 'pointer' }}>Replace Image</Typography>
-                                 </label>
-                              </>
-                           ) : (
-                              <>
-                                 <input
-                                    accept='image/*'
-                                    style={{ display: 'none' }}
-                                    id='contained-button-file'
-                                    onChange={e => handleImageChange(e)}
-                                    type='file'
-                                 />
-                                 <label htmlFor='contained-button-file'>
-                                    <Typography style={{ cursor: 'pointer' }}>Upload Image</Typography>
-                                 </label>
-                              </>
-                           )}
-                        </Box>
-                     </Box>
-                  </Grid>
-                  <Grid item xs={12} md={6}>
-                     <CustomInput
-                        label='Job Title'
-                        placeholder='e.g. Teacher'
-                        value={jobTitle}
-                        state={jobTitleLoading}
-                        id='profile'
-                        name='jobTitle'
-                        onChange={handleChange}
-                     />
-                  </Grid>
-                  <Grid item xs={12} md={6}>
-                     <CustomInput
-                        label='First Name'
-                        placeholder='e.g. Teacher'
-                        value={firstName}
-                        state={firstNameLoading}
-                        id='profile'
-                        name='firstName'
-                        onChange={handleChange}
-                     />
-                  </Grid>
-                  <Grid item xs={12} md={6}>
-                     <CustomInput
-                        label='Last Name'
-                        placeholder='e.g. Teacher'
-                        value={lastName}
-                        state={lastNameLoading}
-                        id='profile'
-                        name='lastName'
-                        onChange={handleChange}
-                     />
-                  </Grid>
-                  <Grid item xs={12}>
-                     <CustomInput
-                        label='Street Address'
-                        placeholder='e.g. Teacher'
-                        value={street}
-                        state={streetLoading}
-                        id='address'
-                        name='street'
-                        onChange={handleChange}
-                     />
-                  </Grid>
-                  <Grid item xs={12} md={6}>
-                     <CustomInput
-                        label='City'
-                        placeholder='e.g. Teacher'
-                        value={city}
-                        state={cityLoading}
-                        id='address'
-                        name='city'
-                        onChange={handleChange}
-                     />
-                  </Grid>
-                  <Grid item xs={12} md={3}>
-                     <CustomInput
-                        label='State/Province'
-                        placeholder='e.g. Teacher'
-                        value={stateProvince}
-                        state={stateProvinceLoading}
-                        id='address'
-                        name='stateProvince'
-                        onChange={handleChange}
-                     />
-                  </Grid>
-                  <Grid item xs={12} md={3}>
-                     <CustomInput
-                        label='ZIP Code'
-                        placeholder='e.g. Teacher'
-                        value={zipcode}
-                        state={zipcodeLoading}
-                        id='address'
-                        name='zipcode'
-                        onChange={handleChange}
-                     />
-                  </Grid>
-                  <Grid item xs={12} md={6}>
-                     <CustomInput
-                        label='Country'
-                        placeholder='e.g. USA'
-                        value={country}
-                        state={countryLoading}
-                        id='profile'
-                        name='country'
-                        onChange={handleChange}
-                     />
-                  </Grid>
-                  <Grid item xs={12} md={6}>
-                     <CustomInput
-                        label='Phone'
-                        placeholder='e.g. Teacher'
-                        value={phone}
-                        state={phoneLoading}
-                        id='profile'
-                        name='phone'
-                        onChange={handleChange}
-                     />
-                  </Grid>
-                  <Grid item xs={12} md={6}>
-                     <CustomInput
-                        label='Email'
-                        placeholder='e.g. Teacher'
-                        value={email}
-                        state={emailLoading}
-                        id='profile'
-                        name='email'
-                        onChange={handleChange}
-                     />
-                  </Grid>
-                  <Grid item xs={12} md={6}>
-                     <CustomInput
-                        label='Website'
-                        placeholder='e.g. Teacher'
-                        value={website}
-                        state={websiteLoading}
-                        id='profile'
-                        name='website'
-                        onChange={handleChange}
-                     />
+                     ) : thumbnail.length > 0 ? (
+                        <img className={classes.person} src={thumbnail} />
+                     ) : (
+                        <Person className={classes.person} />
+                     )}
+                  </Box>
+                  <Box minWidth={200}>
+                     {!loadingThumbnail && thumbnail.length > 0 ? (
+                        <>
+                           <Typography style={{ cursor: 'pointer' }} onClick={() => setThumbnail('')}>
+                              Delete Image
+                           </Typography>
+                           <input
+                              accept='image/*'
+                              style={{ display: 'none' }}
+                              id='contained-button-file'
+                              type='file'
+                              onChange={e => handleImageChange(e)}
+                           />
+                           <label htmlFor='contained-button-file'>
+                              <Typography style={{ cursor: 'pointer' }}>Replace Image</Typography>
+                           </label>
+                        </>
+                     ) : (
+                        <>
+                           <input
+                              accept='image/*'
+                              style={{ display: 'none' }}
+                              id='contained-button-file'
+                              onChange={e => handleImageChange(e)}
+                              type='file'
+                           />
+                           <label htmlFor='contained-button-file'>
+                              <Typography style={{ cursor: 'pointer' }}>Upload Image</Typography>
+                           </label>
+                        </>
+                     )}
+                  </Box>
+               </Box>
+            </Grid>
+            <Grid item xs={12} md={6}>
+               <CustomInput
+                  label='Job Title'
+                  placeholder='e.g. Teacher'
+                  value={jobTitle}
+                  state={jobTitleLoading}
+                  id='profile'
+                  name='jobTitle'
+                  onChange={handleChange}
+               />
+            </Grid>
+            <Grid item xs={12} md={6}>
+               <CustomInput
+                  label='First Name'
+                  placeholder='e.g. Teacher'
+                  value={firstName}
+                  state={firstNameLoading}
+                  id='profile'
+                  name='firstName'
+                  onChange={handleChange}
+               />
+            </Grid>
+            <Grid item xs={12} md={6}>
+               <CustomInput
+                  label='Last Name'
+                  placeholder='e.g. Teacher'
+                  value={lastName}
+                  state={lastNameLoading}
+                  id='profile'
+                  name='lastName'
+                  onChange={handleChange}
+               />
+            </Grid>
+            <Grid item xs={12}>
+               <CustomInput
+                  label='Street Address'
+                  placeholder='e.g. Teacher'
+                  value={street}
+                  state={streetLoading}
+                  id='address'
+                  name='street'
+                  onChange={handleChange}
+               />
+            </Grid>
+            <Grid item xs={12} md={6}>
+               <CustomInput
+                  label='City'
+                  placeholder='e.g. Teacher'
+                  value={city}
+                  state={cityLoading}
+                  id='address'
+                  name='city'
+                  onChange={handleChange}
+               />
+            </Grid>
+            <Grid item xs={12} md={3}>
+               <CustomInput
+                  label='State/Province'
+                  placeholder='e.g. Teacher'
+                  value={stateProvince}
+                  state={stateProvinceLoading}
+                  id='address'
+                  name='stateProvince'
+                  onChange={handleChange}
+               />
+            </Grid>
+            <Grid item xs={12} md={3}>
+               <CustomInput
+                  label='ZIP Code'
+                  placeholder='e.g. Teacher'
+                  value={zipcode}
+                  state={zipcodeLoading}
+                  id='address'
+                  name='zipcode'
+                  onChange={handleChange}
+               />
+            </Grid>
+            <Grid item xs={12} md={6}>
+               <CustomInput
+                  label='Country'
+                  placeholder='e.g. USA'
+                  value={country}
+                  state={countryLoading}
+                  id='profile'
+                  name='country'
+                  onChange={handleChange}
+               />
+            </Grid>
+            <Grid item xs={12} md={6}>
+               <CustomInput
+                  label='Phone'
+                  placeholder='e.g. Teacher'
+                  value={phone}
+                  state={phoneLoading}
+                  id='profile'
+                  name='phone'
+                  onChange={handleChange}
+               />
+            </Grid>
+            <Grid item xs={12} md={6}>
+               <CustomInput
+                  label='Email'
+                  placeholder='e.g. Teacher'
+                  value={email}
+                  state={emailLoading}
+                  id='profile'
+                  name='email'
+                  onChange={handleChange}
+               />
+            </Grid>
+            <Grid item xs={12} md={6}>
+               <CustomInput
+                  label='Website'
+                  placeholder='e.g. Teacher'
+                  value={website}
+                  state={websiteLoading}
+                  id='profile'
+                  name='website'
+                  onChange={handleChange}
+               />
+            </Grid>
+
+            <Grid item xs={12} style={{ marginTop: 32 }}>
+               <Grid container justify='space-between'>
+                  <Grid xs={12} md={2} item>
+                     <Button variant='contained' color='default' fullWidth disabled>
+                        Back
+                     </Button>
                   </Grid>
 
-                  <Grid item xs={12} style={{ marginTop: 32 }}>
-                     <Grid container justify='space-between'>
-                        <Grid xs={12} md={2} item>
-                           <Button variant='contained' color='default' fullWidth disabled>
-                              Back
-                           </Button>
-                        </Grid>
-
-                        <Grid xs={12} md={2} item>
-                           <CustomButton component={Link} to='/work-history'>
-                              Next step
-                           </CustomButton>
-                        </Grid>
-                     </Grid>
+                  <Grid xs={12} md={2} item>
+                     <CustomButton component={Link} to='/work-history'>
+                        Next step
+                     </CustomButton>
                   </Grid>
                </Grid>
             </Grid>
-            <Grid item md={4}>
-               <Box boxShadow={2} borderRadius={4}>
-                  <img src='https://via.placeholder.com/300x450' className={classes.img} alt='cv' />
-               </Box>
-            </Grid>
          </Grid>
-      </Paper>
+      </Box>
    );
 }
 

@@ -150,76 +150,67 @@ function SkillsChild() {
    };
 
    return (
-      <Paper className={classes.paper} elevation={0}>
-         <Grid container spacing={3}>
-            <Grid item md={8}>
-               <Grid container spacing={3} className={classes.container}>
-                  {stateSkills.map((item, index) => {
-                     if (!item.id) return null;
-                     return (
-                        <React.Fragment key={index}>
-                           <Grid item xs={12} md={6}>
-                              <CustomInput
-                                 label='Skill'
-                                 placeholder='e.g. Teacher'
-                                 value={item.name}
-                                 state={skillsLoading[index]}
-                                 id='skills'
-                                 name={`name-${index}-${item.id}`}
-                                 onChange={handleChange}
-                              />
-                           </Grid>
-                           <Grid item xs={12} md={6}>
-                              <Box display='flex' alignItems='center' height={55}>
-                                 <CustomRate
-                                    value={item.rate}
-                                    name={`rate-${index}-${item.id}`}
-                                    onChange={handleChange}
-                                 />
-                              </Box>
-                           </Grid>
-                        </React.Fragment>
-                     );
-                  })}{' '}
-                  <Grid item xs={12} md={6}>
-                     <CustomCheckbox
-                        label="Don't show experience level"
-                        checked={!showSkills}
-                        value={showSkills}
-                        id='profile'
-                        name='showSkills'
-                        handleChange={handleChange}
-                     />
-                  </Grid>
-               </Grid>
-               <Grid item xs={12} style={{ marginTop: 32 }}>
-                  <Grid container justify='space-between'>
-                     <Grid xs={12} md={2} item>
-                        <Button component={Link} to='/education' variant='contained' color='default' fullWidth>
-                           Back
-                        </Button>
+      <Box>
+         <Grid container spacing={3} className={classes.container}>
+            {stateSkills.map((item, index) => {
+               if (!item.id) return null;
+               return (
+                  <React.Fragment key={index}>
+                     <Grid item xs={12} md={6}>
+                        <CustomInput
+                           label='Skill'
+                           placeholder='e.g. Teacher'
+                           value={item.name}
+                           state={skillsLoading[index]}
+                           id='skills'
+                           name={`name-${index}-${item.id}`}
+                           onChange={handleChange}
+                        />
                      </Grid>
-                     <Grid xs={12} md={2} item>
-                        <Button variant='contained' color='default' fullWidth onClick={handleAddChange}>
-                           <AddOutlined />
-                           Add skill
-                        </Button>
+                     <Grid item xs={12} md={6}>
+                        <Box display='flex' alignItems='center' height={55}>
+                           <CustomRate
+                              value={item.rate}
+                              name={`rate-${index}-${item.id}`}
+                              onChange={handleChange}
+                           />
+                        </Box>
                      </Grid>
-                     <Grid xs={12} md={2} item>
-                        <CustomButton component={Link} to='/summary'>
-                           Next step
-                        </CustomButton>
-                     </Grid>
-                  </Grid>
-               </Grid>
-            </Grid>
-            <Grid item md={4}>
-               <Box boxShadow={2} borderRadius={4}>
-                  <img src='https://via.placeholder.com/300x450' className={classes.img} alt='cv' />
-               </Box>
+                  </React.Fragment>
+               );
+            })}{' '}
+            <Grid item xs={12} md={6}>
+               <CustomCheckbox
+                  label="Don't show experience level"
+                  checked={!showSkills}
+                  value={showSkills}
+                  id='profile'
+                  name='showSkills'
+                  handleChange={handleChange}
+               />
             </Grid>
          </Grid>
-      </Paper>
+         <Grid item xs={12} style={{ marginTop: 32 }}>
+            <Grid container justify='space-between'>
+               <Grid xs={12} md={2} item>
+                  <Button component={Link} to='/education' variant='contained' color='default' fullWidth>
+                     Back
+                  </Button>
+               </Grid>
+               <Grid xs={12} md={2} item>
+                  <Button variant='contained' color='default' fullWidth onClick={handleAddChange}>
+                     <AddOutlined />
+                     Add skill
+                  </Button>
+               </Grid>
+               <Grid xs={12} md={2} item>
+                  <CustomButton component={Link} to='/summary'>
+                     Next step
+                  </CustomButton>
+               </Grid>
+            </Grid>
+         </Grid>
+      </Box>
    );
 }
 

@@ -17,12 +17,7 @@ export function Skills() {
 	const classes = skillsStyles();
 
 	return (
-		<Grid container justify='center' className={classes.main}>
-			<Grid item xs={10} md={11}>
-				<MenuAppBar />
-				<SkillsChild />
-			</Grid>
-		</Grid>
+		<SkillsChild />
 	);
 }
 

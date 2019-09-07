@@ -236,143 +236,134 @@ function WorkChild() {
    };
 
 	return (
-		<Paper className={classes.paper} elevation={0}>
-			<Grid container spacing={3} className={classes.container}>
-				<Grid item md={8}>
-					<Grid container spacing={3}>
-						<Grid item xs={12} md={6}>
-							<CustomInput
-								label='Job Title'
-								placeholder='e.g. Teacher'
-								state={workTitleLoading}
-								value={workTitle}
-								id='workHistory'
-								name='workTitle'
-								onChange={handleChange}
-							/>
-						</Grid>
-						<Grid item xs={12} md={6}>
-							<CustomInput
-								label='Employer'
-								placeholder='e.g. Teacher'
-								value={employer}
-								state={employerLoading}
-								id='workHistory'
-								name='employer'
-								onChange={handleChange}
-							/>
-						</Grid>
-						<Grid item xs={12} md={6}>
-							<CustomInput
-								label='City'
-								placeholder='e.g. Teacher'
-								value={city}
-								state={cityLoading}
-								id='workHistory'
-								name='city'
-								onChange={handleChange}
-							/>
-						</Grid>
-						<Grid item xs={12} md={6}>
-							<CustomInput
-								label='State/Province'
-								placeholder='e.g. Teacher'
-								value={stateProvince}
-								state={stateProvinceLoading}
-								id='workHistory'
-								name='stateProvince'
-								onChange={handleChange}
-							/>
-						</Grid>
-						<Grid item xs={12} md={6}>
-							<CustomInput
-								label='Country'
-								placeholder='e.g. USA'
-								value={country}
-								state={countryLoading}
-								id='workHistory'
-								name='country'
-								onChange={handleChange}
-							/>
-						</Grid>
-						<Grid item xs={12} md={3}>
-							<CustomInput
-								label='Start Date'
-								placeholder='Select'
-								state={startDateLoading}
-								type='date'
-								value={startDate}
-								id='workHistory'
-								name='startDate'
-								onChange={handleChange}
-							/>
-						</Grid>
-						<Grid item xs={12} md={3}>
-							<CustomInput
-								label='End Date'
-								placeholder='Select'
-								state={endDateLoading}
-								type='date'
-								value={endDate}
-								id='workHistory'
-								name='endDate'
-								onChange={handleChange}
-							/>
-						</Grid>
-						<Grid item xs={12} md={12}>
-							<CustomCheckbox
-								label='I currently work here'
-								checked={currentWork === 'true'}
-								value={currentWork}
-								id='workHistory'
-								name='currentWork'
-								handleChange={handleChange}
-							/>
-						</Grid>
-						<Grid item xs={12} md={6}>
-							<RichEdit
-									height={175}
-									placeholder='Description'
-									value={summary}
-									id='workHistory'
-									name='summary'
-									onChange={handleChange}
-									ref={richEdit}
-									></RichEdit>
-						</Grid>
-						<Grid item xs={12} md={6}>
-							<SearchList height={460} onItemSelected={handleSearchItemSelected} resource='work-suggestions' />
-						</Grid>
-					</Grid>
-					<Grid item xs={12} style={{ marginTop: 32 }}>
-						<Grid container justify='space-between' className={classes.container}>
-							<Grid xs={12} md={2} item>
-								<Button component={Link} to='/heading' variant='contained' color='default' fullWidth>
-									Back
-								</Button>
-							</Grid>
-							<Grid xs={12} md={3} item>
-								<Button variant='contained' color='default' onClick={handleAddWork}
-                           disabled={fetching} fullWidth>
-									<AddOutlined />
-									Add work
-								</Button>
-							</Grid>
-							<Grid xs={12} md={2} item>
-								<CustomButton component={Link} to='/education'>
-									Next step
-								</CustomButton>
-							</Grid>
-						</Grid>
-					</Grid>
+		<Box>
+			<Grid container spacing={3}  className={classes.container}>
+				<Grid item xs={12} md={6}>
+					<CustomInput
+						label='Job Title'
+						placeholder='e.g. Teacher'
+						state={workTitleLoading}
+						value={workTitle}
+						id='workHistory'
+						name='workTitle'
+						onChange={handleChange}
+					/>
 				</Grid>
-				<Grid item md={4}>
-					<Box boxShadow={2} borderRadius={4}>
-						<img src='https://via.placeholder.com/300x450' className={classes.img} alt='cv' />
-					</Box>
+				<Grid item xs={12} md={6}>
+					<CustomInput
+						label='Employer'
+						placeholder='e.g. Teacher'
+						value={employer}
+						state={employerLoading}
+						id='workHistory'
+						name='employer'
+						onChange={handleChange}
+					/>
+				</Grid>
+				<Grid item xs={12} md={6}>
+					<CustomInput
+						label='City'
+						placeholder='e.g. Teacher'
+						value={city}
+						state={cityLoading}
+						id='workHistory'
+						name='city'
+						onChange={handleChange}
+					/>
+				</Grid>
+				<Grid item xs={12} md={6}>
+					<CustomInput
+						label='State/Province'
+						placeholder='e.g. Teacher'
+						value={stateProvince}
+						state={stateProvinceLoading}
+						id='workHistory'
+						name='stateProvince'
+						onChange={handleChange}
+					/>
+				</Grid>
+				<Grid item xs={12} md={6}>
+					<CustomInput
+						label='Country'
+						placeholder='e.g. USA'
+						value={country}
+						state={countryLoading}
+						id='workHistory'
+						name='country'
+						onChange={handleChange}
+					/>
+				</Grid>
+				<Grid item xs={12} md={3}>
+					<CustomInput
+						label='Start Date'
+						placeholder='Select'
+						state={startDateLoading}
+						type='date'
+						value={startDate}
+						id='workHistory'
+						name='startDate'
+						onChange={handleChange}
+					/>
+				</Grid>
+				<Grid item xs={12} md={3}>
+					<CustomInput
+						label='End Date'
+						placeholder='Select'
+						state={endDateLoading}
+						type='date'
+						value={endDate}
+						id='workHistory'
+						name='endDate'
+						onChange={handleChange}
+					/>
+				</Grid>
+				<Grid item xs={12} md={12}>
+					<CustomCheckbox
+						label='I currently work here'
+						checked={currentWork === 'true'}
+						value={currentWork}
+						id='workHistory'
+						name='currentWork'
+						handleChange={handleChange}
+					/>
+				</Grid>
+				<Grid item xs={12} md={6}>
+					<RichEdit
+							height={175}
+							placeholder='Description'
+							value={summary}
+							id='workHistory'
+							name='summary'
+							onChange={handleChange}
+							ref={richEdit}
+							></RichEdit>
+				</Grid>
+				<Grid item xs={12} md={6}>
+					<SearchList height={460} onItemSelected={handleSearchItemSelected} resource='work-suggestions' />
 				</Grid>
 			</Grid>
-		</Paper>
+			<Grid item xs={12} style={{ marginTop: 32 }}>
+				<Grid container justify='space-between' className={classes.container}>
+					<Grid xs={12} md={2} item>
+						<Button component={Link} to='/heading' variant='contained' color='default' fullWidth>
+							Back
+						</Button>
+					</Grid>
+					<Grid xs={12} md={3} item>
+						<Button variant='contained' color='default' onClick={handleAddWork}
+					disabled={fetching} fullWidth>
+							<AddOutlined />
+							Add work
+						</Button>
+					</Grid>
+					<Grid xs={12} md={2} item>
+						<CustomButton component={Link} to='/education'>
+							Next step
+						</CustomButton>
+					</Grid>
+				</Grid>
+			</Grid>
+		</Box>
 	);
 }
 
