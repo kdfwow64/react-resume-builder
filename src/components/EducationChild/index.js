@@ -334,7 +334,12 @@ function EducationChild(props) {
 						></RichEdit>
 				</Grid>
 				<Grid item xs={12} md={6}>
-					<SearchList height={460} onItemSelected={handleSearchItemSelected} resource='education-suggestions' />
+					<SearchList 
+						height={460} 
+						onItemSelected={handleSearchItemSelected} 
+						resource='education-suggestions'
+						initialQuery={schoolName}
+            			userId={id} />
 				</Grid>
 			</Grid>
 			<Grid item xs={12} style={{ marginTop: 32 }}>

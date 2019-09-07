@@ -16,7 +16,7 @@ const SearchList = props => {
 	const dispatch = useDispatch();
 	const query = useSelector(state => state);
     const { fetching, server_data, error } = query;
-    const { resource, onItemSelected } = props;
+    const { resource, onItemSelected, initialQuery, userId } = props;
 
     const label = props.label !== undefined ? props.label : 'Search specific word';
 
@@ -24,6 +24,13 @@ const SearchList = props => {
     const [searchResult, setSearchResult] = useState([]);
     const [state, setState] = useState('search');
     const [apiCallTimeout, setApiCallTimeout] = useState();
+
+    useEffect(() => {
+        if(initialQuery || userId){
+            setSearchText(initialQuery);
+            deferApiCall(initialQuery, true);
+        }
+    }, [initialQuery, userId]);
     
     useEffect(() => {
         if(server_data[resource])
@@ -42,24 +49,24 @@ const SearchList = props => {
     const handleChange = event => {
         let text = event.target.value;
         setSearchText(text);
-        deferApiCall(text);
+        deferApiCall(text, false);
     };
 
-    const performSearch = text => {
-        if(text){
+    const performSearch = (text, initial) => {
+        if(text || initial){
             setState('loading');
             dispatch({
                 type: API_CALL_GET,
-                payload: { resource: resource, params: { q: text } }
+                payload: { resource: resource, params: { q: text, userId: userId  } }
             });
         }
     };
 
-    const deferApiCall = (text) => {
+    const deferApiCall = (text, initial) => {
 		if(apiCallTimeout)
 			clearTimeout(apiCallTimeout);
         let tout = setTimeout(() => { 
-                performSearch(text);
+                performSearch(text, initial);
             }, 500);
 		setApiCallTimeout(tout);
     };
