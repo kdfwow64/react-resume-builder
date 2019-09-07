@@ -12,16 +12,16 @@ import HomePage from "../HomePage";
 
 export default function Builder(props) {
   const {displayImage} = props;
-  return (
-    <Grid item md={displayImage ? 8 : 12}>
-      <Switch>
-        <Route exact path="/heading" component={Heading}/>
-        <Route exact path="/work-history" component={WorkHistory}/>
-        <Route exact path="/education" component={Edu}/>
-        <Route exact path="/skills" component={Skills}/>
-        <Route exact path="/summary" component={Summary}/>
-        <Route exact path="/finalize" component={Finalize}/>
-      </Switch>
-    </Grid>
+    return (
+      <Grid item md={displayImage ? 8 : 12}>
+        <Switch>
+          <Route exact path="/heading" component={Heading}/>
+          <Route exact path="/work-history" component={WorkHistory}/>
+          <Route exact path="/education" component={Edu}/>
+          <Route exact path="/skills" component={Skills}/>
+          <Route exact path="/summary" component={Summary}/>
+          <Route exact path="/finalize" component={Finalize}/>
+        </Switch>
+       </Grid>
   );
 }
