@@ -104,7 +104,12 @@ function SummaryChild() {
 						></RichEdit>
 				</Grid>
 				<Grid item xs={12} md={6}>
-					<SearchList height={460} onItemSelected={ handleSearchItemSelected } resource='summary-suggestions' ></SearchList>
+					<SearchList 
+						height={460} 
+						onItemSelected={ handleSearchItemSelected } 
+						resource='summary-suggestions' 
+            			userId={id} 
+						></SearchList>
 				</Grid>
 			</Grid>
 			<Grid item xs={12} style={{ marginTop: 32 }}>
