@@ -329,7 +329,7 @@ function WorkChild() {
         </Grid>
         <Grid item xs={12} md={6}>
           <RichEdit
-            height={175}
+            height={460}
             placeholder='Description'
             value={summary}
             id='workHistory'
@@ -339,9 +339,9 @@ function WorkChild() {
           />
         </Grid>
         <Grid item xs={12} md={6}>
-          <SearchList 
-            height={460} 
-            onItemSelected={handleSearchItemSelected} 
+          <SearchList
+            height={460}
+            onItemSelected={handleSearchItemSelected}
             resource='work-suggestions'
             initialQuery={workTitle}
             userId={id}/>

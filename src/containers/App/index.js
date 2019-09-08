@@ -11,6 +11,7 @@ import HomePage from "../HomePage";
 import MenuAppBar from "../../components/Appbar/Appbar";
 import {Box, Grid, Paper} from "@material-ui/core";
 import {appStyles} from "./styles";
+import Footer from "../../components/Footer/Footer";
 
 export default withRouter(function App(props) {
   const classes = appStyles();
@@ -23,16 +24,14 @@ export default withRouter(function App(props) {
         <Grid item xs={10} md={11} className={classes.content}>
           <MenuAppBar/>
           <Paper className={classes.paper} justify='center' elevation={0}>
-            <Grid container spacing={3} >
+            <Grid container spacing={3}>
               <Grid item md={displayImage ? 8 : 12}>
-                <Switch>
-                  <Route exact path="/heading" render={(props) => <Builder {...props} component={Heading}/>}/>
-                  <Route exact path="/work-history" render={(props) => <Builder {...props} component={WorkHistory}/>}/>
-                  <Route exact path="/education" render={(props) => <Builder {...props} component={Edu}/>}/>
-                  <Route exact path="/skills" render={(props) => <Builder {...props} component={Skills}/>}/>
-                  <Route exact path="/summary" render={(props) => <Builder {...props} component={Summary}/>}/>
-                  <Route exact path="/finalize" render={(props) => <Builder {...props} component={Finalize}/>}/>
-                </Switch>
+                <Route exact path="/heading" render={(props) => <Builder {...props} component={Heading}/>}/>
+                <Route exact path="/work-history" render={(props) => <Builder {...props} component={WorkHistory}/>}/>
+                <Route exact path="/education" render={(props) => <Builder {...props} component={Edu}/>}/>
+                <Route exact path="/skills" render={(props) => <Builder {...props} component={Skills}/>}/>
+                <Route exact path="/summary" render={(props) => <Builder {...props} component={Summary}/>}/>
+                <Route exact path="/finalize" render={(props) => <Builder {...props} component={Finalize}/>}/>
               </Grid>
               <Grid item md={4} className={displayImage ? classes.visible : classes.hidden}>
                 <Box boxShadow={2} borderRadius={4}>
@@ -42,6 +41,9 @@ export default withRouter(function App(props) {
             </Grid>
           </Paper>
         </Grid>
+      </Grid>
+      <Grid item xs={12} style={{paddingBottom: 0}}>
+        <Footer/>
       </Grid>
     </Switch>
   );
