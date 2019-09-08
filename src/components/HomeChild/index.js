@@ -370,9 +370,6 @@ function HomeChild() {
           <CustomButton className={classes.readmore}>read more</CustomButton>
         </Grid>
       </Grid>
-      <Grid item xs={12} style={{ paddingBottom: 0 }}>
-        <Footer />
-      </Grid>
     </Grid>
   );
 }
