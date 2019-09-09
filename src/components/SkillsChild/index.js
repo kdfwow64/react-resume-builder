@@ -192,21 +192,11 @@ function SkillsChild() {
          </Grid>
          <Grid item xs={12} style={{ marginTop: 32 }}>
             <Grid container justify='space-between'>
-               <Grid xs={12} md={2} item>
-                  <Button component={Link} to='/education' variant='contained' color='default' fullWidth>
-                     Back
-                  </Button>
-               </Grid>
-               <Grid xs={12} md={2} item>
+               <Grid xs={12} md={12} item>
                   <Button variant='contained' color='default' fullWidth onClick={handleAddChange}>
                      <AddOutlined />
                      Add skill
                   </Button>
-               </Grid>
-               <Grid xs={12} md={2} item>
-                  <CustomButton component={Link} to='/summary'>
-                     Next step
-                  </CustomButton>
                </Grid>
             </Grid>
          </Grid>

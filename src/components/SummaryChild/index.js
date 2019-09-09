@@ -112,20 +112,6 @@ function SummaryChild() {
           />
         </Grid>
       </Grid>
-      <Grid item xs={12} style={{marginTop: 32}}>
-        <Grid container justify='space-between'>
-          <Grid xs={12} md={2} item>
-            <Button component={Link} to='/skills' variant='contained' color='default' fullWidth>
-              Back
-            </Button>
-          </Grid>
-          <Grid xs={12} md={2} item>
-            <CustomButton component={Link} to='/finalize'>
-              Next step
-            </CustomButton>
-          </Grid>
-        </Grid>
-      </Grid>
     </Box>
   );
 }

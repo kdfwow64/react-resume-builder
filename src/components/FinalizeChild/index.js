@@ -28,55 +28,7 @@ function FinalizeChild() {
   return (
     <Paper className={classes.paper} elevation={0}>
       <Grid container spacing={7}>
-        <Grid item md={3}>
-          <Grid item xs={12} className={classes.leftWrapper}>
-            <div>
-              <Button
-                variant="contained"
-                color="default"
-                fullWidth
-                style={{ marginTop: 32 }}
-              >
-                spell check
-              </Button>
-              <Button
-                variant="contained"
-                color="default"
-                fullWidth
-                style={{ marginTop: 32 }}
-              >
-                +add section
-              </Button>
-              <Button
-                variant="contained"
-                color="default"
-                fullWidth
-                style={{ marginTop: 32 }}
-              >
-                download
-              </Button>
-            </div>
-            <Grid container justify="space-between" spacing={2}>
-              <Grid xs={12} md={6} item>
-                <Button
-                  component={Link}
-                  to="/skills"
-                  variant="contained"
-                  color="default"
-                  fullWidth
-                >
-                  Back
-                </Button>
-              </Grid>
-              <Grid xs={12} md={6} item>
-                <CustomButton component={Link} to="/finalize">
-                  Save
-                </CustomButton>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item md={9}>
+        <Grid item md={12}>
           <Box display="flex" justifyContent="space-between" flex={1}>
             <Box
               display="flex"
