@@ -14,53 +14,51 @@ import Button from "../Button";
 import { Link } from "react-router-dom";
 import CustomButton from "../Button";
 
-const useStyles = makeStyles(theme => {
-  return ({
-    bgTrans: {
-      backgroundColor: "transparent"
-    },
-    bgGrey: {
-      backgroundColor: "#f7f7f7"
-    },
-    fontMd: {
-      fontSize: 16
-    },
-    flex1: {
-      flex: 1
-    },
-    fontHelp: {
-      marginRight: 32,
-      marginLeft: 32,
-      fontWeight: "bold"
-    },
-    avatar: {
-      marginLeft: 32
-    },
-    bold: {
-      fontWeight: "bold"
-    },
-    displayRight: {
-      display: "flex",
-      alignItems: "center"
-    },
-    menuButton: {
-      marginRight: theme.spacing(2)
-    },
-    title: {
-      flexGrow: 1,
-      fontSize: 14,
-      fontWeight: "bold",
-      display: "flex",
-      alignItems: "center"
-    },
-    colorGreen: {
-      color: "#13806c"
-    },
-    root: {
-      flexWrap: "wrap"
-    }
-  });
-});
+const useStyles = makeStyles(theme => ({
+  bgTrans: {
+    backgroundColor: "transparent"
+  },
+  bgGrey: {
+    backgroundColor: "#f7f7f7"
+  },
+  fontMd: {
+    fontSize: 16
+  },
+  flex1: {
+    flex: 1
+  },
+  fontHelp: {
+    marginRight: 32,
+    marginLeft: 32,
+    fontWeight: "bold"
+  },
+  avatar: {
+    marginLeft: 32
+  },
+  bold: {
+    fontWeight: "bold"
+  },
+  displayRight: {
+    display: "flex",
+    alignItems: "center"
+  },
+  menuButton: {
+    marginRight: theme.spacing(2)
+  },
+  title: {
+    flexGrow: 1,
+    fontSize: 14,
+    fontWeight: "bold",
+    display: "flex",
+    alignItems: "center"
+  },
+  colorGreen: {
+    color: "#13806c"
+  },
+  root: {
+    flexWrap: "wrap"
+  }
+}));
 
 export default function Header(props) {
   const classes = useStyles();
@@ -80,7 +78,7 @@ export default function Header(props) {
     <>
       <AppBar
         position="static"
-        className={classes.bgGrey }
+        className={variant === "home" ? classes.bgGrey : classes.bgTrans}
         elevation={0}
         color="default"
       >
