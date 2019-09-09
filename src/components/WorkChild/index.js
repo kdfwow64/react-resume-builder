@@ -14,11 +14,6 @@ import CustomButton from '../Button';
 import SearchList from '../SearchList/SearchList';
 import RichEdit from '../RichEdit/RichEdit';
 import ObjectStepper from '../ObjectStepper';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepButton from '@material-ui/core/StepButton';
-import StepLabel from '@material-ui/core/StepLabel';
-
 import {useSelector, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 
@@ -53,19 +48,7 @@ function WorkChild(props) {
   const [updateTimeouts, setUpdateTimeouts] = useState({});
   const [index, setIndex] = useState(isNaN(props.index) ? 0 : parseInt(props.index) - 1);
 
-  const richEdit = useRef();
-
-  useEffect(() => {
-    if(activeIndex.workHistory != 0)
-    {
-      let idx = 0;
-      idx = server_data.workHistory.findIndex(x => x.id === activeIndex.workHistory.toString());
-      if (idx === -1) {
-        idx = 0;
-      }
-      handleIndexChange(idx);
-    }
-  }, [activeIndex]);
+  const richEdit = useRef(); 
 
   useEffect(() => {
     if(index >= 0 && index < server_data.workHistory.length){
@@ -149,6 +132,18 @@ function WorkChild(props) {
       }
     }
   }, [fetching]);
+
+  useEffect(() => {
+    if(activeIndex.workHistory != 0)
+    {
+      let idx = 0;
+      idx = server_data.workHistory.findIndex(x => x.id === activeIndex.workHistory.toString());
+      if (idx === -1) {
+        idx = 0;
+      }
+      handleIndexChange(idx);
+    }
+  }, [activeIndex]);
 
   const deferApiCallUpdate = (name, value) => {
     let tout = updateTimeouts[name];
