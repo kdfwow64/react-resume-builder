@@ -13,11 +13,16 @@ import CustomCheckbox from '../Checkbox';
 import CustomButton from '../Button';
 import SearchList from '../SearchList/SearchList';
 import RichEdit from '../RichEdit/RichEdit';
+import ObjectStepper from '../ObjectStepper';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepButton from '@material-ui/core/StepButton';
+import StepLabel from '@material-ui/core/StepLabel';
 
 import {useSelector, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 
-function WorkChild() {
+function WorkChild(props) {
   const classes = workChildStyles();
   const dispatch = useDispatch();
   const query = useSelector(state => state);
@@ -46,40 +51,48 @@ function WorkChild() {
   const [workTitleLoading, setWorkTitleLoading] = useState('success');
 
   const [updateTimeouts, setUpdateTimeouts] = useState({});
+  const [index, setIndex] = useState(isNaN(props.index) ? 0 : parseInt(props.index) - 1);
 
   const richEdit = useRef();
 
-  // let index = 0;
-  let index = 0;
-  index = server_data.workHistory.findIndex(x => x.id === activeIndex.workHistory.toString());
-  if (index === -1) {
-    index = 0;
-  }
+  useEffect(() => {
+    if(activeIndex.workHistory != 0)
+    {
+      let idx = 0;
+      idx = server_data.workHistory.findIndex(x => x.id === activeIndex.workHistory.toString());
+      if (idx === -1) {
+        idx = 0;
+      }
+      handleIndexChange(idx);
+    }
+  }, [activeIndex]);
 
   useEffect(() => {
-    setId(server_data.workHistory[index].id);
-    setCity(server_data.workHistory[index].city);
-    setCountry(server_data.workHistory[index].country)
-    setCurrentWork(server_data.workHistory[index].currentWork);
-    setEmployer(server_data.workHistory[index].employer);
-    let res = [];
-    if (server_data.workHistory[index].endDate === undefined) {
-      res = ['', '', ''];
-    } else {
-      res = server_data.workHistory[index].endDate.split('/');
+    if(index >= 0 && index < server_data.workHistory.length){
+      setId(server_data.workHistory[index].id);
+      setCity(server_data.workHistory[index].city);
+      setCountry(server_data.workHistory[index].country)
+      setCurrentWork(server_data.workHistory[index].currentWork);
+      setEmployer(server_data.workHistory[index].employer);
+      let res = [];
+      if (server_data.workHistory[index].endDate === undefined) {
+        res = ['', '', ''];
+      } else {
+        res = server_data.workHistory[index].endDate.split('/');
+      }
+      setEndDate(`${res[2]}-${res[0]}-${res[1]}`);
+      setId(server_data.workHistory[index].id);
+      if (server_data.workHistory[index].startDate === undefined) {
+        res = ['', '', ''];
+      } else {
+        res = server_data.workHistory[index].startDate.split('/');
+      }
+      setStartDate(`${res[2]}-${res[0]}-${res[1]}`);
+      setStateProvince(server_data.workHistory[index].stateProvince);
+      setWorkTitle(server_data.workHistory[index].workTitle);
+      setSummary(server_data.workHistory[index].summary);
     }
-    setEndDate(`${res[2]}-${res[0]}-${res[1]}`);
-    setId(server_data.workHistory[index].id);
-    if (server_data.workHistory[index].startDate === undefined) {
-      res = ['', '', ''];
-    } else {
-      res = server_data.workHistory[index].startDate.split('/');
-    }
-    setStartDate(`${res[2]}-${res[0]}-${res[1]}`);
-    setStateProvince(server_data.workHistory[index].stateProvince);
-    setWorkTitle(server_data.workHistory[index].workTitle);
-    setSummary(server_data.workHistory[index].summary);
-  }, [server_data]);
+  }, [server_data, index]);
 
   useEffect(() => {
     if (fetching) {
@@ -235,6 +248,11 @@ function WorkChild() {
     });
   };
 
+  const handleIndexChange = (newIndex) =>{
+    props.history.push('/work-history/' + (newIndex + 1));
+    setIndex(newIndex);
+  }
+
   return (
     <Box>
       <Grid container spacing={3} className={classes.container}>
@@ -355,18 +373,13 @@ function WorkChild() {
         </Button>
       </Grid>
       <Grid item xs={12} style={{marginTop: 32}}>
-        <Grid container justify='space-between' className={classes.container}>
-          <Grid xs={12} md={2} item>
-            <Button component={Link} to='/heading' variant='contained' color='default' fullWidth>
-              Back
-            </Button>
-          </Grid>
-          <Grid xs={12} md={2} item>
-            <CustomButton component={Link} to='/education'>
-              Next step
-            </CustomButton>
-          </Grid>
-        </Grid>
+          <ObjectStepper 
+            itemCount={server_data.workHistory.length} 
+            activeIndex={index}
+            onIndexChange={handleIndexChange}
+            nextTooltip='Next Work'
+            prevTooltip='Previous Work'
+            />
       </Grid>
     </Box>
   );
