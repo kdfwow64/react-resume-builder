@@ -24,7 +24,7 @@ export default function Builder(props) {
             <Grid item md={displayImage ? 8 : 12}>
               <Switch>
                 <Route exact path="/heading" component={Heading}/>
-                <Route exact path="/work-history" component={WorkHistory}/>
+                <Route exact path="/work-history/:index?" component={WorkHistory}/>
                 <Route exact path="/education" component={Edu}/>
                 <Route exact path="/skills" component={Skills}/>
                 <Route exact path="/summary" component={Summary}/>

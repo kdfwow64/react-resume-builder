@@ -26,7 +26,7 @@ export default withRouter(function App(props) {
           <Switch>
             <Route exact path="/" component={HomePage}/>
             <Route exact path="/heading" render={(props) => <Builder {...props} component={Heading}/>}/>
-            <Route exact path="/work-history" render={(props) => <Builder {...props} component={WorkHistory}/>}/>
+            <Route exact path="/work-history/:index?" render={(props) => <Builder {...props} component={WorkHistory}/>}/>
             <Route exact path="/education" render={(props) => <Builder {...props} component={Edu}/>}/>
             <Route exact path="/skills" render={(props) => <Builder {...props} component={Skills}/>}/>
             <Route exact path="/summary" render={(props) => <Builder {...props} component={Summary}/>}/>
