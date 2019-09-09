@@ -25,7 +25,7 @@ export default function Builder(props) {
               <Switch>
                 <Route exact path="/heading" component={Heading}/>
                 <Route exact path="/work-history/:index?" component={WorkHistory}/>
-                <Route exact path="/education" component={Edu}/>
+                <Route exact path="/education/:index?" component={Edu}/>
                 <Route exact path="/skills" component={Skills}/>
                 <Route exact path="/summary" component={Summary}/>
                 <Route exact path="/finalize" component={Finalize}/>
