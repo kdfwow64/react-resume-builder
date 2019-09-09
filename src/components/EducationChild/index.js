@@ -13,6 +13,7 @@ import {educationChildStyles} from './style';
 import CustomButton from '../Button';
 import SearchList from '../SearchList/SearchList';
 import RichEdit from '../RichEdit/RichEdit';
+import ObjectStepper from '../ObjectStepper';
 
 import {useSelector, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
@@ -44,38 +45,35 @@ function EducationChild(props) {
   const [degreeLoading, setDegreeLoading] = useState('success');
 
   const [updateTimeouts, setUpdateTimeouts] = useState({});
+  const [index, setIndex] = useState(isNaN(props.index) ? 0 : parseInt(props.index) - 1);
 
   const richEdit = useRef();
 
-  let index = 0;
-  index = server_data.education.findIndex(x => x.id === activeIndex.education.toString());
-  if (index === -1) {
-    index = 0;
-  }
-
   useEffect(() => {
-    setId(server_data.education[index].id);
-    setCity(server_data.education[index].city);
-    setCountry(server_data.education[index].country);
-    setCurrentSchool(server_data.education[index].currentSchool);
-    setDegree(server_data.education[index].degree);
-    let res = [];
-    if (server_data.education[index].endDate === undefined) {
-      res = ['', '', ''];
-    } else {
-      res = server_data.education[index].endDate.split('/');
+    if(index >= 0 && index < server_data.education.length){
+      setId(server_data.education[index].id);
+      setCity(server_data.education[index].city);
+      setCountry(server_data.education[index].country);
+      setCurrentSchool(server_data.education[index].currentSchool);
+      setDegree(server_data.education[index].degree);
+      let res = [];
+      if (server_data.education[index].endDate === undefined) {
+        res = ['', '', ''];
+      } else {
+        res = server_data.education[index].endDate.split('/');
+      }
+      setEndDate(`${res[2]}-${res[0]}-${res[1]}`);
+      setId(server_data.education[index].id);
+      setSchoolName(server_data.education[index].schoolName);
+      if (server_data.education[index].startDate === undefined) {
+        res = ['', '', ''];
+      } else {
+        res = server_data.education[index].startDate.split('/');
+      }
+      setStartDate(`${res[2]}-${res[0]}-${res[1]}`);
+      setStateProvince(server_data.education[index].stateProvince);
+      setSummary(server_data.education[index].summary);
     }
-    setEndDate(`${res[2]}-${res[0]}-${res[1]}`);
-    setId(server_data.education[index].id);
-    setSchoolName(server_data.education[index].schoolName);
-    if (server_data.education[index].startDate === undefined) {
-      res = ['', '', ''];
-    } else {
-      res = server_data.education[index].startDate.split('/');
-    }
-    setStartDate(`${res[2]}-${res[0]}-${res[1]}`);
-    setStateProvince(server_data.education[index].stateProvince);
-    setSummary(server_data.education[index].summary);
   }, [server_data, index]);
 
   useEffect(() => {
@@ -133,6 +131,18 @@ function EducationChild(props) {
       }
     }
   }, [fetching, flagInput]);
+
+  useEffect(() => {
+    if(activeIndex.education != 0)
+    {
+      let idx = 0;
+      idx = server_data.education.findIndex(x => x.id === activeIndex.education.toString());
+      if (idx === -1) {
+        idx = 0;
+      }
+      handleIndexChange(idx);
+    }
+  }, [activeIndex]);
 
   const deferApiCallUpdate = (name, value) => {
     let tout = updateTimeouts[name];
@@ -228,6 +238,11 @@ function EducationChild(props) {
       payload: {field: 'education', id: index, json: obj}
     });
   };
+  
+  const handleIndexChange = (newIndex) =>{
+    props.history.push('/education/' + (newIndex + 1));
+    setIndex(newIndex);
+  }
 
   return (
     <Box>
@@ -350,24 +365,13 @@ function EducationChild(props) {
         </Button>
       </Grid>
       <Grid item xs={12} style={{marginTop: 32}}>
-        <Grid container justify='space-between'>
-          <Grid xs={12} md={2} item>
-            <Button
-              component={Link}
-              to='/work-history'
-              variant='contained'
-              color='default'
-              fullWidth
-            >
-              Back
-            </Button>
-          </Grid>
-          <Grid xs={12} md={2} item>
-            <CustomButton component={Link} to='/skills'>
-              Next step
-            </CustomButton>
-          </Grid>
-        </Grid>
+        <ObjectStepper 
+              itemCount={server_data.education.length} 
+              activeIndex={index}
+              onIndexChange={handleIndexChange}
+              nextTooltip='Next Education'
+              prevTooltip='Previous Education'
+              />
       </Grid>
     </Box>
   );
