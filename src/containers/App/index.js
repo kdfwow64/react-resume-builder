@@ -12,39 +12,29 @@ import MenuAppBar from "../../components/Appbar/Appbar";
 import {Box, Grid, Paper} from "@material-ui/core";
 import {appStyles} from "./styles";
 import Footer from "../../components/Footer/Footer";
+import Header from "../../components/Header";
 
 export default withRouter(function App(props) {
   const classes = appStyles();
   const displayImage = false;
   console.log(displayImage)
   return (
-    <Switch>
-      <Route exact path="/" component={HomePage}/>
+    <>
       <Grid container justify='center' className={classes.main}>
-        <Grid item xs={10} md={11} className={classes.content}>
-          <MenuAppBar/>
-          <Paper className={classes.paper} justify='center' elevation={0}>
-            <Grid container spacing={3}>
-              <Grid item md={displayImage ? 8 : 12}>
-                <Route exact path="/heading" render={(props) => <Builder {...props} component={Heading}/>}/>
-                <Route exact path="/work-history" render={(props) => <Builder {...props} component={WorkHistory}/>}/>
-                <Route exact path="/education" render={(props) => <Builder {...props} component={Edu}/>}/>
-                <Route exact path="/skills" render={(props) => <Builder {...props} component={Skills}/>}/>
-                <Route exact path="/summary" render={(props) => <Builder {...props} component={Summary}/>}/>
-                <Route exact path="/finalize" render={(props) => <Builder {...props} component={Finalize}/>}/>
-              </Grid>
-              <Grid item md={4} className={displayImage ? classes.visible : classes.hidden}>
-                <Box boxShadow={2} borderRadius={4}>
-                  <img src='https://via.placeholder.com/300x450' className={classes.img} alt='cv'/>
-                </Box>
-              </Grid>
-            </Grid>
-          </Paper>
+        <Grid item xs={12} md={12} className={classes.content}>
+          <Header/>
+          <Switch>
+            <Route exact path="/" component={HomePage}/>
+            <Route exact path="/heading" render={(props) => <Builder {...props} component={Heading}/>}/>
+            <Route exact path="/work-history" render={(props) => <Builder {...props} component={WorkHistory}/>}/>
+            <Route exact path="/education" render={(props) => <Builder {...props} component={Edu}/>}/>
+            <Route exact path="/skills" render={(props) => <Builder {...props} component={Skills}/>}/>
+            <Route exact path="/summary" render={(props) => <Builder {...props} component={Summary}/>}/>
+            <Route exact path="/finalize" render={(props) => <Builder {...props} component={Finalize}/>}/>
+          </Switch>
         </Grid>
       </Grid>
-      <Grid item xs={12} style={{paddingBottom: 0}}>
-        <Footer/>
-      </Grid>
-    </Switch>
+      <Footer/>
+    </>
   );
 })

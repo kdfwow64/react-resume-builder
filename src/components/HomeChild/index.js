@@ -22,14 +22,12 @@ import MenuAppBar from "../Appbar/Appbar";
 import TextMobileStepper from "../Stepper";
 import SwipeableTextMobileStepper from "../Stepper";
 import Footer from "../Footer/Footer";
+import Header from "../Header";
 
 function HomeChild() {
   const classes = homeChildStyles();
   return (
     <Grid container spacing={6} justify="center">
-      <Grid item xs={12}>
-        <MenuAppBar variant="home" />
-      </Grid>
       <Grid item md={11}>
         <Grid container justify="space-between" alignItems="center">
           <Grid item md={6}>

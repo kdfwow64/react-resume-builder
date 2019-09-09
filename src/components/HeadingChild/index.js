@@ -409,7 +409,7 @@ function HeadingChild() {
                   onChange={handleChange}
                />
             </Grid>
-
+{/*
             <Grid item xs={12} style={{ marginTop: 32 }}>
                <Grid container justify='space-between'>
                   <Grid xs={12} md={2} item>
@@ -424,7 +424,7 @@ function HeadingChild() {
                      </CustomButton>
                   </Grid>
                </Grid>
-            </Grid>
+            </Grid>*/}
          </Grid>
       </Box>
    );

@@ -342,6 +342,13 @@ function EducationChild(props) {
             userId={id}/>
         </Grid>
       </Grid>
+      <Grid xs={12} md={12} container style={{marginTop: 32}}>
+        <Button variant='contained' color='default' onClick={handleAddEducation}
+                disabled={fetching} fullWidth>
+          <AddOutlined/>
+          Add education
+        </Button>
+      </Grid>
       <Grid item xs={12} style={{marginTop: 32}}>
         <Grid container justify='space-between'>
           <Grid xs={12} md={2} item>
@@ -353,13 +360,6 @@ function EducationChild(props) {
               fullWidth
             >
               Back
-            </Button>
-          </Grid>
-          <Grid xs={12} md={3} item>
-            <Button variant='contained' color='default' onClick={handleAddEducation}
-                    disabled={fetching} fullWidth>
-              <AddOutlined/>
-              Add education
             </Button>
           </Grid>
           <Grid xs={12} md={2} item>

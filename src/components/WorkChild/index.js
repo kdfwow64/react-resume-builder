@@ -347,18 +347,18 @@ function WorkChild() {
             userId={id}/>
         </Grid>
       </Grid>
+      <Grid xs={12} md={12} container style={{marginTop: 32}}>
+        <Button variant='contained' color='default' onClick={handleAddWork}
+                disabled={fetching} fullWidth>
+          <AddOutlined/>
+          Add work
+        </Button>
+      </Grid>
       <Grid item xs={12} style={{marginTop: 32}}>
         <Grid container justify='space-between' className={classes.container}>
           <Grid xs={12} md={2} item>
             <Button component={Link} to='/heading' variant='contained' color='default' fullWidth>
               Back
-            </Button>
-          </Grid>
-          <Grid xs={12} md={3} item>
-            <Button variant='contained' color='default' onClick={handleAddWork}
-                    disabled={fetching} fullWidth>
-              <AddOutlined/>
-              Add work
             </Button>
           </Grid>
           <Grid xs={12} md={2} item>
