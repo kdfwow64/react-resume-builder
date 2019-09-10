@@ -39,12 +39,12 @@ const CustomInput = props => {
 					),
 					endAdornment: state && (
 						<InputAdornment position='end'>
-							{state === 'success' ? (
-								<CheckOutlined className={classes.success} />
+							{state === 'loading' ? (
+								<CircularProgress className={classes.loading} size={25} />
 							) : state === 'error' ? (
 								<CancelOutlined className={classes.danger} />
 							) : (
-								state === 'loading' && <CircularProgress className={classes.loading} size={25} />
+								state === 'success' && <CheckOutlined className={classes.success} />
 							)}
 						</InputAdornment>
 					)
