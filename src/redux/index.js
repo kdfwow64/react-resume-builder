@@ -6,12 +6,14 @@ import {
    API_CALL_FAILURE,
    API_CALL_CHANGE,
    API_CALL_UPDATE,
+   API_CALL_DELETE,
    API_UPDATE_SUCCESS,
    API_UPDATE_FAILURE,
    API_CALL_GET,
    API_GET_SUCCESS,
    API_CALL_ADD,
-   API_ADD_SUCCESS
+   API_ADD_SUCCESS,
+   API_DELETE_SUCCESS
 } from '../constants';
 
 // reducer with initial state
@@ -110,6 +112,19 @@ export function reducer(state = initialState, action) {
                }
             };
          }
+         case API_CALL_DELETE:
+            return { ...state, deleting: true, error: null };
+         case API_DELETE_SUCCESS:
+            let delete_data = {};
+            delete_data[action.field] = state.server_data[action.field].filter(item => item.id != action.id);   
+            return { 
+               ...state, 
+               server_data: { 
+                  ...state.server_data, 
+                  ...delete_data 
+               },
+               deleting: false,
+               error: null };
       default:
          return state;
    }

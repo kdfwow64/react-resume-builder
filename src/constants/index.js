@@ -13,6 +13,8 @@ export const API_UPDATE_SUCCESS = 'API_UPDATE_SUCCESS';
 export const API_UPDATE_FAILURE = 'API_UPDATE_FAILURE';
 export const API_CALL_ADD = 'API_CALL_ADD';
 export const API_ADD_SUCCESS = 'API_ADD_SUCCESS';
+export const API_CALL_DELETE = 'API_CALL_DELETE';
+export const API_DELETE_SUCCESS = 'API_DELETE_SUCCESS';
 
 //TODO: need to be refactored. implemeted as separate action to avoid changing of exising functionality
 export const API_CALL_GET = 'API_CALL_GET';

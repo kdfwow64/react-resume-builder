@@ -13,7 +13,9 @@ import {
    API_CALL_GET,
    API_GET_SUCCESS,
    API_CALL_ADD,
-   API_ADD_SUCCESS
+   API_ADD_SUCCESS,
+   API_CALL_DELETE,
+   API_DELETE_SUCCESS
 } from '../constants';
 
 // watcher saga: watches for actions dispatched to the store, starts worker saga
@@ -24,6 +26,7 @@ export function* watcherSaga() {
    yield put({ type: API_CALL_SUCCESS, server_data });
    yield takeLatest(API_CALL_REQUEST, workerSaga);
    yield takeLatest(API_CALL_UPDATE, updateSaga);
+   yield takeLatest(API_CALL_DELETE, deleteSaga);
 
    //TODO: to be refactored
    yield takeLatest(API_CALL_GET, getSaga);
@@ -70,6 +73,14 @@ function addData(field, json) {
       headers: { 'x-api-key': X_API_KEY, 'Content-Type': 'application/json' },
       url: `${POST_SERVER_URL}/${field}`,
       data: json
+   });
+}
+
+function deleteData(field, id){
+   return axios({
+      method: 'DELETE',
+      headers: { 'x-api-key': X_API_KEY },
+      url: `${POST_SERVER_URL}/${field}/${id}`
    });
 }
 
@@ -122,6 +133,23 @@ function* addSaga(action) {
          server_data: server_data,
          field: action.payload.field,
          activeIndex: action.payload.id
+      });
+   } catch (error) {
+      // dispatch a failure action to the store with the error
+      yield put({ type: API_CALL_FAILURE, error });
+   }
+}
+
+function* deleteSaga(action){
+   try {
+      const response = yield call(deleteData, action.payload.field, action.payload.id);
+      let server_data = {};
+      server_data = response.data;
+      // dispatch a success action to the store with the new dog
+      yield put({
+         type: API_DELETE_SUCCESS,
+         field: action.payload.field,
+         id: action.payload.id
       });
    } catch (error) {
       // dispatch a failure action to the store with the error

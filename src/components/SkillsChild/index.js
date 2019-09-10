@@ -5,14 +5,15 @@
  */
 
 import React, { memo, useState, useEffect } from 'react';
-import { Paper, Grid, Box, Button } from '@material-ui/core';
+import { Paper, Grid, Box, Button, CircularProgress } from '@material-ui/core';
 import { AddOutlined } from '@material-ui/icons';
 import { skillsChildStyles } from './style';
 import CustomInput from '../Input';
 import CustomRate from '../Rate';
 import CustomCheckbox from '../Checkbox';
-import CustomButton from '../Button';
-import { Link } from 'react-router-dom';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { API_CALL_DELETE } from '../../constants';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -20,7 +21,7 @@ function SkillsChild() {
    const classes = skillsChildStyles();
    const dispatch = useDispatch();
    const query = useSelector(state => state);
-   const { fetching, server_data, error } = query;
+   const { fetching, server_data, error, deleting } = query;
    const initialValue = [{ id: 0, name: '', rate: 0 }];
    const [stateSkills, setStateSkills] = useState(initialValue);
    let [skillsLoading, setskillsLoading] = useState([]);
@@ -53,12 +54,13 @@ function SkillsChild() {
    useEffect(() => {
       if (fetching) {
          arrayValue[flagInput] = 'loading';
-         setskillsLoading(arrayValue);
+      } else if (deleting) {
+         arrayValue[flagInput] = 'deleting';
       } else {
          arrayValue[flagInput] = 'success';
-         setskillsLoading(arrayValue);
       }
-   }, [fetching]);
+      setskillsLoading(arrayValue);
+   }, [fetching, deleting]);
 
    const deferApiCallUpdateCheckbox = (name, value) => {
       let tout = updateTimeouts[name];
@@ -76,11 +78,11 @@ function SkillsChild() {
       setUpdateTimeouts(updateTimeouts);
    };
 
-   const deferApiCallUpdate = (id, name, value) => {
+   const deferApiCallUpdate = (id, name, value, index) => {
       let tout = updateTimeouts[name];
       if (tout) clearTimeout(tout);
       tout = setTimeout(() => {
-         setFlagInput(name);
+         setFlagInput(index);
          let data = {};
          data[name] = value;
          dispatch({
@@ -122,7 +124,7 @@ function SkillsChild() {
 
       switch (name) {
          case 'name':
-            deferApiCallUpdate(id, name, value);
+            deferApiCallUpdate(id, name, value, index);
             break;
          case 'rate':
             setFlagInput(index);
@@ -149,6 +151,17 @@ function SkillsChild() {
       });
    };
 
+   const handleDelete = (item, index) =>{
+      setFlagInput(index);
+      dispatch({
+         type: API_CALL_DELETE,
+         payload: {
+            field: 'skills',
+            id: item.id
+         }
+      });
+   }
+
    return (
       <Box>
          <Grid container spacing={3} className={classes.container}>
@@ -162,18 +175,27 @@ function SkillsChild() {
                            placeholder='e.g. Teacher'
                            value={item.name}
                            state={skillsLoading[index]}
+                           disabled={skillsLoading[index] != 'success'} 
                            id='skills'
                            name={`name-${index}-${item.id}`}
                            onChange={handleChange}
                         />
                      </Grid>
-                     <Grid item xs={12} md={6}>
+                     <Grid item>
                         <Box display='flex' alignItems='center' height={55}>
                            <CustomRate
                               value={item.rate}
                               name={`rate-${index}-${item.id}`}
                               onChange={handleChange}
+                              disabled={skillsLoading[index] != 'success'} 
                            />
+                        </Box>
+                     </Grid>
+                     <Grid item>
+                        <Box display='flex' alignItems='center' height={55}>
+                           <Button variant="contained" disabled={skillsLoading[index] != 'success'}  onClick={()=>{handleDelete(item, index)}} title='Delete Skill' >
+                              { skillsLoading[index] == 'deleting' ?  <CircularProgress className={classes.loading} size={25}/> : <DeleteIcon /> }
+                           </Button>
                         </Box>
                      </Grid>
                   </React.Fragment>
