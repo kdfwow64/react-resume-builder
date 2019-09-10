@@ -11,6 +11,7 @@ import { skillsChildStyles } from './style';
 import CustomInput from '../Input';
 import CustomRate from '../Rate';
 import CustomCheckbox from '../Checkbox';
+import ConfirmDialog from '../ConfirmDialog';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { API_CALL_DELETE } from '../../constants';
@@ -28,6 +29,8 @@ function SkillsChild() {
    const [showSkills, setShowSkills] = useState(Boolean);
    const [flagInput, setFlagInput] = useState('');
    const [lastID, setLastID] = useState(0);
+   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+   const [pendingDeleteIndex, setPendingDeleteIndex] = useState(-1);
    const allowedState = [];
 
    const [updateTimeouts, setUpdateTimeouts] = useState({});
@@ -152,7 +155,19 @@ function SkillsChild() {
    };
 
    const handleDelete = (item, index) =>{
-      setFlagInput(index);
+      setPendingDeleteIndex(index);
+      setDeleteConfirmOpen(true);
+   }
+
+   const handleConfirmClose = action => {
+      if(action === 'ok')
+         deleteSkill();
+      setDeleteConfirmOpen(false);
+   }
+
+   const deleteSkill = () => {
+      setFlagInput(pendingDeleteIndex);
+      const item = stateSkills[pendingDeleteIndex];
       dispatch({
          type: API_CALL_DELETE,
          payload: {
@@ -222,6 +237,7 @@ function SkillsChild() {
                </Grid>
             </Grid>
          </Grid>
+         <ConfirmDialog open={ deleteConfirmOpen } onClose={ handleConfirmClose } />
       </Box>
    );
 }
