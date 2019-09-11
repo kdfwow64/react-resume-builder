@@ -184,32 +184,32 @@ function SkillsChild() {
                if (!item.id) return null;
                return (
                   <React.Fragment key={index}>
-                     <Grid item xs={12} md={6}>
+                     <Grid item xs={12} md={8}>
                         <CustomInput
                            label='Skill'
                            placeholder='e.g. Teacher'
                            value={item.name}
                            state={skillsLoading[index]}
-                           disabled={skillsLoading[index] != 'success'} 
+                           disabled={skillsLoading[index] !== 'success'}
                            id='skills'
                            name={`name-${index}-${item.id}`}
                            onChange={handleChange}
                         />
                      </Grid>
-                     <Grid item>
+                     <Grid item md={3}>
                         <Box display='flex' alignItems='center' height={55}>
                            <CustomRate
                               value={item.rate}
                               name={`rate-${index}-${item.id}`}
                               onChange={handleChange}
-                              disabled={skillsLoading[index] != 'success'} 
+                              disabled={skillsLoading[index] !== 'success'}
                            />
                         </Box>
                      </Grid>
-                     <Grid item>
+                     <Grid item md={1}>
                         <Box display='flex' alignItems='center' height={55}>
-                           <Button variant="contained" disabled={skillsLoading[index] != 'success'}  onClick={()=>{handleDelete(item, index)}} title='Delete Skill' >
-                              { skillsLoading[index] == 'deleting' ?  <CircularProgress className={classes.loading} size={25}/> : <DeleteIcon /> }
+                           <Button variant="contained" disabled={skillsLoading[index] !== 'success'} onClick={()=>{handleDelete(item, index)}} title='Delete Skill' >
+                              { skillsLoading[index] === 'deleting' ?  <CircularProgress className={classes.loading} size={25}/> : <DeleteIcon /> }
                            </Button>
                         </Box>
                      </Grid>
