@@ -32,4 +32,8 @@ export const workChildStyles = makeStyles({
     marginTop: 32,
   },
   person: { width: 65, height: 65, color: 'grey' },
+  buttonLoading: {
+    color: 'rgba(0, 0, 0, 0.87)',
+    marginRight: 5
+  }
 });

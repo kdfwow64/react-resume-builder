@@ -64,36 +64,36 @@ function ObjectStepper(props) {
     }
 
     return (
-        <Grid container justify='space-between' alignItems='center'>
+        <Grid container justify='space-between' alignItems='center' spacing={2}>
             <Grid xs={12} md={2} item>
-            <Button onClick={()=>{ changeIndex(activeIndex - 1) }} variant='contained' color='default' fullWidth disabled={activeIndex <= 0} title={prevTooltip}>
-                Previous
-            </Button>
+                <Button onClick={()=>{ changeIndex(activeIndex - 1) }} variant='contained' color='default' fullWidth disabled={activeIndex <= 0} title={prevTooltip}>
+                    Previous
+                </Button>
             </Grid>
             <Grid xs={12} md={8} item>
-            <Stepper nonLinear activeStep={activeIndex} classes={classes} connector={false}>
-                {items.map((item, idx) => {
-                    return (
-                    <Step key={idx}>
-                        <StepButton icon={" "} classes={buttonClasses}>
-                            <StepLabel classes={buttonClasses.label}
-                                StepIconProps={{
-                                    classes: iconClasses
-                                }}
-                                onClick={() => {
-                                    changeIndex(idx);
-                                }}
-                            />
-                        </StepButton>
-                    </Step>
-                    );
-                })}
-            </Stepper>
+                <Stepper nonLinear activeStep={activeIndex} classes={classes} connector={false}>
+                    {items.map((item, idx) => {
+                        return (
+                        <Step key={idx}>
+                            <StepButton icon={" "} classes={buttonClasses}>
+                                <StepLabel classes={buttonClasses.label}
+                                    StepIconProps={{
+                                        classes: iconClasses
+                                    }}
+                                    onClick={() => {
+                                        changeIndex(idx);
+                                    }}
+                                />
+                            </StepButton>
+                        </Step>
+                        );
+                    })}
+                </Stepper>
             </Grid>
             <Grid xs={12} md={2} item>
-            <CustomButton onClick={()=>{ changeIndex(activeIndex + 1) }} disabled={ activeIndex >= itemCount- 1} title={nextTooltip}>
-                Next
-            </CustomButton>
+                <CustomButton onClick={()=>{ changeIndex(activeIndex + 1) }} disabled={ activeIndex >= itemCount- 1} title={nextTooltip}>
+                    Next
+                </CustomButton>
             </Grid>
         </Grid>
     );

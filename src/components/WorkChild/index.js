@@ -5,8 +5,8 @@
  */
 
 import React, {memo, useState, useEffect, useRef} from 'react';
-import {AddOutlined} from '@material-ui/icons';
-import {Typography, Paper, Grid, Box, Button} from '@material-ui/core';
+import {AddOutlined, DeleteOutlined } from '@material-ui/icons';
+import {Typography, Paper, Grid, Box, Button, CircularProgress} from '@material-ui/core';
 import {workChildStyles} from './style';
 import CustomInput from '../Input';
 import CustomCheckbox from '../Checkbox';
@@ -14,14 +14,16 @@ import CustomButton from '../Button';
 import SearchList from '../SearchList/SearchList';
 import RichEdit from '../RichEdit/RichEdit';
 import ObjectStepper from '../ObjectStepper';
+import ConfirmDialog from '../ConfirmDialog';
 import {useSelector, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
+import { API_CALL_DELETE } from '../../constants';
 
 function WorkChild(props) {
   const classes = workChildStyles();
   const dispatch = useDispatch();
   const query = useSelector(state => state);
-  const {fetching, server_data, activeIndex} = query;
+  const {fetching, server_data, activeIndex, deleting} = query;
 
   const [city, setCity] = useState('');
   // MS:
@@ -47,10 +49,17 @@ function WorkChild(props) {
 
   const [updateTimeouts, setUpdateTimeouts] = useState({});
   const [index, setIndex] = useState(isNaN(props.index) ? 0 : parseInt(props.index) - 1);
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [pendingDelete, setPendingDelete] = useState(false);
 
   const richEdit = useRef(); 
 
   useEffect(() => {
+    if(pendingDelete){
+      setIndex(Math.min(0, index - 1));
+      setPendingDelete(false);
+      return;
+    }
     if(index >= 0 && index < server_data.workHistory.length){
       setId(server_data.workHistory[index].id);
       setCity(server_data.workHistory[index].city);
@@ -248,6 +257,27 @@ function WorkChild(props) {
     setIndex(newIndex);
   }
 
+  const handleDeleteWork = () => {
+    setDeleteConfirmOpen(true);
+  }
+
+  const handleDeleteConfirmClose = action => {
+    if(action === 'ok')
+      deleteWork();
+    setDeleteConfirmOpen(false);
+  }
+
+  const deleteWork = () => {
+    setPendingDelete();
+    dispatch({
+      type: API_CALL_DELETE,
+      payload: {
+         field: 'work-history',
+         id: server_data.workHistory[index].id
+      }
+   });
+  }
+
   return (
     <Box>
       <Grid container spacing={3} className={classes.container}>
@@ -360,12 +390,23 @@ function WorkChild(props) {
             userId={id}/>
         </Grid>
       </Grid>
-      <Grid xs={12} md={12} container style={{marginTop: 32}}>
-        <Button variant='contained' color='default' onClick={handleAddWork}
-                disabled={fetching} fullWidth>
-          <AddOutlined/>
-          Add work
-        </Button>
+      <Grid item xs={12} style={{marginTop: 32}}>
+        <Grid xs={12} container spacing = {2}>
+          <Grid xs={12} md={9} item >
+            <Button variant='contained' color='default' onClick={handleAddWork}
+                    disabled={fetching || deleting} fullWidth>
+              <AddOutlined/>
+              Add work
+            </Button>
+          </Grid>
+          <Grid xs={12} md={3} item >
+            <Button variant='contained' color='default' onClick={handleDeleteWork} title={'Delete Current Work'}
+                    disabled={fetching || deleting || (server_data.workHistory.length == 0 && index == 0)} fullWidth>
+                { deleting ?  <CircularProgress className={classes.buttonLoading} size={20}/> : <DeleteOutlined /> }
+              Delete work
+            </Button>
+          </Grid>
+        </Grid>
       </Grid>
       <Grid item xs={12} style={{marginTop: 32}}>
           <ObjectStepper 
@@ -376,6 +417,7 @@ function WorkChild(props) {
             prevTooltip='Previous Work'
             />
       </Grid>
+      <ConfirmDialog open={ deleteConfirmOpen } onClose={ handleDeleteConfirmClose } />
     </Box>
   );
 }

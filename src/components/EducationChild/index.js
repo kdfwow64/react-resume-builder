@@ -5,8 +5,8 @@
  */
 
 import React, {useState, useEffect, useRef} from 'react';
-import {Paper, Grid, Typography, Box, Button} from '@material-ui/core';
-import {AddOutlined} from '@material-ui/icons';
+import {Paper, Grid, Typography, Box, Button, CircularProgress} from '@material-ui/core';
+import {AddOutlined, DeleteOutlined} from '@material-ui/icons';
 import CustomInput from '../Input';
 import CustomCheckbox from '../Checkbox';
 import {educationChildStyles} from './style';
@@ -14,15 +14,17 @@ import CustomButton from '../Button';
 import SearchList from '../SearchList/SearchList';
 import RichEdit from '../RichEdit/RichEdit';
 import ObjectStepper from '../ObjectStepper';
+import ConfirmDialog from '../ConfirmDialog';
 
 import {useSelector, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
+import { API_CALL_DELETE } from '../../constants';
 
 function EducationChild(props) {
   const classes = educationChildStyles();
   const dispatch = useDispatch();
   const query = useSelector(state => state);
-  const {fetching, server_data, activeIndex} = query;
+  const {fetching, server_data, activeIndex, deleting} = query;
 
   const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
@@ -46,10 +48,17 @@ function EducationChild(props) {
 
   const [updateTimeouts, setUpdateTimeouts] = useState({});
   const [index, setIndex] = useState(isNaN(props.index) ? 0 : parseInt(props.index) - 1);
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [pendingDelete, setPendingDelete] = useState(false);
 
   const richEdit = useRef();
 
   useEffect(() => {
+    if(pendingDelete){
+      setIndex(Math.min(0, index - 1));
+      setPendingDelete(false);
+      return;
+    }
     if(index >= 0 && index < server_data.education.length){
       setId(server_data.education[index].id);
       setCity(server_data.education[index].city);
@@ -244,6 +253,27 @@ function EducationChild(props) {
     setIndex(newIndex);
   }
 
+  const handleDeleteEducation = () => {
+    setDeleteConfirmOpen(true);
+  }
+
+  const handleDeleteConfirmClose = action => {
+    if(action === 'ok')
+      deleteEducation();
+    setDeleteConfirmOpen(false);
+  }
+
+  const deleteEducation = () => {
+    setPendingDelete();
+    dispatch({
+      type: API_CALL_DELETE,
+      payload: {
+         field: 'educationy',
+         id: server_data.education[index].id
+      }
+   });
+  }
+
   return (
     <Box>
       <Grid container spacing={3} className={classes.container}>
@@ -357,12 +387,23 @@ function EducationChild(props) {
             userId={id}/>
         </Grid>
       </Grid>
-      <Grid xs={12} md={12} container style={{marginTop: 32}}>
-        <Button variant='contained' color='default' onClick={handleAddEducation}
-                disabled={fetching} fullWidth>
-          <AddOutlined/>
-          Add education
-        </Button>
+      <Grid item xs={12}  style={{marginTop: 32}}>
+        <Grid xs={12} container spacing = {2}>
+          <Grid xs={12} md={9} item>
+            <Button variant='contained' color='default' onClick={handleAddEducation}
+                    disabled={fetching || deleting} fullWidth>
+              <AddOutlined/>
+              Add Work
+            </Button>
+          </Grid>
+          <Grid xs={12} md={3} item>
+            <Button variant='contained' color='default' onClick={handleDeleteEducation} title={'Delete Current Education'}
+                    disabled={fetching || deleting || (server_data.education.length == 0 && index == 0)} fullWidth>
+                { deleting ?  <CircularProgress className={classes.buttonLoading} size={20} /> : <DeleteOutlined /> }
+              Delete Education
+            </Button>
+          </Grid>
+        </Grid>
       </Grid>
       <Grid item xs={12} style={{marginTop: 32}}>
         <ObjectStepper 
@@ -373,6 +414,7 @@ function EducationChild(props) {
               prevTooltip='Previous Education'
               />
       </Grid>
+      <ConfirmDialog open={ deleteConfirmOpen } onClose={ handleDeleteConfirmClose } />
     </Box>
   );
 }

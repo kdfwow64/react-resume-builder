@@ -13,7 +13,8 @@ import {
    API_GET_SUCCESS,
    API_CALL_ADD,
    API_ADD_SUCCESS,
-   API_DELETE_SUCCESS
+   API_DELETE_SUCCESS,
+   API_DELETE_FAILURE
 } from '../constants';
 
 // reducer with initial state
@@ -125,6 +126,8 @@ export function reducer(state = initialState, action) {
                },
                deleting: false,
                error: null };
+         case API_DELETE_FAILURE: 
+               return { ...state, deleting: false, error: null, error: action.error };
       default:
          return state;
    }

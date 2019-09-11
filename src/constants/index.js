@@ -15,6 +15,7 @@ export const API_CALL_ADD = 'API_CALL_ADD';
 export const API_ADD_SUCCESS = 'API_ADD_SUCCESS';
 export const API_CALL_DELETE = 'API_CALL_DELETE';
 export const API_DELETE_SUCCESS = 'API_DELETE_SUCCESS';
+export const API_DELETE_FAILURE = 'API_DELETE_FAILURE';
 
 //TODO: need to be refactored. implemeted as separate action to avoid changing of exising functionality
 export const API_CALL_GET = 'API_CALL_GET';

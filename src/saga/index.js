@@ -15,7 +15,8 @@ import {
    API_CALL_ADD,
    API_ADD_SUCCESS,
    API_CALL_DELETE,
-   API_DELETE_SUCCESS
+   API_DELETE_SUCCESS,
+   API_DELETE_FAILURE
 } from '../constants';
 
 // watcher saga: watches for actions dispatched to the store, starts worker saga
@@ -153,6 +154,6 @@ function* deleteSaga(action){
       });
    } catch (error) {
       // dispatch a failure action to the store with the error
-      yield put({ type: API_CALL_FAILURE, error });
+      yield put({ type: API_DELETE_FAILURE, error });
    }
 }
