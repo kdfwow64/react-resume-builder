@@ -17,6 +17,7 @@ import { ChevronRight, ChevronLeft, Fullscreen } from "@material-ui/icons";
 import { finalizeChildStyles } from "./style";
 import CustomButton from "../Button";
 import { Link } from "react-router-dom";
+import Index from "../Templates/Template-1";
 
 function FinalizeChild() {
   const classes = finalizeChildStyles();
@@ -125,11 +126,7 @@ function FinalizeChild() {
             </Box>
           </Box>
           <Box boxShadow={2} borderRadius={4}>
-            <img
-              src="https://via.placeholder.com/600x550"
-              className={classes.img}
-              alt="cv"
-            />
+            <Index/>
           </Box>
         </Grid>
       </Grid>
