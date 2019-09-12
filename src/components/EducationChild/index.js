@@ -247,7 +247,7 @@ function EducationChild(props) {
       payload: {field: 'education', id: index, json: obj}
     });
   };
-  
+
   const handleIndexChange = (newIndex) =>{
     props.history.push('/education/' + (newIndex + 1));
     setIndex(newIndex);
@@ -268,7 +268,7 @@ function EducationChild(props) {
     dispatch({
       type: API_CALL_DELETE,
       payload: {
-         field: 'educationy',
+         field: 'education',
          id: server_data.education[index].id
       }
    });
@@ -406,8 +406,8 @@ function EducationChild(props) {
         </Grid>
       </Grid>
       <Grid item xs={12} style={{marginTop: 32}}>
-        <ObjectStepper 
-              itemCount={server_data.education.length} 
+        <ObjectStepper
+              itemCount={server_data.education.length}
               activeIndex={index}
               onIndexChange={handleIndexChange}
               nextTooltip='Next Education'

@@ -52,7 +52,7 @@ function WorkChild(props) {
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [pendingDelete, setPendingDelete] = useState(false);
 
-  const richEdit = useRef(); 
+  const richEdit = useRef();
 
   useEffect(() => {
     if(pendingDelete){
@@ -272,7 +272,7 @@ function WorkChild(props) {
     dispatch({
       type: API_CALL_DELETE,
       payload: {
-         field: 'work-history',
+         field: 'workHistory',
          id: server_data.workHistory[index].id
       }
    });
@@ -401,7 +401,7 @@ function WorkChild(props) {
           </Grid>
           <Grid xs={12} md={3} item >
             <Button variant='contained' color='default' onClick={handleDeleteWork} title={'Delete Current Work'}
-                    disabled={fetching || deleting || (server_data.workHistory.length == 0 && index == 0)} fullWidth>
+                    disabled={fetching || deleting || (server_data.workHistory.length === 0 && index === 0)} fullWidth>
                 { deleting ?  <CircularProgress className={classes.buttonLoading} size={20}/> : <DeleteOutlined /> }
               Delete work
             </Button>
@@ -409,8 +409,8 @@ function WorkChild(props) {
         </Grid>
       </Grid>
       <Grid item xs={12} style={{marginTop: 32}}>
-          <ObjectStepper 
-            itemCount={server_data.workHistory.length} 
+          <ObjectStepper
+            itemCount={server_data.workHistory.length}
             activeIndex={index}
             onIndexChange={handleIndexChange}
             nextTooltip='Next Work'

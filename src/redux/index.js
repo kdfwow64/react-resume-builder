@@ -117,17 +117,17 @@ export function reducer(state = initialState, action) {
             return { ...state, deleting: true, error: null };
          case API_DELETE_SUCCESS:
             let delete_data = {};
-            delete_data[action.field] = state.server_data[action.field].filter(item => item.id != action.id);   
-            return { 
-               ...state, 
-               server_data: { 
-                  ...state.server_data, 
-                  ...delete_data 
+            delete_data[action.field] = state.server_data[action.field].filter(item => item.id !== action.id);
+            return {
+               ...state,
+               server_data: {
+                  ...state.server_data,
+                  ...delete_data
                },
                deleting: false,
                error: null };
-         case API_DELETE_FAILURE: 
-               return { ...state, deleting: false, error: null, error: action.error };
+      case API_DELETE_FAILURE:
+               return { ...state, deleting: false, error: action.error };
       default:
          return state;
    }
