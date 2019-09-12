@@ -227,6 +227,9 @@ function HeadingChild() {
    return (
       <Box>
          <Grid container spacing={3}>
+            <Grid item xs={12} md={12}>
+               <h2>PERSONAL DETAILS</h2>
+            </Grid>
             <Grid item xs={12} md={6}>
                <Box display='flex' alignItems='center'>
                   <Box

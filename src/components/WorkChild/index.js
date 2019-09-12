@@ -280,7 +280,10 @@ function WorkChild(props) {
 
   return (
     <Box>
-      <Grid container spacing={3} className={classes.container}>
+      <Grid container spacing={3} >
+        <Grid item xs={12} md={12}>
+          <h2>WORK HISTORY</h2>
+        </Grid>
         <Grid item xs={12} md={6}>
           <CustomInput
             label='Job Title'

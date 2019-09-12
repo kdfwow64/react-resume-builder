@@ -179,7 +179,10 @@ function SkillsChild() {
 
    return (
       <Box>
-         <Grid container spacing={3} className={classes.container}>
+         <Grid container spacing={3} >
+            <Grid item xs={12} md={12}>
+               <h2>SKILLS</h2>
+            </Grid>
             {stateSkills.map((item, index) => {
                if (!item.id) return null;
                return (
