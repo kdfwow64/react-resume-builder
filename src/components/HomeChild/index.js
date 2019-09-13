@@ -13,6 +13,10 @@ import CV from "../../assets/cv.png";
 import F1 from "../../assets/face1.png";
 import F2 from "../../assets/face2.png";
 import F3 from "../../assets/face3.png";
+import CheckIcon from '@material-ui/icons/CheckCircle';
+import CertificateIcon from'@material-ui/icons/NewReleases';
+import GroupIcon from '@material-ui/icons/Group';
+import EditIcon from '@material-ui/icons/Edit';
 import Free from "../../assets/free.png";
 import PDF from "../../assets/pdf.png";
 import Font from "../../assets/font.png";
@@ -32,8 +36,11 @@ function HomeChild() {
         <Grid container justify="space-between" alignItems="center">
           <Grid item md={6}>
             <Typography
-              className={[classes.title, classes.letterSpacing3]}
-              variant="h4"
+              className={[classes.title,"title", classes.letterSpacing3]}
+              variant="h3" Font="bold"
+              style={{fontWeight:'bolder'}}
+
+
             >
               Crowdsource your resume building
             </Typography>
@@ -66,10 +73,11 @@ function HomeChild() {
           <Typography
             className={[classes.title, classes.w60, classes.letterSpacing3]}
             variant="h4"
+            style={{fontWeight:'bolder'}}
           >
             BUILD YOUR RESUME IN MINUTES, EDIT IN SECONDS, APPLY ASAP
           </Typography>
-          <Typography variant="caption">
+          <Typography variant="h5">
             Community driven resume builder{" "}
           </Typography>
         </Box>
@@ -77,7 +85,7 @@ function HomeChild() {
       <Grid item xs={12} md={5}>
         <Box>
           <Box display="flex" alignItems="center">
-            <img src={Free} className={classes.iconImage} />
+          <CertificateIcon style={{color:'black',fontSize:50}}/>
             <Typography
               variant="h5"
               className={[classes.title, classes.letterSpacing3]}
@@ -96,7 +104,7 @@ function HomeChild() {
       <Grid item xs={12} md={5}>
         <Box>
           <Box display="flex" alignItems="center">
-            <img src={PDF} className={classes.iconImage} />
+          <GroupIcon style={{color:'black',fontSize:50}}/>
             <Typography
               variant="h5"
               className={[classes.title, classes.letterSpacing3]}
@@ -117,7 +125,7 @@ function HomeChild() {
       <Grid item xs={12} md={5}>
         <Box>
           <Box display="flex" alignItems="center">
-            <AttachFile className={classes.icon} />
+          <EditIcon style={{color:'black',fontSize:50}}/>
             <Typography
               variant="h5"
               className={[classes.title, classes.letterSpacing3]}
@@ -127,11 +135,9 @@ function HomeChild() {
           </Box>
           <Box>
             <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse eu accumsan tellus, finibus sagittis ipsum. Proin nunc
-              nisl, pharetra eu sapien consectetur, ultricies efficitur odio.
-              Proin faucibus, ligula vel molestie elementum, odio ligula
-              imperdiet purus, non ultrices mauris ex id tellus.
+            The site will help you build your resume
+by providing resume verbiage used by other professionals
+with similar experience that you can copy, edit, paste.
             </Typography>
           </Box>
         </Box>
@@ -139,7 +145,7 @@ function HomeChild() {
       <Grid item xs={12} md={5}>
         <Box>
           <Box display="flex" alignItems="center">
-            <img src={Font} className={classes.iconImage} />
+          <CheckIcon style={{color:'black',fontSize:50}}/>
             <Typography
               variant="h5"
               className={[classes.title, classes.letterSpacing3]}
@@ -149,11 +155,10 @@ function HomeChild() {
           </Box>
           <Box>
             <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse eu accumsan tellus, finibus sagittis ipsum. Proin nunc
-              nisl, pharetra eu sapien consectetur, ultricies efficitur odio.
-              Proin faucibus, ligula vel molestie elementum, odio ligula
-              imperdiet purus, non ultrices mauris ex id tellus.
+            Build your resume in minutes, apply to jobs in no time.
+If your resume in rejected, come right back, edit your resume
+(change layout, rearrange the verbiage) and apply/re-apply.
+
             </Typography>
           </Box>
         </Box>
@@ -163,6 +168,7 @@ function HomeChild() {
           <Typography
             className={[classes.title, classes.w60, classes.letterSpacing3]}
             variant="h4"
+            style={{fontWeight:'bolder'}}
           >
             Complete these easy steps, get hired fast
           </Typography>
@@ -224,6 +230,7 @@ function HomeChild() {
           <Typography
             className={[classes.title, classes.w60, classes.letterSpacing3]}
             variant="h4"
+            style={{fontWeight:'bolder'}}
           >
             CHOSE THE RIGHT TEMPLATE FOR THE JOB
           </Typography>
