@@ -5,7 +5,10 @@ export const homeChildStyles = makeStyles({
     marginTop: 48
   },
   title: {
-    textTransform: "uppercase"
+    textTransform: "uppercase",
+    fontFamily: 'Roboto Condensed',
+    fontWeight:  "bolder",
+    letterSpacing: 3
   },
   icon: {
     color: "teal",
