@@ -9,7 +9,7 @@ export default function Index(props) {
   return (
 
     <div classname="classes.container">
-        TEMPLATE 1
+        TEMPLATE 2
     </div>
   );
 

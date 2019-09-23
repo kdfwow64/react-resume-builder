@@ -14,7 +14,8 @@ import {
    API_CALL_ADD,
    API_ADD_SUCCESS,
    API_DELETE_SUCCESS,
-   API_DELETE_FAILURE
+   API_DELETE_FAILURE,
+   TEMPLATE_KEY_CHANGE
 } from '../constants';
 
 // reducer with initial state
@@ -33,7 +34,8 @@ const initialState = {
    activeIndex: {
       workHistory: 0,
       education: 0
-   }
+   },
+   templateKey: '1'
 };
 
 export function reducer(state = initialState, action) {
@@ -113,21 +115,23 @@ export function reducer(state = initialState, action) {
                }
             };
          }
-         case API_CALL_DELETE:
-            return { ...state, deleting: true, error: null };
-         case API_DELETE_SUCCESS:
-            let delete_data = {};
-            delete_data[action.field] = state.server_data[action.field].filter(item => item.id !== action.id);
-            return {
-               ...state,
-               server_data: {
-                  ...state.server_data,
-                  ...delete_data
-               },
-               deleting: false,
-               error: null };
+      case API_CALL_DELETE:
+         return { ...state, deleting: true, error: null };
+      case API_DELETE_SUCCESS:
+         let delete_data = {};
+         delete_data[action.field] = state.server_data[action.field].filter(item => item.id !== action.id);
+         return {
+            ...state,
+            server_data: {
+               ...state.server_data,
+               ...delete_data
+            },
+            deleting: false,
+            error: null };
       case API_DELETE_FAILURE:
                return { ...state, deleting: false, error: action.error };
+      case TEMPLATE_KEY_CHANGE:
+         return { ...state, templateKey: action.payload.templateKey };
       default:
          return state;
    }

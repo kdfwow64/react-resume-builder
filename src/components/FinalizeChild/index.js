@@ -4,7 +4,7 @@
  *
  */
 
-import React, { memo, useState } from "react";
+import React, { memo, useState, useEffect } from "react";
 import {
   Grid,
   Box,
@@ -17,14 +17,68 @@ import { ChevronRight, ChevronLeft, Fullscreen } from "@material-ui/icons";
 import { finalizeChildStyles } from "./style";
 import CustomButton from "../Button";
 import { Link } from "react-router-dom";
-import Index from "../Templates/Template-1";
+import {useSelector, useDispatch} from 'react-redux';
+import Loadable from 'react-loadable';
+import Template from "./template";
+import { TEMPLATE_KEY_CHANGE } from '../../constants';
 
-function FinalizeChild() {
+const Templates = [
+  {key: '1', name: 'Template-1', path: 'Template-1'},
+  {key: '2', name: 'Template-2', path: 'Template-2'}
+]
+
+function FinalizeChild(props) {
   const classes = finalizeChildStyles();
+  const dispatch = useDispatch();
+  const query = useSelector(state => state);
+  const {server_data, templateKey} = query;
+
   const [selected, setSelected] = useState("black");
+
+  const [activeTemplateIndex, setActiveTemplateIndex] = useState(0);
+
   const handleAccent = color => {
     setSelected(color);
   };
+
+  useEffect(() => {
+    selectTemplateByKey(props.template);
+  }, [props.template]);
+
+  useEffect(() => {
+    selectTemplateByKey(templateKey);
+  }, [templateKey]);
+
+  const selectTemplateByKey = key => {
+    let tmp = Templates.find(t=>t.key === key);
+    if(!tmp)
+      tmp = Templates[0];
+    selectTemplate(tmp);
+  }
+
+  const selectTemplateByIndex = index => {
+    index = Math.max(0, Math.min(index, Templates.length - 1));
+    selectTemplate(Templates[index]);
+  }
+
+  const selectTemplate = tmp => {
+    if(tmp.key !== Templates[activeTemplateIndex].key){
+      props.history.push('/finalize?template=' + tmp.key);
+      dispatch({
+        type: TEMPLATE_KEY_CHANGE,
+        payload: {templateKey: tmp.key}
+      });
+      setActiveTemplateIndex(Templates.indexOf(tmp))
+    }
+  }
+
+  const handlePrevTemplate = () => {
+    selectTemplateByIndex(activeTemplateIndex - 1);
+  }
+
+  const handleNextTemplate = () => {
+    selectTemplateByIndex(activeTemplateIndex + 1);
+  }
 
   return (
     <Paper className={classes.paper} elevation={0}>
@@ -38,11 +92,11 @@ function FinalizeChild() {
               justifyContent="space-between"
             >
               <IconButton>
-                <ChevronLeft className={classes.icons} />
+                <ChevronLeft className={classes.icons} onClick={ handlePrevTemplate } disabled = {activeTemplateIndex <= 0} />
               </IconButton>
-              <Typography>Template 1</Typography>
+              <Typography>{ Templates[activeTemplateIndex].name }</Typography>
               <IconButton>
-                <ChevronRight className={classes.icons} />
+                <ChevronRight className={classes.icons} onClick={ handleNextTemplate } disabled = {activeTemplateIndex >= Templates.length - 1 } />
               </IconButton>
             </Box>
 
@@ -126,7 +180,7 @@ function FinalizeChild() {
             </Box>
           </Box>
           <Box boxShadow={2} borderRadius={4}>
-            <Index/>
+            <Template path={Templates[activeTemplateIndex].path}/>
           </Box>
         </Grid>
       </Grid>

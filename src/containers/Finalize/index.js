@@ -11,11 +11,11 @@ import { Grid } from "@material-ui/core";
 import { finalizeChildStyles } from "./styles";
 import FinalizeChild from "../../components/FinalizeChild";
 
-export function Finalize() {
+export function Finalize(props) {
   const classes = finalizeChildStyles();
 
   return (
-      <FinalizeChild />
+      <FinalizeChild templateKey={props.match.params.templateKey} history={props.history} />
   );
 }
 

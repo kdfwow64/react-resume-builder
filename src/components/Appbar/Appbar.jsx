@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useState} from "react";
+import {useSelector, useDispatch} from 'react-redux';
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Avatar from "@material-ui/core/Avatar";
@@ -65,6 +66,8 @@ export default function MenuAppBar(props) {
   const { variant } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const query = useSelector(state => state);
+  const {templateKey} = query;
 
   function handleMenu(event) {
     setAnchorEl(event.currentTarget);
@@ -107,7 +110,7 @@ export default function MenuAppBar(props) {
         </Button>
       </Grid>
       <Grid item xs>
-        <Button component={Link} to="/finalize">
+        <Button component={Link} to={ "/finalize?template=" + templateKey} >
           5.Finalize
         </Button>
       </Grid>
