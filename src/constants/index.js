@@ -20,3 +20,5 @@ export const API_DELETE_FAILURE = 'API_DELETE_FAILURE';
 //TODO: need to be refactored. implemeted as separate action to avoid changing of exising functionality
 export const API_CALL_GET = 'API_CALL_GET';
 export const API_GET_SUCCESS = 'API_GET_SUCCESS';
+
+export const TEMPLATE_KEY_CHANGE = 'TEMPLATE_KEY_CHANGE';
