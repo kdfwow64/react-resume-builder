@@ -67,7 +67,7 @@ export default function MenuAppBar(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const query = useSelector(state => state);
-  const {templateKey} = query;
+  const {activeTemplate} = query;
 
   function handleMenu(event) {
     setAnchorEl(event.currentTarget);
@@ -110,7 +110,7 @@ export default function MenuAppBar(props) {
         </Button>
       </Grid>
       <Grid item xs>
-        <Button component={Link} to={ "/finalize?template=" + templateKey} >
+        <Button component={Link} to={ "/finalize/" + activeTemplate.key} >
           5.Finalize
         </Button>
       </Grid>

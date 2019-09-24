@@ -15,7 +15,7 @@ export function Finalize(props) {
   const classes = finalizeChildStyles();
 
   return (
-      <FinalizeChild templateKey={props.match.params.templateKey} history={props.history} />
+      <FinalizeChild template={props.match.params.template} history={props.history} />
   );
 }
 

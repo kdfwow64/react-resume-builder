@@ -30,7 +30,7 @@ export default withRouter(function App(props) {
             <Route exact path="/education/:index?" render={(props) => <Builder {...props} component={Edu}/>}/>
             <Route exact path="/skills" render={(props) => <Builder {...props} component={Skills}/>}/>
             <Route exact path="/summary" render={(props) => <Builder {...props} component={Summary}/>}/>
-            <Route exact path="/finalize" render={(props) => <Builder {...props} component={Finalize}/>}/>
+            <Route exact path="/finalize/:template?" render={(props) => <Builder {...props} component={Finalize}/>}/>
           </Switch>
         </Grid>
       </Grid>
