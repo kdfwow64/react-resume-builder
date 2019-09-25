@@ -6,29 +6,10 @@ export const finalizeChildStyles = makeStyles({
     marginTop: 16,
     marginBottom: 32
   },
-  selectedBlack: {
+  selectedBox: {
     padding: 2,
-    border: "1px solid #00000087",
-    borderRadius: 15
-  },
-  selectedTransparent: {
-    padding: 2,
-    border: "1px solid transparent",
-    borderRadius: 15
-  },
-  selectedTeal: {
-    padding: 2,
-    border: "1px solid #008080bf",
-    borderRadius: 15
-  },
-  selectedBlue: {
-    padding: 2,
-    border: "1px solid #3052eea8",
-    borderRadius: 15
-  },
-  selectedYellow: {
-    padding: 2,
-    border: "1px solid #f8c000b0",
+    borderWidth: 1,
+    borderStyle: 'solid',
     borderRadius: 15
   },
   img: {

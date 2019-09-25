@@ -20,34 +20,28 @@ import { Link } from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux';
 import Loadable from 'react-loadable';
 import Template from "./template";
-import { TEMPLATE_KEY_CHANGE } from '../../constants';
+import { TEMPLATE_KEY_CHANGE, TEMPLATE_THEME_CHANGE } from '../../constants';
+import { Templates, TemplateThemes } from '../Templates';
 
-const Templates = [
-  {key: '1', name: 'Template-1', path: 'Template-1'},
-  {key: '2', name: 'Template-2', path: 'Template-2'}
-]
+
 
 function FinalizeChild(props) {
   const classes = finalizeChildStyles();
   const dispatch = useDispatch();
   const query = useSelector(state => state);
-  const {server_data, templateKey} = query;
+  const {server_data, activeTemplate} = query;
 
-  const [selected, setSelected] = useState("black");
-
+  const [activeThemeIndex, setActiveThemeIndex] = useState(0);
   const [activeTemplateIndex, setActiveTemplateIndex] = useState(0);
 
-  const handleAccent = color => {
-    setSelected(color);
-  };
-
-  useEffect(() => {
+   useEffect(() => {
     selectTemplateByKey(props.template);
   }, [props.template]);
 
   useEffect(() => {
-    selectTemplateByKey(templateKey);
-  }, [templateKey]);
+    selectTemplateByKey(activeTemplate.key);
+    selectTemplateTheme(activeTemplate.theme);
+  }, [activeTemplate]);
 
   const selectTemplateByKey = key => {
     let tmp = Templates.find(t=>t.key === key);
@@ -63,12 +57,25 @@ function FinalizeChild(props) {
 
   const selectTemplate = tmp => {
     if(tmp.key !== Templates[activeTemplateIndex].key){
-      props.history.push('/finalize?template=' + tmp.key);
+      props.history.push('/finalize/' + tmp.key);
       dispatch({
         type: TEMPLATE_KEY_CHANGE,
         payload: {templateKey: tmp.key}
       });
       setActiveTemplateIndex(Templates.indexOf(tmp))
+    }
+  }
+
+  const selectTemplateTheme = key => {
+    let theme = TemplateThemes.find(t=>t.key === key);
+    if(!theme)
+      theme = TemplateThemes[0];
+    if(theme.key !== TemplateThemes[activeThemeIndex].key){
+      dispatch({
+        type: TEMPLATE_THEME_CHANGE,
+        payload: {templateTheme: theme.key}
+      });
+      setActiveThemeIndex(TemplateThemes.indexOf(theme))
     }
   }
 
@@ -79,6 +86,10 @@ function FinalizeChild(props) {
   const handleNextTemplate = () => {
     selectTemplateByIndex(activeTemplateIndex + 1);
   }
+
+  const handleAccent = color => {
+    selectTemplateTheme(color);
+  };
 
   return (
     <Paper className={classes.paper} elevation={0}>
@@ -107,70 +118,23 @@ function FinalizeChild(props) {
               justifyContent="space-between"
             >
               <Typography>Accent Color:</Typography>
-              <IconButton onClick={() => handleAccent("black")}>
-                <Box
-                  className={
-                    selected === "black"
-                      ? classes.selectedBlack
-                      : classes.selectedTransparent
-                  }
-                >
-                  <Box
-                    width={20}
-                    height={20}
-                    borderRadius={15}
-                    bgcolor="black"
-                  />
-                </Box>
-              </IconButton>
-              <IconButton onClick={() => handleAccent("teal")}>
-                <Box
-                  className={
-                    selected === "teal"
-                      ? classes.selectedTeal
-                      : classes.selectedTransparent
-                  }
-                >
-                  <Box
-                    width={20}
-                    height={20}
-                    borderRadius={15}
-                    bgcolor="teal"
-                  />
-                </Box>
-              </IconButton>
-              <IconButton onClick={() => handleAccent("blue")}>
-                <Box
-                  className={
-                    selected === "blue"
-                      ? classes.selectedBlue
-                      : classes.selectedTransparent
-                  }
-                >
-                  <Box
-                    width={20}
-                    height={20}
-                    borderRadius={15}
-                    bgcolor="blue"
-                  />
-                </Box>
-              </IconButton>
-              <IconButton onClick={() => handleAccent("yellow")}>
-                <Box
-                  className={
-                    selected === "yellow"
-                      ? classes.selectedYellow
-                      : classes.selectedTransparent
-                  }
-                >
-                  <Box
-                    width={20}
-                    height={20}
-                    borderRadius={15}
-                    bgcolor="#f8c000"
-                  />
-                </Box>
-              </IconButton>
+              {
+                TemplateThemes.map((t, index)=>{
+                  return <IconButton onClick={() => handleAccent(t.key)}>
+                          <Box
+                            className={ classes.selectedBox }
+                            borderColor = { activeThemeIndex === index ? t.selectColor : 'transparent' }
+                          >
+                            <Box
+                              width={20}
+                              height={20}
+                              borderRadius={15}
+                              bgcolor={ t.mainColor }
+                            />
+                          </Box>
+                        </IconButton>
+                })
+              }
             </Box>
 
             <Box>
@@ -180,7 +144,7 @@ function FinalizeChild(props) {
             </Box>
           </Box>
           <Box boxShadow={2} borderRadius={4}>
-            <Template path={Templates[activeTemplateIndex].path}/>
+            <Template />
           </Box>
         </Grid>
       </Grid>

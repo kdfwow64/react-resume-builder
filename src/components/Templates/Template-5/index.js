@@ -6,7 +6,7 @@ export default function Index(props) {
 
   return (
     <Box color={theme.mainColor} >
-        TEMPLATE 2
+        TEMPLATE 5
     </Box>
   );
 

@@ -1,19 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import {useSelector} from 'react-redux';
 import Loadable from 'react-loadable';
+import { Templates, TemplateThemes } from '../Templates';
 
 function Template(props) {
-    let modules = [
-        Loadable({
-            loader: () => import('../Templates/' + props.path),
-            loading: () => <div>Loading...</div>
-        })
-    ];
+    const query = useSelector(state => state);
+    const {activeTemplate} = query;
+    const [activeTheme, setActiveTheme] = useState(TemplateThemes.find(t=>t.key === activeTemplate.theme));
+    const [modules, setModules] = useState([])
+
+    useEffect(() => {
+        const template = Templates.find(t=> t.key === activeTemplate.key);
+        setModules([
+            Loadable({
+                loader: () => import('../Templates/' + template.path),
+                loading: () => <div>Loading...</div>
+            })
+        ]);
+        setActiveTheme(TemplateThemes.find(t=>t.key === activeTemplate.theme));
+      }, [activeTemplate]);
 
     return (
         <div>
             { modules.map((item, i) => {
                 let Module = modules[i]
-                return <Module key={i} />
+                return <Module key={i} theme={ activeTheme } />
             }) 
             }
 

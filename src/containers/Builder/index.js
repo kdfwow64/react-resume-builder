@@ -28,7 +28,7 @@ export default function Builder(props) {
                 <Route exact path="/education/:index?" component={Edu}/>
                 <Route exact path="/skills" component={Skills}/>
                 <Route exact path="/summary" component={Summary}/>
-                <Route exact path="/finalize" component={Finalize}/>
+                <Route exact path="/finalize/:template?" component={Finalize}/>
               </Switch>
             </Grid>
           </Grid>

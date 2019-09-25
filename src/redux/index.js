@@ -15,7 +15,8 @@ import {
    API_ADD_SUCCESS,
    API_DELETE_SUCCESS,
    API_DELETE_FAILURE,
-   TEMPLATE_KEY_CHANGE
+   TEMPLATE_KEY_CHANGE,
+   TEMPLATE_THEME_CHANGE
 } from '../constants';
 
 // reducer with initial state
@@ -35,7 +36,10 @@ const initialState = {
       workHistory: 0,
       education: 0
    },
-   templateKey: '1'
+   activeTemplate: {
+      key: '1',
+      theme: 'black'
+   }
 };
 
 export function reducer(state = initialState, action) {
@@ -131,7 +135,9 @@ export function reducer(state = initialState, action) {
       case API_DELETE_FAILURE:
                return { ...state, deleting: false, error: action.error };
       case TEMPLATE_KEY_CHANGE:
-         return { ...state, templateKey: action.payload.templateKey };
+         return { ...state, activeTemplate:{ ...state.activeTemplate, key: action.payload.templateKey } };
+      case TEMPLATE_THEME_CHANGE:
+         return { ...state, activeTemplate:{ ...state.activeTemplate, theme: action.payload.templateTheme } };
       default:
          return state;
    }

@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
-// import './css/reset.css'
-// import './css/custom.css'
 import {finalizeChildStyles} from "./style";
+import { Box } from "@material-ui/core";
 
 export default function Index(props) {
+  const { theme } = props;
   const classes = finalizeChildStyles();
 
   return (
-
-    <div classname="classes.container">
+    <Box className= { classes.container } color={theme.mainColor} >
         TEMPLATE 1
-    </div>
+    </Box>
   );
 
 }
