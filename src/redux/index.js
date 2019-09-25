@@ -15,8 +15,7 @@ import {
    API_ADD_SUCCESS,
    API_DELETE_SUCCESS,
    API_DELETE_FAILURE,
-   TEMPLATE_KEY_CHANGE,
-   TEMPLATE_THEME_CHANGE
+   ACTIVE_TEMPLATE_CHANGE
 } from '../constants';
 
 // reducer with initial state
@@ -38,7 +37,8 @@ const initialState = {
    },
    activeTemplate: {
       key: '1',
-      theme: 'black'
+      theme: 'black',
+      customColor: 'rgba(255,255,255,1)'
    }
 };
 
@@ -134,10 +134,8 @@ export function reducer(state = initialState, action) {
             error: null };
       case API_DELETE_FAILURE:
                return { ...state, deleting: false, error: action.error };
-      case TEMPLATE_KEY_CHANGE:
-         return { ...state, activeTemplate:{ ...state.activeTemplate, key: action.payload.templateKey } };
-      case TEMPLATE_THEME_CHANGE:
-         return { ...state, activeTemplate:{ ...state.activeTemplate, theme: action.payload.templateTheme } };
+      case ACTIVE_TEMPLATE_CHANGE:
+         return { ...state, activeTemplate:{ ...action.payload } };
       default:
          return state;
    }
