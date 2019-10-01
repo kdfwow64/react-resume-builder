@@ -1,0 +1,504 @@
+html {
+  font-family: 'Roboto', sans-serif;
+  color: #292929;
+}
+
+body {
+  background-color: #fff;
+  padding: 5% 3%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  border-radius: 0px;
+  box-shadow: 0 15px 50px #f2f2f2;
+  padding: 5% 3%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.container > .left-wrapper {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+.left-wrapper > .avatar {
+  width: 80%;
+  border-radius: 15px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .55);
+  box-sizing: border-box;
+}
+
+.container > .right-wrapper {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+.name {
+  text-transform: uppercase;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 50px;
+  line-height: 1.3;
+  margin-bottom: 0;
+}
+
+.role {
+  text-transform: uppercase;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 25px;
+  line-height: 1.3;
+  margin-top: 11px;
+  margin-bottom: 0;
+}
+
+.website {
+  text-transform: lowercase;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1.3;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.title {
+  width: 95%;
+  border-radius: 5px;
+  padding: 10px 20px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .55);
+  margin-top: 20px;
+  box-sizing: border-box;
+}
+
+.title > h3 {
+  text-transform: uppercase;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 25px;
+  line-height: 1.3;
+  margin: 0
+}
+
+.contact {
+  width: 95%;
+  padding: 0 20px;
+  margin-top: 20px;
+  box-sizing: border-box;
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.contact .sub-title {
+  text-transform: uppercase;
+}
+
+.skills,
+.languages {
+  width: 95%;
+  padding: 0 20px;
+  margin-top: 20px;
+  box-sizing: border-box;
+}
+
+.proficiency {
+  padding: 15px 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.proficiency > .category {
+  width: 30%;
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.n3-wrapper > .bar {
+  width: 160px;
+  height: 5px;
+  background-color: #ffffff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .55);
+  border-radius: 2px;
+  position: relative;
+  float: left;
+  margin-top: 3px;
+}
+
+.bar .fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #0f0f0f;
+  border-radius: 2px;
+}
+
+.summary {
+  width: 95%;
+  padding: 0 20px;
+  margin-top: 20px;
+  box-sizing: border-box;
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.experience,
+.education,
+.reference {
+  width: 95%;
+  padding: 0 20px;
+  margin-top: 20px;
+  box-sizing: border-box;
+}
+
+.history {
+  width: 100%;
+  margin: 30px 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.history:first-child {
+  margin: 0;
+}
+
+.history > .left {
+  width: 30%;
+}
+
+.history > .right {
+  width: 65%;
+}
+
+.history .header,
+.history .period {
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 500;
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+.history .description {
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.history .period,
+.history .description {
+  margin-top: 10px;
+}
+
+.reference {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.reference > p {
+  width: 48%;
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.reference > p > .name {
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 500;
+  font-style: normal;
+  text-transform: uppercase;
+}
+.space{
+  width: 100%;
+  height: 1px;
+}
+#title{
+  width: 100%;
+}
+#title h1{
+  text-align: center;
+  font-size: 60px;
+  font-family: Times New Roman;
+  font-weight: bold;
+}
+#title h2{
+  text-align: center;
+  font-size: 26px;
+  font-family: Times New Roman;
+  font-style: italic;
+  font-weight: normal;
+}
+.subtitle{
+  width: 60%;
+  margin: auto;
+  border-bottom: 1px solid #000;
+  position: relative;
+  margin-top: 30px;
+
+}
+.sub_summary h3{
+  width:180px;
+  text-align: center;
+  margin: auto;
+  font-family: Times New Roman;
+  font-size: 26px;
+  font-weight: bold; 
+  position: relative;
+  top:15px;
+  background-color: #fff;
+}
+#summary p{
+  width:80%;
+  margin: auto;
+  text-align: center;
+  margin-top: 30px;
+}
+.sub_work h3{
+  width:280px;
+  text-align: center;
+  margin: auto;
+  font-family: Times New Roman;
+  font-size: 26px;
+  font-weight: bold; 
+  position: relative;
+  top:15px;
+  background-color: #fff;
+}
+#work{
+  width: 80%;
+  margin: auto;
+  font-family: Times New Roman;
+  margin-top: 30px;
+}
+.detail .left-wrapper{
+  width: 30%;
+  float: left;
+}
+.detail .right-wrapper{
+  width: 70%;
+  float: left;
+}
+.sub_edu h3{
+  width:215px;
+  text-align: center;
+  margin: auto;
+  font-family: Times New Roman;
+  font-size: 26px;
+  font-weight: bold; 
+  position: relative;
+  top:15px;
+  background-color: #fff;
+}
+.sub_skill h3{
+  width:135px;
+  text-align: center;
+  margin: auto;
+  font-family: Times New Roman;
+  font-size: 26px;
+  font-weight: bold; 
+  position: relative;
+  top:15px;
+  background-color: #fff;
+
+  
+}
+#skill{
+  width: 80%;
+  margin: auto;
+  font-family: Times New Roman;
+  margin-top: 30px;
+
+}
+#skill .detail{
+  margin-bottom: 40px;
+}
+#skill .detail .n3-wrapper{
+  width: 33%;
+  float:left;
+}
+#skill .detail .n3-wrapper h4{
+  width: 110px;
+  float: left;
+  margin: 0;
+  padding-left: 10%;
+}
+.sub_refer h3{
+  width:235px;
+  text-align: center;
+  margin: auto;
+  font-family: Times New Roman;
+  font-size: 26px;
+  font-weight: bold; 
+  position: relative;
+  top:15px;
+  background-color: #fff;
+
+  
+}
+#refer{
+  width: 80%;
+  margin: auto;
+}
+#refer div{
+  width: 46%;
+  float:left;
+  padding-left:4%;
+}
+#refer div p{
+  width: 90%;
+  font-family: Times New Roman;
+  line-height: 23px;
+  font-size: 17px;
+}
+.sub_contant h3{
+  width:185px;
+  text-align: center;
+  margin: auto;
+  font-family: Times New Roman;
+  font-size: 26px;
+  font-weight: bold; 
+  position: relative;
+  top:15px;
+  background-color: #fff;
+
+  
+}
+#contact{
+  width: 80%;
+  margin: auto;
+}
+#contact p{
+  font-size: 17px;
+  font-family: Times New Roman;
+  line-height: 51px;
+  text-align: center;
+  margin-top: -10px;
+}
+h5{
+  font-size: 15px;
+}
+@media screen and (max-width: 991px) {
+
+  .container {
+    width: 90%;
+    justify-content: center;
+  }
+  
+  .container > .left-wrapper,
+  .container > .right-wrapper {
+    width: 90%;
+  }
+
+  .left-wrapper > .avatar {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    width: 95%;
+  }
+  .container > .left-wrapper,
+  .container > .right-wrapper {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .container {
+    padding: 10% 3%;
+    border-radius: 10px;
+  }
+
+  .left-wrapper > .avatar {
+    width: 75%;
+    border-radius: 10px;
+  }
+
+  .proficiency {
+    flex-direction: column;
+  }
+
+  .proficiency > .category {
+    width: 100%;
+    line-height: 1.3;
+  }
+  
+  .n3-wrapper > .bar {
+    width: 160px;
+    height: 5px;
+    float: left;
+    margin-top: 3px;
+  }
+
+  .history > .left,
+  .history > .right {
+    width: 100%;
+  }
+
+  .reference > p {
+    width: 100%;
+  }
+
+  .name {
+    font-size: 40px;
+  }
+
+  .role,
+  .title > h3 {
+    font-size: 20px;
+  }
+
+  .website {
+    font-size: 18px;
+  }
+
+  .history .header,
+  .history .period {
+    margin-top: 5px;
+  }
+
+  .contact,
+  .summary,
+  .proficiency > .category,
+  .history .header,
+  .history .period,
+  .history .description,
+  .experience, .education, .reference,
+  .reference > p,
+  .reference > p > .name {
+    font-size: 15px;
+  }
+}

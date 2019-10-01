@@ -1,0 +1,41 @@
+body {
+    background-color: #FFF;
+    font-family: "Times New Roman", Times, serif;
+    padding: 2em;
+    margin: 1em auto;
+    -webkit-box-shadow: 0px 0px 19px 0px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 0px 19px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 19px 0px rgba(0,0,0,0.2);
+    max-width: 71em;
+}
+.container{margin-right: auto;margin-left: auto;padding-left: 15px;padding-right: 15px;position: relative;}
+header{margin: 0;padding: 4em 0;text-align: center;}
+header h1{font-size: 44px;line-height: 42px;margin-bottom: 20px;text-transform: uppercase;}
+header h1::before, header h1::after{content: '';position: absolute;height: 2px;width: 143px;top:1em;margin-top:0.9em;background-color: #000;}
+header h1::before{left:1em;margin-left:5.5em;}
+header h1::after{right:1em;margin-right:5.5em;}
+header h3{font-size: 25px;font-style: italic;margin-bottom: 15px;}
+header h5{font-size: 18px;}
+
+section{margin: 0;padding: 1em 0;}
+section h2 {font-size: 1.7em;margin-bottom: 15px;text-transform: uppercase;font-weight: 600;}
+section p{line-height: 1.4em;font-size: 1.2em;}
+section .left_block{width: 40%;float: left;}
+section .left_block ul.skill-bar, section .left_block ul.contact-detail {margin: 25px 0;}
+section .left_block ul.skill-bar li {display: inline-block;margin-top: 15px;margin-bottom: 31px;}
+section .left_block ul.skill-bar li .skill-title, section .left_block ul.contact-detail li .contact-title {display: inline-block;width: 185px;margin: 0;font-size: 1.2em;font-weight: 600;color: #0f0f0f;}
+section .left_block ul.skill-bar li .skill-progress{display: inline-block;border: 1px solid #0f0f0f;width: 177px;height: 5px;}
+section .left_block ul.skill-bar li .skill-progress .skill-progress-inner{background-color: #0f0f0f;height: 5px;display: block;}
+section .left_block ul.contact-detail li{display: block;margin-top: 15px;margin-bottom: 31px;}
+section .left_block ul.contact-detail li .contact-description{display: inline-block;}
+
+section .right_block{width: 57%;float: left;}
+section .right_block ul.other-details{margin: 25px 0;}
+section .right_block ul.other-details li {display: inline-block;margin-top: 15px;margin-bottom: 31px;}
+section .right_block ul.other-details li .experience-title{display: inline-block;width: 220px;margin: 0;font-size: 1.2em;font-weight: 600;color: #0f0f0f;vertical-align: top;}
+section .right_block ul.other-details li .organization-title{display: inline-block;width: 405px;}
+section .right_block ul.other-details li .organization-title h6{font-weight: 600;margin-bottom: 10px;font-size: 1.2em;}
+section .right_block .reference-details{margin: 25px 0;float: left;}
+section .right_block .reference-details ul {float: left;width: 305px;margin: 0;padding: 0;}
+section .right_block .reference-details ul li{display: inline-block;margin-top: 1px;margin-bottom: 0px;}
+section .right_block .reference-details .reference-title{display:block;width: 305px;margin: 0;font-size: 1.2em;font-weight: 600;color: #0f0f0f;}

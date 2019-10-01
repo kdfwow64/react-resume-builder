@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
-import {finalizeChildStyles} from "./style";
-import { Box } from "@material-ui/core";
+import {Box} from "@material-ui/core";
 
 export default function Index(props) {
-  const { theme, data, customColor } = props;
-  const classes = finalizeChildStyles();
+  const {theme, data, customColor} = props;
 
   return (
-    <Box className= { classes.container } bgcolor={theme.mainColor} color={ customColor } >
-        { data.profile.firstName } { data.profile.lastName }
+    <Box bgcolor={theme.mainColor} color={customColor}>
+      {data.profile.firstName}, {data.profile.lastName}
+      <pre>{JSON.stringify(data, null, 2)}</pre>
     </Box>
   );
 
