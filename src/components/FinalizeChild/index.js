@@ -20,8 +20,9 @@ import { Link } from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux';
 import Loadable from 'react-loadable';
 import Template from "./template";
-import { TEMPLATE_KEY_CHANGE, TEMPLATE_THEME_CHANGE } from '../../constants';
+import { ACTIVE_TEMPLATE_CHANGE } from '../../constants';
 import { Templates, TemplateThemes } from '../Templates';
+import { SketchPicker } from 'react-color'
 
 
 
@@ -29,10 +30,12 @@ function FinalizeChild(props) {
   const classes = finalizeChildStyles();
   const dispatch = useDispatch();
   const query = useSelector(state => state);
-  const {server_data, activeTemplate} = query;
+  const {activeTemplate} = query;
 
   const [activeThemeIndex, setActiveThemeIndex] = useState(0);
   const [activeTemplateIndex, setActiveTemplateIndex] = useState(0);
+  const [customColorDisplay, setCustomColorDisplay] = useState(false);
+  const [customColor, setCustomColor] = useState(activeTemplate.customColor);
 
    useEffect(() => {
     selectTemplateByKey(props.template);
@@ -59,8 +62,8 @@ function FinalizeChild(props) {
     if(tmp.key !== Templates[activeTemplateIndex].key){
       props.history.push('/finalize/' + tmp.key);
       dispatch({
-        type: TEMPLATE_KEY_CHANGE,
-        payload: {templateKey: tmp.key}
+        type: ACTIVE_TEMPLATE_CHANGE,
+        payload: { ...activeTemplate, key: tmp.key }
       });
       setActiveTemplateIndex(Templates.indexOf(tmp))
     }
@@ -72,8 +75,8 @@ function FinalizeChild(props) {
       theme = TemplateThemes[0];
     if(theme.key !== TemplateThemes[activeThemeIndex].key){
       dispatch({
-        type: TEMPLATE_THEME_CHANGE,
-        payload: {templateTheme: theme.key}
+        type: ACTIVE_TEMPLATE_CHANGE,
+        payload: { ...activeTemplate, theme: theme.key}
       });
       setActiveThemeIndex(TemplateThemes.indexOf(theme))
     }
@@ -91,10 +94,23 @@ function FinalizeChild(props) {
     selectTemplateTheme(color);
   };
 
+  const handleCustomColorChange = color => {
+    const newColor = 'rgba(' + color.rgb.r + ',' + color.rgb.g +',' + color.rgb.b + ',' + color.rgb.a +')'
+    dispatch({
+      type: ACTIVE_TEMPLATE_CHANGE,
+      payload: { ...activeTemplate, customColor: newColor}
+    });
+    setCustomColor(newColor);
+  }
+
+  const toggleCustomColorPicker = () =>{
+    setCustomColorDisplay(!customColorDisplay);
+  }
+
   return (
     <Paper className={classes.paper} elevation={0}>
-      <Grid container spacing={7}>
-        <Grid item md={12}>
+      <Grid container spacing={2}>
+        <Grid item md={2}>
           <Box display="flex" justifyContent="space-between" flex={1}>
             <Box
               display="flex"
@@ -110,12 +126,13 @@ function FinalizeChild(props) {
                 <ChevronRight className={classes.icons} onClick={ handleNextTemplate } disabled = {activeTemplateIndex >= Templates.length - 1 } />
               </IconButton>
             </Box>
-
+            </Box>
+          </Grid>
+          <Grid item md={8}>
             <Box
               display="flex"
               alignItems="center"
-              minWidth={200}
-              justifyContent="space-between"
+              justifyContent="center"
             >
               <Typography>Accent Color:</Typography>
               {
@@ -135,19 +152,31 @@ function FinalizeChild(props) {
                         </IconButton>
                 })
               }
+              <Box>
+                <Box className={ classes.customColorPicker } onClick={ toggleCustomColorPicker } >
+                    <Box width='100%' height='100%' bgcolor = { customColor }  />
+                </Box>
+                { customColorDisplay ? 
+                    <Box className={ classes.popover }>
+                      <Box className={ classes.cover } onClick={ toggleCustomColorPicker } />
+                      <SketchPicker color={ customColor } onChange={ handleCustomColorChange } />
+                    </Box> : null }
+              </Box>
             </Box>
-
+          </Grid>
+          <Grid item md={2}>
             <Box>
               <Button>
                 <Fullscreen className={classes.icons} /> Preview
               </Button>
             </Box>
-          </Box>
-          <Box boxShadow={2} borderRadius={4}>
-            <Template />
-          </Box>
+          </Grid>
+          <Grid item md={12}>
+            <Box boxShadow={2} borderRadius={4}>
+              <Template />
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
     </Paper>
   );
 }

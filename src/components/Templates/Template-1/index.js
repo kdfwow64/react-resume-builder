@@ -3,12 +3,12 @@ import {finalizeChildStyles} from "./style";
 import { Box } from "@material-ui/core";
 
 export default function Index(props) {
-  const { theme } = props;
+  const { theme, data, customColor } = props;
   const classes = finalizeChildStyles();
 
   return (
-    <Box className= { classes.container } color={theme.mainColor} >
-        TEMPLATE 1
+    <Box className= { classes.container } bgcolor={theme.mainColor} color={ customColor } >
+        { data.profile.firstName } { data.profile.lastName }
     </Box>
   );
 

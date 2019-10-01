@@ -45,5 +45,24 @@ export const finalizeChildStyles = makeStyles({
     justifyContent: "space-between",
     height: 450
   },
-  icons: { color: "teal" }
+  icons: { color: "teal" },
+  popover: {
+    position: 'absolute',
+    zIndex: 2
+  },
+  cover: {
+    position: 'fixed',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+  },
+  customColorPicker:{
+    width: 50,
+    height: 20,
+    padding: 2,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    cursor: 'pointer'
+  }
 });
